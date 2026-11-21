@@ -1,0 +1,2194 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>BIWASH DIGIVERSE — Hybrid Creative Technologist &amp; Digital Architect</title>
+
+  <!-- Google Fonts: Manrope & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Manrope', 'sans-serif'],
+          },
+          colors: {
+            navy: {
+              950: '#061020',
+              900: '#0A192F',
+              800: '#0F294A',
+              700: '#1E3A8A',
+            },
+            ice: {
+              50: '#F7FAFD',
+              100: '#EEF4FA',
+              200: '#DAE6F2',
+              300: '#BDD0E3',
+              400: '#7FB3E6',
+              500: '#0284C7',
+              600: '#0369A1',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- GSAP & ScrollTrigger CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Globe.gl (includes Three.js) + TopoJSON Client CDN for real 3D country borders -->
+  <script src="https://unpkg.com/topojson-client@3"></script>
+  <script src="https://unpkg.com/globe.gl@2.32.1/dist/globe.gl.min.js"></script>
+
+  <style>
+    /* Full-page BIWASH DIGIVERSE background */
+    html,
+    body {
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(
+          ellipse at 15% 10%,
+          rgba(189, 208, 227, 0.45) 0%,
+          transparent 45%
+        ),
+        radial-gradient(
+          ellipse at 85% 30%,
+          rgba(218, 230, 242, 0.55) 0%,
+          transparent 45%
+        ),
+        radial-gradient(
+          ellipse at 50% 90%,
+          rgba(232, 241, 250, 0.65) 0%,
+          transparent 50%
+        ),
+        linear-gradient(
+          135deg,
+          #ffffff 0%,
+          #f7fafd 45%,
+          #eef4fa 100%
+        );
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: #0A192F;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, .font-display {
+      font-family: 'Manrope', sans-serif;
+    }
+
+    /* Glassmorphism Cards & Surfaces */
+    .glass-surface {
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(189, 208, 227, 0.65);
+      box-shadow:
+        0 10px 30px -10px rgba(10, 25, 47, 0.06),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.85);
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.76);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(189, 208, 227, 0.6);
+      box-shadow:
+        0 12px 32px -12px rgba(10, 25, 47, 0.07),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                  box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                  border-color 0.35s ease;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(2, 132, 199, 0.45);
+      box-shadow:
+        0 20px 40px -14px rgba(15, 41, 74, 0.13),
+        inset 0 1px 0 0 rgba(255, 255, 255, 1);
+    }
+
+    /* Sticky Navbar Glass */
+    .nav-glass {
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(189, 208, 227, 0.55);
+    }
+
+    /* Dropdown transition */
+    .dropdown-panel {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px) scale(0.98);
+      transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .group:hover .dropdown-panel,
+    .dropdown-open .dropdown-panel {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Subtle Hero Ambient Orbs */
+    @keyframes floatSlow {
+      0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+      50% { transform: translate3d(0, -18px, 0) rotate(3deg); }
+    }
+
+    @keyframes floatReverse {
+      0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+      50% { transform: translate3d(0, 16px, 0) rotate(-3deg); }
+    }
+
+    .orb-float-1 { animation: floatSlow 8s ease-in-out infinite; }
+    .orb-float-2 { animation: floatReverse 10s ease-in-out infinite; }
+
+    /* Active Country Item Styling */
+    .country-item {
+      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .country-item.active {
+      background: linear-gradient(135deg, #0A192F 0%, #0F294A 100%);
+      color: #ffffff;
+      border-color: #0284C7;
+      box-shadow: 0 14px 30px -10px rgba(10, 25, 47, 0.32);
+      transform: translateX(6px);
+    }
+    .country-item.active .country-sub {
+      color: #BAE6FD;
+    }
+    .country-item.active .country-arrow {
+      background: rgba(255, 255, 255, 0.16);
+      color: #38BDF8;
+      transform: translate(2px, -2px);
+    }
+
+    /* Continuous Seamless Circular Marquee Sliders */
+    .marquee-wrapper {
+      display: flex;
+      overflow: hidden;
+      user-select: none;
+      width: 100%;
+      mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 6%,
+        black 94%,
+        transparent 100%
+      );
+      -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 6%,
+        black 94%,
+        transparent 100%
+      );
+    }
+
+    .marquee-track-left {
+      display: flex;
+      flex-shrink: 0;
+      gap: 1.25rem;
+      padding-right: 1.25rem;
+      min-width: max-content;
+      animation: marqueeLeft 46s linear infinite;
+      will-change: transform;
+    }
+
+    .marquee-track-right {
+      display: flex;
+      flex-shrink: 0;
+      gap: 1.25rem;
+      padding-right: 1.25rem;
+      min-width: max-content;
+      animation: marqueeRight 48s linear infinite;
+      will-change: transform;
+    }
+
+    .marquee-wrapper:hover .marquee-track-left,
+    .marquee-wrapper:hover .marquee-track-right {
+      animation-play-state: paused;
+    }
+
+    @keyframes marqueeLeft {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+
+    @keyframes marqueeRight {
+      0% { transform: translate3d(-50%, 0, 0); }
+      100% { transform: translate3d(0, 0, 0); }
+    }
+
+    /* Globe Container Grab Cursor */
+    #globe-stage {
+      cursor: grab;
+      touch-action: pan-y;
+    }
+    #globe-stage:active {
+      cursor: grabbing;
+    }
+
+    /* Ultra-narrow folding phone support (280px - 340px) */
+    @media (max-width: 340px) {
+      .ultra-narrow-pad {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+      }
+      .ultra-narrow-title {
+        font-size: 1.65rem !important;
+        line-height: 1.2 !important;
+      }
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #EEF4FA;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #BDD0E3;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #0284C7;
+    }
+  </style>
+</head>
+<body class="selection:bg-ice-500 selection:text-white">
+
+  <!-- Top Scroll Progress Line -->
+  <div id="scroll-progress" class="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-navy-900 via-ice-500 to-sky-400 z-[60] w-0 transition-none"></div>
+
+  <!-- =========================================================
+       STICKY GLASSMORPHISM NAVIGATION BAR
+  ========================================================== -->
+  <header class="sticky top-0 z-50 nav-glass">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ultra-narrow-pad">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+
+        <!-- Left: Brand Logo (<img> form with embedded crisp SVG) -->
+        <a href="#home" class="flex items-center shrink-0 focus:outline-none group" aria-label="BIWASH DIGIVERSE Home">
+          <img
+            id="nav-brand-logo"
+            alt="BIWASH DIGIVERSE Logo"
+            class="h-9 sm:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+          />
+        </a>
+
+        <!-- Center: 4 Navigation Menus (Desktop & Large Tablets) -->
+        <nav class="hidden md:flex items-center justify-center space-x-1 lg:space-x-2" aria-label="Main Navigation">
+          <!-- 1. Home Page -->
+          <a href="#home" class="nav-link relative px-4 py-2 rounded-full text-sm font-semibold text-navy-900 bg-white/80 border border-ice-300/80 shadow-xs transition-all">
+            Home
+          </a>
+
+          <!-- 2. About Page -->
+          <a href="#about" class="nav-link px-4 py-2 rounded-full text-sm font-medium text-navy-800/80 hover:text-navy-900 hover:bg-white/60 transition-all">
+            About
+          </a>
+
+          <!-- 3. Portfolio Page (Dropdown Menu with 4 categories) -->
+          <div class="relative group" id="portfolio-dropdown-wrapper">
+            <button
+              type="button"
+              id="portfolio-dropdown-btn"
+              aria-expanded="false"
+              aria-haspopup="true"
+              class="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium text-navy-800/80 hover:text-navy-900 hover:bg-white/60 transition-all focus:outline-none"
+            >
+              <span>Portfolio</span>
+              <svg class="w-4 h-4 text-ice-500 transition-transform duration-300 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            <!-- Dropdown Panel -->
+            <div class="dropdown-panel absolute left-1/2 -translate-x-1/2 pt-3 w-64 z-50">
+              <div class="glass-surface rounded-2xl p-2 shadow-xl border border-ice-300/80">
+                <div class="px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-ice-600">
+                  Explore Disciplines
+                </div>
+                <a href="#services" data-filter="Graphic Designs" class="portfolio-cat-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-navy-900 hover:bg-ice-100/90 transition-colors">
+                  <span class="w-8 h-8 rounded-lg bg-ice-100 border border-ice-200 flex items-center justify-center text-ice-600 shrink-0">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+                  </span>
+                  <div>
+                    <div class="font-semibold leading-tight">1. Graphic Designs</div>
+                    <div class="text-[11px] text-slate-500">Branding, Logos &amp; UI/UX</div>
+                  </div>
+                </a>
+                <a href="#services" data-filter="Video Editing" class="portfolio-cat-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-navy-900 hover:bg-ice-100/90 transition-colors">
+                  <span class="w-8 h-8 rounded-lg bg-ice-100 border border-ice-200 flex items-center justify-center text-ice-600 shrink-0">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                  </span>
+                  <div>
+                    <div class="font-semibold leading-tight">2. Video Editing</div>
+                    <div class="text-[11px] text-slate-500">Reels, Motion &amp; Dubbing</div>
+                  </div>
+                </a>
+                <a href="#services" data-filter="Web Development" class="portfolio-cat-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-navy-900 hover:bg-ice-100/90 transition-colors">
+                  <span class="w-8 h-8 rounded-lg bg-ice-100 border border-ice-200 flex items-center justify-center text-ice-600 shrink-0">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                  </span>
+                  <div>
+                    <div class="font-semibold leading-tight">3. Web Development</div>
+                    <div class="text-[11px] text-slate-500">Python, Django &amp; Full-Stack</div>
+                  </div>
+                </a>
+                <a href="#services" data-filter="Cybersecurity" class="portfolio-cat-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-navy-900 hover:bg-ice-100/90 transition-colors">
+                  <span class="w-8 h-8 rounded-lg bg-ice-100 border border-ice-200 flex items-center justify-center text-ice-600 shrink-0">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                  </span>
+                  <div>
+                    <div class="font-semibold leading-tight">4. Cybersecurity</div>
+                    <div class="text-[11px] text-slate-500">Audits, Recon &amp; Hardening</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Contact Page -->
+          <a href="#footer-contact" class="nav-link px-4 py-2 rounded-full text-sm font-medium text-navy-800/80 hover:text-navy-900 hover:bg-white/60 transition-all">
+            Contact
+          </a>
+        </nav>
+
+        <!-- Right: CTA Pill + Responsive Mobile Menu Trigger -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <button
+            type="button"
+            onclick="openContactModal()"
+            class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs lg:text-sm font-semibold text-white bg-navy-900 hover:bg-navy-800 shadow-md shadow-navy-900/15 transition-all hover:scale-[1.03] active:scale-[0.98]"
+          >
+            <span>Let's Talk</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span>
+          </button>
+
+          <!-- Hamburger Toggle for Mobile / Tablet / Folding Devices -->
+          <button
+            type="button"
+            id="mobile-menu-btn"
+            aria-label="Open Navigation Menu"
+            aria-expanded="false"
+            class="md:hidden inline-flex items-center justify-center p-2.5 rounded-xl bg-white/80 border border-ice-300 text-navy-900 hover:bg-ice-100 transition-colors focus:outline-none"
+          >
+            <svg id="menu-icon-open" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg id="menu-icon-close" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile / Folding Device Navigation Drawer -->
+    <div id="mobile-drawer" class="hidden md:hidden border-t border-ice-200/80 bg-white/95 backdrop-blur-2xl px-4 pt-3 pb-6 shadow-2xl">
+      <div class="flex flex-col space-y-1.5">
+        <a href="#home" class="mobile-nav-link px-4 py-3 rounded-xl text-sm font-semibold text-navy-900 bg-ice-100/80">
+          Home
+        </a>
+        <a href="#about" class="mobile-nav-link px-4 py-3 rounded-xl text-sm font-medium text-navy-800 hover:bg-ice-50">
+          About
+        </a>
+
+        <!-- Mobile Portfolio Accordion -->
+        <div class="rounded-xl border border-ice-200/80 bg-ice-50/50 overflow-hidden">
+          <button
+            type="button"
+            id="mobile-portfolio-toggle"
+            class="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-navy-900"
+          >
+            <span>Portfolio</span>
+            <svg id="mobile-portfolio-chevron" class="w-4 h-4 text-ice-600 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div id="mobile-portfolio-list" class="hidden px-3 pb-3 space-y-1">
+            <a href="#services" class="mobile-nav-link block px-3 py-2 rounded-lg text-xs sm:text-sm font-medium text-navy-800 hover:bg-white">
+              1. Graphic Designs
+            </a>
+            <a href="#services" class="mobile-nav-link block px-3 py-2 rounded-lg text-xs sm:text-sm font-medium text-navy-800 hover:bg-white">
+              2. Video Editing
+            </a>
+            <a href="#services" class="mobile-nav-link block px-3 py-2 rounded-lg text-xs sm:text-sm font-medium text-navy-800 hover:bg-white">
+              3. Web Development
+            </a>
+            <a href="#services" class="mobile-nav-link block px-3 py-2 rounded-lg text-xs sm:text-sm font-medium text-navy-800 hover:bg-white">
+              4. Cybersecurity
+            </a>
+          </div>
+        </div>
+
+        <a href="#footer-contact" class="mobile-nav-link px-4 py-3 rounded-xl text-sm font-medium text-navy-800 hover:bg-ice-50">
+          Contact
+        </a>
+
+        <div class="pt-2">
+          <button
+            type="button"
+            onclick="openContactModal()"
+            class="w-full py-3 rounded-xl text-sm font-semibold text-white bg-navy-900 hover:bg-navy-800 shadow-md transition-all"
+          >
+            Let's Talk About Your Project
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- =========================================================
+         1. HERO SECTION
+    ========================================================== -->
+    <section id="home" class="relative pt-12 pb-20 sm:pt-20 sm:pb-28 lg:pt-24 lg:pb-32 overflow-hidden">
+      <!-- Subtle Floating Geometric Glass Accents -->
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+        <div class="orb-float-1 absolute -top-12 right-[8%] w-56 h-56 sm:w-80 sm:h-80 rounded-full bg-gradient-to-br from-ice-200/50 to-sky-200/30 blur-2xl"></div>
+        <div class="orb-float-2 absolute bottom-4 left-[4%] w-48 h-48 sm:w-72 sm:h-72 rounded-full bg-gradient-to-tr from-ice-300/40 to-white/40 blur-2xl"></div>
+        <!-- Decorative Architectural Grid Ring -->
+        <div class="hidden lg:block orb-float-1 absolute top-20 right-[6%] w-64 h-64 rounded-3xl border border-ice-300/50 bg-white/30 backdrop-blur-md rotate-12 shadow-xl shadow-ice-300/20 p-5">
+          <div class="flex items-center justify-between mb-4">
+            <span class="w-2.5 h-2.5 rounded-full bg-navy-900"></span>
+            <span class="text-[10px] font-semibold tracking-widest uppercase text-ice-600">DIGIVERSE CORE</span>
+          </div>
+          <div class="space-y-2.5">
+            <div class="h-2 w-3/4 rounded-full bg-ice-300/70"></div>
+            <div class="h-2 w-1/2 rounded-full bg-navy-900/15"></div>
+            <div class="pt-3 grid grid-cols-2 gap-2">
+              <div class="h-16 rounded-xl bg-gradient-to-br from-navy-900 to-navy-800 p-2.5 flex flex-col justify-between text-white">
+                <span class="text-[9px] text-sky-300 uppercase">Code</span>
+                <span class="text-xs font-bold font-display">Django</span>
+              </div>
+              <div class="h-16 rounded-xl bg-ice-100 border border-ice-300/80 p-2.5 flex flex-col justify-between">
+                <span class="text-[9px] text-ice-600 uppercase">Design</span>
+                <span class="text-xs font-bold font-display text-navy-900">UI / Brand</span>
+              </div>
+            </div>
+            <div class="h-12 rounded-xl bg-white/80 border border-ice-200 p-2.5 flex items-center justify-between">
+              <span class="text-[10px] font-medium text-navy-800">Motion &amp; Cyber</span>
+              <span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-ice-500/15 text-ice-600">ACTIVE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ultra-narrow-pad">
+        <div class="max-w-3xl">
+          <!-- Ambient Pill Badge -->
+          <div class="hero-animate inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-surface text-[11px] sm:text-xs font-semibold tracking-wider uppercase text-navy-800 mb-6">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-ice-500 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-ice-500"></span>
+            </span>
+            <span>BIWASH DIGIVERSE &bull; HYBRID CREATIVE &amp; TECH STUDIO</span>
+          </div>
+
+          <!-- Hero Title / Motto -->
+          <h1 class="hero-animate ultra-narrow-title font-display font-extrabold text-navy-900 tracking-tight leading-[1.08] text-[clamp(2rem,5.2vw,4.25rem)] mb-6">
+            Engineering Digital Precision.
+            <span class="block bg-gradient-to-r from-navy-900 via-ice-500 to-sky-500 bg-clip-text text-transparent">
+              Crafting Visual Impact.
+            </span>
+          </h1>
+
+          <!-- Short Description -->
+          <p class="hero-animate text-slate-600 text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl mb-9 font-normal">
+            Bridging full-stack <strong class="font-semibold text-navy-900">Python &amp; Django architecture</strong>,
+            high-converting <strong class="font-semibold text-navy-900">UI/UX &amp; brand systems</strong>, cinematic
+            <strong class="font-semibold text-navy-900">video post-production</strong>, and proactive
+            <strong class="font-semibold text-navy-900">cybersecurity</strong> for forward-thinking brands worldwide.
+          </p>
+
+          <!-- Two Action Buttons -->
+          <div class="hero-animate flex flex-col xs:flex-row sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4">
+            <a
+              href="#services"
+              class="magnetic-btn group inline-flex items-center justify-center gap-2.5 px-7 py-3.5 sm:py-4 rounded-full text-sm sm:text-base font-semibold text-white bg-navy-900 hover:bg-navy-800 shadow-lg shadow-navy-900/20 transition-all"
+            >
+              <span>Explore Work</span>
+              <svg class="w-4 h-4 text-sky-400 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </a>
+
+            <a
+              href="#experience"
+              class="magnetic-btn inline-flex items-center justify-center gap-2.5 px-7 py-3.5 sm:py-4 rounded-full text-sm sm:text-base font-semibold text-navy-900 glass-surface hover:bg-white/95 hover:border-ice-500/60 transition-all"
+            >
+              <span>My Experience</span>
+              <svg class="w-4 h-4 text-ice-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         2. ABOUT / MANIFESTO SECTION
+    ========================================================== -->
+    <section id="about" class="py-16 sm:py-24 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ultra-narrow-pad">
+        <div class="glass-surface rounded-3xl p-6 sm:p-10 lg:p-14 reveal-section">
+          <div class="max-w-3xl mb-10 sm:mb-12">
+            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-ice-100 text-ice-600 border border-ice-200 mb-4">
+              About &amp; Manifesto
+            </span>
+            <h2 class="font-display font-extrabold text-navy-900 text-2xl sm:text-4xl lg:text-[2.65rem] leading-tight tracking-tight mb-5">
+              Think Creatively. Build Purposefully.
+              <span class="text-ice-500">Create Impact.</span>
+            </h2>
+            <p class="text-slate-600 text-sm sm:text-base lg:text-lg leading-relaxed">
+              I'm <strong class="font-semibold text-navy-900">Biwash</strong>, founder of <strong class="font-semibold text-navy-900">BIWASH DIGIVERSE</strong> — a multidisciplinary creative technologist combining rigorous software engineering and cybersecurity fundamentals with strategic brand design, interactive UI/UX architecture, and cinematic post-production. Instead of treating engineering and visual storytelling as separate worlds, I unify both into cohesive digital ecosystems built to scale.
+            </p>
+          </div>
+
+          <!-- Multidisciplinary Metrics Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <!-- Metric 1 -->
+            <div class="glass-card rounded-2xl p-5 sm:p-6">
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-10 h-10 rounded-xl bg-navy-900 text-white flex items-center justify-center">
+                  <svg class="w-5 h-5 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </span>
+                <span class="text-[11px] font-semibold uppercase tracking-wider text-ice-600 bg-ice-100 px-2.5 py-0.5 rounded-full">Track Record</span>
+              </div>
+              <div class="font-display font-extrabold text-3xl sm:text-4xl text-navy-900 mb-1">
+                <span class="metric-counter" data-target="2" data-suffix="+ Years">0+ Years</span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-600 font-medium">Multidisciplinary Industry Experience</p>
+            </div>
+
+            <!-- Metric 2 -->
+            <div class="glass-card rounded-2xl p-5 sm:p-6">
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-10 h-10 rounded-xl bg-navy-900 text-white flex items-center justify-center">
+                  <svg class="w-5 h-5 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+                </span>
+                <span class="text-[11px] font-semibold uppercase tracking-wider text-ice-600 bg-ice-100 px-2.5 py-0.5 rounded-full">Visual DNA</span>
+              </div>
+              <div class="font-display font-extrabold text-3xl sm:text-4xl text-navy-900 mb-1">
+                <span class="metric-counter" data-target="50" data-suffix="+">0+</span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-600 font-medium">Brand, UI/UX &amp; Graphic Systems Delivered</p>
+            </div>
+
+            <!-- Metric 3 -->
+            <div class="glass-card rounded-2xl p-5 sm:p-6">
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-10 h-10 rounded-xl bg-navy-900 text-white flex items-center justify-center">
+                  <svg class="w-5 h-5 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </span>
+                <span class="text-[11px] font-semibold uppercase tracking-wider text-ice-600 bg-ice-100 px-2.5 py-0.5 rounded-full">Post-Prod</span>
+              </div>
+              <div class="font-display font-extrabold text-3xl sm:text-4xl text-navy-900 mb-1">
+                <span class="metric-counter" data-target="100" data-suffix="+">0+</span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-600 font-medium">Videos Edited, Animated &amp; Voice Dubbed</p>
+            </div>
+
+            <!-- Metric 4 -->
+            <div class="glass-card rounded-2xl p-5 sm:p-6">
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-10 h-10 rounded-xl bg-navy-900 text-white flex items-center justify-center">
+                  <svg class="w-5 h-5 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </span>
+                <span class="text-[11px] font-semibold uppercase tracking-wider text-ice-600 bg-ice-100 px-2.5 py-0.5 rounded-full">Global Reach</span>
+              </div>
+              <div class="font-display font-extrabold text-3xl sm:text-4xl text-navy-900 mb-1">
+                <span class="metric-counter" data-target="5" data-suffix=" Countries">0 Countries</span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-600 font-medium">International Markets &amp; Client Footprint</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         3. COUNTRIES I'VE WORKED WITH (INTERACTIVE 360° GLOBE)
+    ========================================================== -->
+    <section id="countries" class="py-16 sm:py-24 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ultra-narrow-pad">
+        <div class="max-w-3xl mb-10 sm:mb-14 reveal-section">
+          <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-ice-100 text-ice-600 border border-ice-200 mb-3">
+            Global Footprint
+          </span>
+          <h2 class="font-display font-extrabold text-navy-900 text-2xl sm:text-4xl lg:text-[2.65rem] tracking-tight mb-4">
+            Countries I've Worked With
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base lg:text-lg leading-relaxed">
+            A snapshot of the countries and markets represented across my creative, digital, branding, development, and post-production work.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center reveal-section">
+          <!-- Left Side: Interactive Country Selector List -->
+          <div class="lg:col-span-5 flex flex-col space-y-3">
+            <button
+              type="button"
+              data-country="Nepal"
+              class="country-item active w-full text-left glass-surface rounded-2xl px-5 py-4 flex items-center justify-between group cursor-pointer"
+            >
+              <div>
+                <div class="font-display font-bold text-lg sm:text-xl flex items-center gap-2.5">
+                  <span>Nepal</span>
+                  <span class="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-400/30">HQ Base</span>
+                </div>
+                <p class="country-sub text-xs sm:text-sm text-slate-500 mt-0.5">
+                  Full-Stack Dev, UI/UX Systems, Brand Identity &amp; Video Production
+                </p>
+              </div>
+              <span class="country-arrow w-10 h-10 rounded-xl bg-ice-100 text-navy-900 flex items-center justify-center text-lg font-bold transition-transform">
+                ↗
+              </span>
+            </button>
+
+            <button
+              type="button"
+              data-country="India"
+              class="country-item w-full text-left glass-surface rounded-2xl px-5 py-4 flex items-center justify-between group cursor-pointer"
+            >
+              <div>
+                <div class="font-display font-bold text-lg sm:text-xl">
+                  India
+                </div>
+                <p class="country-sub text-xs sm:text-sm text-slate-500 mt-0.5">
+                  Web Series Video Post-Production, Voice Dubbing Sync &amp; Media
+                </p>
+              </div>
+              <span class="country-arrow w-10 h-10 rounded-xl bg-ice-100 text-navy-900 flex items-center justify-center text-lg font-bold transition-transform">
+                ↗
+              </span>
+            </button>
+
+            <button
+              type="button"
+              data-country="Australia"
+              class="country-item w-full text-left glass-surface rounded-2xl px-5 py-4 flex items-center justify-between group cursor-pointer"
+            >
+              <div>
+                <div class="font-display font-bold text-lg sm:text-xl">
+                  Australia
+                </div>
+                <p class="country-sub text-xs sm:text-sm text-slate-500 mt-0.5">
+                  Digital Marketing Visuals, Social Creatives &amp; Promotional Reels
+                </p>
+              </div>
+              <span class="country-arrow w-10 h-10 rounded-xl bg-ice-100 text-navy-900 flex items-center justify-center text-lg font-bold transition-transform">
+                ↗
+              </span>
+            </button>
+
+            <button
+              type="button"
+              data-country="New Zealand"
+              class="country-item w-full text-left glass-surface rounded-2xl px-5 py-4 flex items-center justify-between group cursor-pointer"
+            >
+              <div>
+                <div class="font-display font-bold text-lg sm:text-xl">
+                  New Zealand
+                </div>
+                <p class="country-sub text-xs sm:text-sm text-slate-500 mt-0.5">
+                  Brand Collateral, Commercial Video Cuts &amp; Web UI Assets
+                </p>
+              </div>
+              <span class="country-arrow w-10 h-10 rounded-xl bg-ice-100 text-navy-900 flex items-center justify-center text-lg font-bold transition-transform">
+                ↗
+              </span>
+            </button>
+
+            <button
+              type="button"
+              data-country="Canada"
+              class="country-item w-full text-left glass-surface rounded-2xl px-5 py-4 flex items-center justify-between group cursor-pointer"
+            >
+              <div>
+                <div class="font-display font-bold text-lg sm:text-xl">
+                  Canada
+                </div>
+                <p class="country-sub text-xs sm:text-sm text-slate-500 mt-0.5">
+                  Real Estate &amp; Finance Motion Graphics, Brand Kits &amp; UGC Edits
+                </p>
+              </div>
+              <span class="country-arrow w-10 h-10 rounded-xl bg-ice-100 text-navy-900 flex items-center justify-center text-lg font-bold transition-transform">
+                ↗
+              </span>
+            </button>
+          </div>
+
+          <!-- Right Side: Interactive 360° Self-Rotating & Draggable Globe -->
+          <div class="lg:col-span-7">
+            <div class="relative glass-surface rounded-3xl p-3 sm:p-5 overflow-hidden border border-ice-300/80 shadow-xl">
+              <!-- Ambient Radial Glow Behind Globe -->
+              <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(2,132,199,0.14)_0%,transparent_70%)]"></div>
+
+              <!-- Active Country Telemetry Pill (Top Left) -->
+              <div class="relative z-10 flex flex-wrap items-center justify-between gap-2 px-2 pt-1 pb-2">
+                <div id="globe-active-pill" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-900 text-white text-xs font-semibold shadow-md">
+                  <span class="w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
+                  <span>Focused: <strong id="globe-country-label" class="text-sky-300">Nepal</strong></span>
+                </div>
+
+                <button
+                  type="button"
+                  id="globe-reset-rotation"
+                  class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 hover:bg-white text-navy-900 border border-ice-300 text-xs font-semibold transition-colors shadow-xs"
+                  title="Resume 360° Auto-Rotation"
+                >
+                  <svg class="w-3.5 h-3.5 text-ice-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                  <span>Auto-Orbit</span>
+                </button>
+              </div>
+
+              <!-- 3D Globe Canvas Mount -->
+              <div id="globe-stage" class="relative w-full h-[320px] sm:h-[420px] lg:h-[460px] flex items-center justify-center rounded-2xl overflow-hidden"></div>
+
+              <!-- Bottom Instruction Badge: DRAG TO EXPLORE 360° -->
+              <div class="relative z-10 mt-2 flex flex-col sm:flex-row items-center justify-between gap-2 px-2 pb-1">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-ice-300 text-navy-900 text-[11px] sm:text-xs font-bold tracking-widest uppercase shadow-xs">
+                  <svg class="w-4 h-4 text-ice-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                  </svg>
+                  <span>DRAG TO EXPLORE 360°</span>
+                </div>
+                <span class="text-[11px] text-slate-500 font-medium text-center">
+                  Highlighted borders indicate active &amp; past client markets
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         4. SERVICES & CAPABILITIES
+    ========================================================== -->
+    <section id="services" class="py-16 sm:py-24 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ultra-narrow-pad">
+        <div class="max-w-3xl mb-10 sm:mb-14 reveal-section">
+          <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-ice-100 text-ice-600 border border-ice-200 mb-3">
+            Services &amp; Capabilities
+          </span>
+          <h2 class="font-display font-extrabold text-navy-900 text-2xl sm:text-4xl lg:text-[2.65rem] tracking-tight mb-3">
+            End-to-End Digital Solutions
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base lg:text-lg">
+            Integrated technical engineering, visual brand systems, post-production, and security hardening under one roof.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          <!-- i. Full-Stack Django Dev -->
+          <article class="service-card glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between reveal-card" data-category="Web Development">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-navy-900 to-navy-800 text-white flex items-center justify-center shadow-md">
+                  <svg class="w-6 h-6 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                  </svg>
+                </span>
+                <span class="font-display font-bold text-xs tracking-widest uppercase text-ice-600 bg-ice-100 px-3 py-1 rounded-full">01 / Engineering</span>
+              </div>
+              <h3 class="font-display font-extrabold text-xl sm:text-2xl text-navy-900 mb-3">
+                Full-Stack Django Dev
+              </h3>
+              <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
+                Custom dynamic web platforms built with Python, Django, and MySQL. Fully responsive layout structure across PCs, laptops, tablets, and mobile devices.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-4 border-t border-ice-200/80">
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-navy-900 text-white">Python</span>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-ice-100 text-navy-900 border border-ice-300">Django</span>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-ice-100 text-navy-900 border border-ice-300">MySQL</span>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-ice-100 text-navy-900 border border-ice-300">Bootstrap 5</span>
+            </div>
+          </article>
+
+          <!-- ii. UI/UX & Brand Design -->
+          <article class="service-card glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between reveal-card" data-category="Graphic Designs">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-navy-900 to-navy-800 text-white flex items-center justify-center shadow-md">
+                  <svg class="w-6 h-6 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                  </svg>
+                </span>
+                <span class="font-display font-bold text-xs tracking-widest uppercase text-ice-600 bg-ice-100 px-3 py-1 rounded-full">02 / Visual Systems</span>
+              </div>
+              <h3 class="font-display font-extrabold text-xl sm:text-2xl text-navy-900 mb-3">
+                UI/UX &amp; Brand Design
+              </h3>
+              <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
+                Interface wireframing, vector logo development, visual identity guidelines, print catalogs, high-converting ad collateral mapped out in modern design tools, and engaging social media designs.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-4 border-t border-ice-200/80">
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-navy-900 text-white">Figma</span>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-ice-100 text-navy-900 border border-ice-300">Logos</span>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-ice-100 text-navy-900 border border-ice-300">SocialMedia</span>
+            </div>
+          </article>
+
+          <!-- iii. Video Editing & Post -->
+          <article class="service-card glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between reveal-card" data-category="Video Editing">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-navy-900 to-navy-800 text-white flex items-center justify-center shadow-md">
+                  <svg class="w-6 h-6 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                </span>
+                <span class="font-display font-bold text-xs tracking-widest uppercase text-ice-600 bg-ice-100 px-3 py-1 rounded-full">03 / Post-Production</span>
+              </div>
+              <h3 class="font-display font-extrabold text-xl sm:text-2xl text-navy-900 mb-3">
+                Video Editing &amp; Post
+              </h3>
+              <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
+                Cinematic video editing, short-form reels, sync audio cuts, dynamic text overlays, motion transitions, and web series voice dubbing built in Premiere Pro, After Effects, and VN App.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-4 border-t border-ice-200/80">
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-navy-900 text-white">Premiere Pro</span>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-ice-100 text-navy-900 border border-ice-300">After Effects</span>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-ice-100 text-navy-900 border border-ice-300">Voice Dubbing</span>
+            </div>
+          </article>
+
+          <!-- iv. Cyber Sec -->
+          <article class="service-card glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between reveal-card" data-category="Cybersecurity">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-navy-900 to-navy-800 text-white flex items-center justify-center shadow-md">
+                  <svg class="w-6 h-6 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                </span>
+                <span class="font-display font-bold text-xs tracking-widest uppercase text-ice-600 bg-ice-100 px-3 py-1 rounded-full">04 / Security Ops</span>
+              </div>
+              <h3 class="font-display font-extrabold text-xl sm:text-2xl text-navy-900 mb-3">
+                Cyber Sec
+              </h3>
+              <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
+                Web application vulnerability assessment, network reconnaissance, traffic packet inspection, and proactive security hardening to safeguard digital infrastructure and user data.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-4 border-t border-ice-200/80">
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-navy-900 text-white">Vulnerability Audit</span>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-ice-100 text-navy-900 border border-ice-300">Network Recon</span>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-ice-100 text-navy-900 border border-ice-300">OWASP Hardening</span>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-ice-100 text-navy-900 border border-ice-300">Packet Analysis</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         5. TECH STACK MATRIX
+    ========================================================== -->
+    <section id="tech-stack" class="py-16 sm:py-24 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ultra-narrow-pad">
+        <div class="max-w-3xl mb-10 sm:mb-14 reveal-section">
+          <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-ice-100 text-ice-600 border border-ice-200 mb-3">
+            Tech Stack Matrix
+          </span>
+          <h2 class="font-display font-extrabold text-navy-900 text-2xl sm:text-4xl lg:text-[2.65rem] tracking-tight mb-4">
+            Technical &amp; Creative Architecture
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base lg:text-lg leading-relaxed">
+            An advanced breakdown of backend frameworks, frontend interfaces, design systems, and post-production software mastered over 2+ years.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- i. Back-End Systems Core -->
+          <div class="glass-card rounded-3xl p-6 sm:p-7 reveal-card">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-9 h-9 rounded-xl bg-navy-900 text-sky-400 font-display font-extrabold text-sm flex items-center justify-center">i</span>
+              <h3 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">Back-End Systems Core</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-500 mb-5">Robust server-side logic and database architecture.</p>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/80 border border-ice-200/80">
+                <span class="text-sm font-semibold text-navy-900">Python</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-navy-900 text-white">Expert</span>
+              </div>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/80 border border-ice-200/80">
+                <span class="text-sm font-semibold text-navy-900">Django Framework</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-navy-900 text-white">Expert</span>
+              </div>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/80 border border-ice-200/80">
+                <span class="text-sm font-semibold text-navy-900">MySQL Database</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-ice-500/15 text-ice-600">Advanced</span>
+              </div>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/80 border border-ice-200/80">
+                <span class="text-sm font-semibold text-navy-900">REST APIs</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-ice-500/15 text-ice-600">Advanced</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ii. Front-End & Web Interface -->
+          <div class="glass-card rounded-3xl p-6 sm:p-7 reveal-card">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-9 h-9 rounded-xl bg-navy-900 text-sky-400 font-display font-extrabold text-sm flex items-center justify-center">ii</span>
+              <h3 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">Front-End &amp; Web Interface</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-500 mb-5">Responsive, interactive, and accessible web layouts.</p>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/80 border border-ice-200/80">
+                <span class="text-sm font-semibold text-navy-900">JavaScript (ES6+)</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-ice-500/15 text-ice-600">Advanced</span>
+              </div>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/80 border border-ice-200/80">
+                <span class="text-sm font-semibold text-navy-900">Bootstrap 5</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-navy-900 text-white">Expert</span>
+              </div>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/80 border border-ice-200/80">
+                <span class="text-sm font-semibold text-navy-900">HTML5 &amp; CSS3</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-navy-900 text-white">Expert</span>
+              </div>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/80 border border-ice-200/80">
+                <span class="text-sm font-semibold text-navy-900">Responsive Design</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-navy-900 text-white">Expert</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- iii. UI/UX & Design Creative -->
+          <div class="glass-card rounded-3xl p-6 sm:p-7 reveal-card">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-9 h-9 rounded-xl bg-navy-900 text-sky-400 font-display font-extrabold text-sm flex items-center justify-center">iii</span>
+              <h3 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">UI/UX &amp; Design Creative</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-500 mb-5">Brand identity, wireframing, and visual assets.</p>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/80 border border-ice-200/80">
+                <span class="text-sm font-semibold text-navy-900">Figma &amp; Balsamiq</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-navy-900 text-white">Expert</span>
+              </div>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/80 border border-ice-200/80">
+                <span class="text-sm font-semibold text-navy-900">Adobe Photoshop</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-ice-500/15 text-ice-600">Advanced</span>
+              </div>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/80 border border-ice-200/80">
+                <span class="text-sm font-semibold text-navy-900">Adobe Illustrator</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-ice-500/15 text-ice-600">Advanced</span>
+              </div>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/80 border border-ice-200/80">
+                <span class="text-sm font-semibold text-navy-900">Canva</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-navy-900 text-white">Expert</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- iv. Video & Post Production -->
+          <div class="glass-card rounded-3xl p-6 sm:p-7 reveal-card">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-9 h-9 rounded-xl bg-navy-900 text-sky-400 font-display font-extrabold text-sm flex items-center justify-center">iv</span>
+              <h3 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">Video &amp; Post Production</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-500 mb-5">Cinematic editing, motion graphics, and audio sync.</p>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/80 border border-ice-200/80">
+                <span class="text-sm font-semibold text-navy-900">Premiere Pro</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-ice-500/15 text-ice-600">Advanced</span>
+              </div>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/80 border border-ice-200/80">
+                <span class="text-sm font-semibold text-navy-900">After Effects</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-sky-100 text-navy-800 border border-ice-300">Skilled</span>
+              </div>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/80 border border-ice-200/80">
+                <span class="text-sm font-semibold text-navy-900">VN Editor</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-navy-900 text-white">Expert</span>
+              </div>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/80 border border-ice-200/80">
+                <span class="text-sm font-semibold text-navy-900">Voice Dubbing</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-ice-500 text-white">Pro</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- v. Cyber Security (Intermediate) -->
+          <div class="glass-card rounded-3xl p-6 sm:p-7 md:col-span-2 lg:col-span-2 reveal-card">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-9 h-9 rounded-xl bg-navy-900 text-sky-400 font-display font-extrabold text-sm flex items-center justify-center">v</span>
+                <h3 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">Cyber Security</h3>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs font-bold bg-ice-500/15 text-ice-600 border border-ice-300">Intermediate</span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-600 mb-5">
+              Hands-on network reconnaissance, web application vulnerability scanning, proxy interception, and deep packet traffic inspection.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              <div class="p-3.5 rounded-2xl bg-white/85 border border-ice-200/90 flex flex-col justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-ice-600 mb-1">Network Recon</span>
+                <span class="font-display font-bold text-sm sm:text-base text-navy-900">Nmap</span>
+              </div>
+              <div class="p-3.5 rounded-2xl bg-white/85 border border-ice-200/90 flex flex-col justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-ice-600 mb-1">Web Scanner</span>
+                <span class="font-display font-bold text-sm sm:text-base text-navy-900">ZAP Proxy</span>
+              </div>
+              <div class="p-3.5 rounded-2xl bg-white/85 border border-ice-200/90 flex flex-col justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-ice-600 mb-1">Security Testing</span>
+                <span class="font-display font-bold text-sm sm:text-base text-navy-900">Burp Suite</span>
+              </div>
+              <div class="p-3.5 rounded-2xl bg-white/85 border border-ice-200/90 flex flex-col justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-ice-600 mb-1">Packet Analysis</span>
+                <span class="font-display font-bold text-sm sm:text-base text-navy-900">Wireshark</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         6. CAREER & GROWTH (EXPERIENCE & PROFESSIONAL HISTORY)
+    ========================================================== -->
+    <section id="experience" class="py-16 sm:py-24 relative">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 ultra-narrow-pad">
+        <div class="max-w-3xl mb-12 sm:mb-16 reveal-section">
+          <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-ice-100 text-ice-600 border border-ice-200 mb-3">
+            Career &amp; Growth
+          </span>
+          <h2 class="font-display font-extrabold text-navy-900 text-2xl sm:text-4xl lg:text-[2.65rem] tracking-tight mb-4">
+            Experience &amp; Professional History
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base lg:text-lg leading-relaxed">
+            A comprehensive 2+ year track record of hands-on software development, visual system architecture, and brand logic implementation.
+          </p>
+        </div>
+
+        <!-- Vertical Timeline Container -->
+        <div class="relative pl-6 sm:pl-10 border-l-2 border-ice-300/90 space-y-8 sm:space-y-10">
+
+          <!-- 1. Creative Designer at Swopu Creation (CURRENT ROLE - POP OUT HIGHLIGHT) -->
+          <article class="timeline-card relative glass-card rounded-3xl p-6 sm:p-8 border-2 border-ice-500/60 shadow-xl shadow-ice-500/10">
+            <!-- Active Glowing Timeline Node -->
+            <span class="absolute -left-[33px] sm:-left-[49px] top-8 w-4 h-4 rounded-full bg-ice-500 ring-4 ring-white shadow-md">
+              <span class="absolute inset-0 rounded-full bg-ice-500 animate-ping opacity-75"></span>
+            </span>
+
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+              <div class="flex items-start gap-3.5 sm:gap-4">
+                <!-- Company Emblem Logo -->
+                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-navy-900 to-ice-600 text-white flex items-center justify-center font-display font-extrabold text-lg shrink-0 shadow-md">
+                  SC
+                </div>
+                <div>
+                  <h3 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">
+                    Creative Designer at Swopu Creation
+                  </h3>
+                  <p class="text-xs sm:text-sm font-medium text-slate-600 mt-0.5">
+                    Pokhara, Gandakī, Nepal &middot; Remote &middot; Full-time
+                  </p>
+                </div>
+              </div>
+
+              <!-- CURRENT ROLE HIGHLIGHTED DURATION BADGE -->
+              <div class="self-start inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-navy-900 via-navy-800 to-ice-600 shadow-md shadow-ice-500/25 shrink-0">
+                <span class="w-2 h-2 rounded-full bg-sky-300 animate-pulse"></span>
+                <span>Jun 2026 - Present &middot; 3 mos</span>
+              </div>
+            </div>
+
+            <p class="text-slate-700 text-sm sm:text-base leading-relaxed">
+              As a Creative Designer, I designed graphics and visual content for local and international brands, creating engaging marketing materials for both digital and social media platforms. My responsibilities included editing promotional and UGC videos, producing motion graphics, and developing creative assets for clients in the sports, finance, real estate, music, and technology industries, helping brands communicate effectively and enhance their online presence.
+            </p>
+          </article>
+
+          <!-- 2. Infinitum Network Solutions (Past Role - Softer Lighter Slate-Blue Badge, High Legibility) -->
+          <article class="timeline-card relative glass-card rounded-3xl p-6 sm:p-8">
+            <span class="absolute -left-[32px] sm:-left-[48px] top-8 w-3.5 h-3.5 rounded-full bg-ice-300 border-2 border-navy-800"></span>
+
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+              <div class="flex items-start gap-3.5 sm:gap-4">
+                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-ice-100 border border-ice-300 text-navy-900 flex items-center justify-center font-display font-extrabold text-lg shrink-0">
+                  IN
+                </div>
+                <div>
+                  <h3 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">
+                    Infinitum Network Solutions
+                  </h3>
+                  <p class="text-xs sm:text-sm font-medium text-slate-600 mt-0.5">
+                    India — Contract &middot; Remote
+                  </p>
+                </div>
+              </div>
+
+              <!-- Past Duration Badge (Softer Ice-Slate Palette, Crisp Contrast) -->
+              <div class="self-start inline-flex items-center px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-navy-800 bg-ice-100/90 border border-ice-300/90 shrink-0">
+                Jun 2026 - Sep 2026
+              </div>
+            </div>
+
+            <p class="text-slate-700 text-sm sm:text-base leading-relaxed mb-4">
+              Worked as a Video Editor on the Nepali-dubbed adaptation of a Hindi web series for Infinitum Network Solutions, contributing to the post-production and dubbing workflow. Worked closely with Nepali voice artists to synchronize character dialogues with corresponding visuals and on-screen actions while maintaining natural timing, pacing, and scene continuity.
+            </p>
+
+            <ul class="space-y-2 text-slate-600 text-xs sm:text-sm pl-1">
+              <li class="flex items-start gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-ice-500 mt-2 shrink-0"></span>
+                <span>Edited and assembled episodes for the Nepali-dubbed version of the web series.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-ice-500 mt-2 shrink-0"></span>
+                <span>Worked closely with Nepali voice artists on character-specific dialogue recordings.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-ice-500 mt-2 shrink-0"></span>
+                <span>Synchronized dubbed dialogues with characters, expressions, movements, and scenes.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-ice-500 mt-2 shrink-0"></span>
+                <span>Adjusted audio timing, pacing, volume, and placement for a natural dubbing experience.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-ice-500 mt-2 shrink-0"></span>
+                <span>Maintained continuity between dialogue, character actions, visuals, and scene transitions.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-ice-500 mt-2 shrink-0"></span>
+                <span>Refined overall audio-video synchronization and pacing across scenes.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-ice-500 mt-2 shrink-0"></span>
+                <span>Performed final quality checks and exported completed episodes according to project requirements.</span>
+              </li>
+            </ul>
+          </article>
+
+          <!-- 3. Angee's Snacks -->
+          <article class="timeline-card relative glass-card rounded-3xl p-6 sm:p-8">
+            <span class="absolute -left-[32px] sm:-left-[48px] top-8 w-3.5 h-3.5 rounded-full bg-ice-300 border-2 border-navy-800"></span>
+
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+              <div class="flex items-start gap-3.5 sm:gap-4">
+                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-ice-100 border border-ice-300 text-navy-900 flex items-center justify-center font-display font-extrabold text-lg shrink-0">
+                  AS
+                </div>
+                <div>
+                  <h3 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">
+                    Angee's Snacks
+                  </h3>
+                  <p class="text-xs sm:text-sm font-medium text-slate-600 mt-0.5">
+                    Nepal &middot; On-site
+                  </p>
+                </div>
+              </div>
+
+              <div class="self-start inline-flex items-center px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-navy-800 bg-ice-100/90 border border-ice-300/90 shrink-0">
+                Dec 2025 - May 2026
+              </div>
+            </div>
+
+            <p class="text-slate-700 text-sm sm:text-base leading-relaxed">
+              Designed comprehensive brand identity, including logo, typography, colour system, and visual direction for pet treats brand, enhancing brand recognition. Created packaging designs and realistic mockups for dog &amp; cat treats, optimising presentation for production and marketplace listing. Produced social media creatives and promotional visuals to effectively support go-to-market activities, driving engagement. Maintained consistent, trustworthy and premium brand presentation across touchpoints.
+            </p>
+          </article>
+
+          <!-- 4. Little Heart Pet Shop -->
+          <article class="timeline-card relative glass-card rounded-3xl p-6 sm:p-8">
+            <span class="absolute -left-[32px] sm:-left-[48px] top-8 w-3.5 h-3.5 rounded-full bg-ice-300 border-2 border-navy-800"></span>
+
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+              <div class="flex items-start gap-3.5 sm:gap-4">
+                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-ice-100 border border-ice-300 text-navy-900 flex items-center justify-center font-display font-extrabold text-lg shrink-0">
+                  LH
+                </div>
+                <div>
+                  <h3 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">
+                    Little Heart Pet Shop
+                  </h3>
+                  <p class="text-xs sm:text-sm font-medium text-slate-600 mt-0.5">
+                    Nepal &middot; On-site
+                  </p>
+                </div>
+              </div>
+
+              <div class="self-start inline-flex items-center px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-navy-800 bg-ice-100/90 border border-ice-300/90 shrink-0">
+                Aug 2025 - May 2026
+              </div>
+            </div>
+
+            <p class="text-slate-700 text-sm sm:text-base leading-relaxed">
+              Responsible for filming the full pet grooming process and editing high-quality videos using VN to showcase the shop’s services across social platforms. Also handle graphic design tasks including posters, banners, social media creatives, and promotional materials to strengthen brand visibility and customer engagement.
+            </p>
+          </article>
+
+          <!-- 5. Blue Sky Industries -->
+          <article class="timeline-card relative glass-card rounded-3xl p-6 sm:p-8">
+            <span class="absolute -left-[32px] sm:-left-[48px] top-8 w-3.5 h-3.5 rounded-full bg-ice-300 border-2 border-navy-800"></span>
+
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+              <div class="flex items-start gap-3.5 sm:gap-4">
+                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-ice-100 border border-ice-300 text-navy-900 flex items-center justify-center font-display font-extrabold text-lg shrink-0">
+                  BS
+                </div>
+                <div>
+                  <h3 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">
+                    Blue Sky Industries
+                  </h3>
+                  <p class="text-xs sm:text-sm font-medium text-slate-600 mt-0.5">
+                    Nepal &middot; Contract
+                  </p>
+                </div>
+              </div>
+
+              <div class="self-start inline-flex items-center px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-navy-800 bg-ice-100/90 border border-ice-300/90 shrink-0">
+                May 2025 - May 2025
+              </div>
+            </div>
+
+            <p class="text-slate-700 text-sm sm:text-base leading-relaxed">
+              Designed and delivered a professional logo aligned with the company's vision and approved for official use. Created a cohesive brand style guide outlining logo usage, color schemes, typography, and visual elements to ensure consistent application across all marketing materials and platforms.
+            </p>
+          </article>
+
+          <!-- 6. Bytesoft Nepal -->
+          <article class="timeline-card relative glass-card rounded-3xl p-6 sm:p-8">
+            <span class="absolute -left-[32px] sm:-left-[48px] top-8 w-3.5 h-3.5 rounded-full bg-ice-300 border-2 border-navy-800"></span>
+
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+              <div class="flex items-start gap-3.5 sm:gap-4">
+                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-ice-100 border border-ice-300 text-navy-900 flex items-center justify-center font-display font-extrabold text-lg shrink-0">
+                  BN
+                </div>
+                <div>
+                  <h3 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">
+                    Bytesoft Nepal
+                  </h3>
+                  <p class="text-xs sm:text-sm font-medium text-slate-600 mt-0.5">
+                    Nepal &middot; On-site
+                  </p>
+                </div>
+              </div>
+
+              <div class="self-start inline-flex items-center px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-navy-800 bg-ice-100/90 border border-ice-300/90 shrink-0">
+                Apr 2025 - May 2026
+              </div>
+            </div>
+
+            <p class="text-slate-700 text-sm sm:text-base leading-relaxed">
+              Worked in a design-led role, architecting comprehensive UI/UX systems and high-fidelity prototypes within Figma. Developed scalable visual languages and brand identity assets using Adobe Creative Suite, ensuring surgical precision across all digital interfaces. Collaborated on user-centered design strategies to enhance project aesthetics and maintain rigorous brand consistency.
+            </p>
+          </article>
+
+          <!-- 7. XDezo Technologies -->
+          <article class="timeline-card relative glass-card rounded-3xl p-6 sm:p-8">
+            <span class="absolute -left-[32px] sm:-left-[48px] top-8 w-3.5 h-3.5 rounded-full bg-ice-300 border-2 border-navy-800"></span>
+
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+              <div class="flex items-start gap-3.5 sm:gap-4">
+                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-ice-100 border border-ice-300 text-navy-900 flex items-center justify-center font-display font-extrabold text-lg shrink-0">
+                  XD
+                </div>
+                <div>
+                  <h3 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">
+                    XDezo Technologies
+                  </h3>
+                  <p class="text-xs sm:text-sm font-medium text-slate-600 mt-0.5">
+                    Nepal &middot; Hybrid
+                  </p>
+                </div>
+              </div>
+
+              <div class="self-start inline-flex items-center px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-navy-800 bg-ice-100/90 border border-ice-300/90 shrink-0">
+                Dec 2024 - Apr 2025
+              </div>
+            </div>
+
+            <p class="text-slate-700 text-sm sm:text-base leading-relaxed">
+              Designed the Conversational User Interface (CUX) and visual identity for 'Telegram Xdezo Bot,' a real-time enrollment management system. Focused on mapping intuitive user flows and information architecture to simplify complex data interactions. Optimized the visual hierarchy and interface logic, resulting in a 30% improvement in user task completion speed. Collaborated with the team to bridge the gap between high-fidelity design concepts and final technical implementation.
+            </p>
+          </article>
+
+          <!-- 8. Code Zenith Nepal -->
+          <article class="timeline-card relative glass-card rounded-3xl p-6 sm:p-8">
+            <span class="absolute -left-[32px] sm:-left-[48px] top-8 w-3.5 h-3.5 rounded-full bg-ice-300 border-2 border-navy-800"></span>
+
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+              <div class="flex items-start gap-3.5 sm:gap-4">
+                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-ice-100 border border-ice-300 text-navy-900 flex items-center justify-center font-display font-extrabold text-lg shrink-0">
+                  CZ
+                </div>
+                <div>
+                  <h3 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">
+                    Code Zenith Nepal
+                  </h3>
+                  <p class="text-xs sm:text-sm font-medium text-slate-600 mt-0.5">
+                    Nepal &middot; On-site
+                  </p>
+                </div>
+              </div>
+
+              <div class="self-start inline-flex items-center px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-navy-800 bg-ice-100/90 border border-ice-300/90 shrink-0">
+                Nov 2024 - Apr 2025
+              </div>
+            </div>
+
+            <p class="text-slate-700 text-sm sm:text-base leading-relaxed">
+              Architected the foundational visual DNA and digital identity for a high-growth technology startup. Designed a comprehensive UI component library and responsive design system to ensure seamless cross-platform scalability. Strategized the Product Interface from wireframe to high-fidelity implementation, prioritizing aesthetic clarity and system efficiency. Collaborated within an agile founding team to establish a cohesive brand presence that supported early-stage market entry.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         7. CLIENT & TEAM FEEDBACK (DUAL INFINITE CONTINUOUS MARQUEE)
+    ========================================================== -->
+    <section id="testimonials" class="py-16 sm:py-24 relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ultra-narrow-pad mb-10 sm:mb-14 reveal-section">
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-ice-100 text-ice-600 border border-ice-200 mb-3">
+          Client &amp; Team Feedback
+        </span>
+        <h2 class="font-display font-extrabold text-navy-900 text-2xl sm:text-4xl lg:text-[2.65rem] tracking-tight mb-3">
+          Testimonials &amp; Client Trust
+        </h2>
+        <p class="text-slate-600 text-sm sm:text-base lg:text-lg max-w-2xl">
+          What clients and collaborators say about my hybrid technical logic and visual design execution.
+        </p>
+      </div>
+
+      <!-- Continuous Circular Sliders Container -->
+      <div class="space-y-6">
+        <!-- Row 1: Right to Left Continuous Seamless Loop (7 Reviews duplicated seamlessly) -->
+        <div class="marquee-wrapper" aria-label="Client Testimonials Row 1">
+          <div id="marquee-row-1" class="marquee-track-left"></div>
+        </div>
+
+        <!-- Row 2: Left to Right Continuous Seamless Loop (7 Reviews duplicated seamlessly) -->
+        <div class="marquee-wrapper" aria-label="Client Testimonials Row 2">
+          <div id="marquee-row-2" class="marquee-track-right"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       8. FOOTER
+  ========================================================== -->
+  <footer id="footer-contact" class="pt-12 pb-10 sm:pt-16 sm:pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ultra-narrow-pad">
+      <div class="glass-surface rounded-3xl p-6 sm:p-10 lg:p-12 shadow-xl">
+
+        <!-- Top Footer Row: Bordered "Connect with me" + Heading on Left | Contact Me Button on Right -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pb-10 border-b border-ice-200/90">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-navy-900/25 bg-white/80 text-navy-900 text-xs font-semibold tracking-wide mb-4">
+              <span class="w-1.5 h-1.5 rounded-full bg-ice-500"></span>
+              <span>Connect with me</span>
+            </div>
+            <h2 class="font-display font-extrabold text-navy-900 text-2xl sm:text-3xl lg:text-4xl tracking-tight">
+              Let's talk about your Project
+            </h2>
+          </div>
+
+          <div>
+            <button
+              type="button"
+              onclick="openContactModal()"
+              class="magnetic-btn group inline-flex items-center justify-center gap-2.5 px-7 py-3.5 sm:py-4 rounded-full text-sm sm:text-base font-semibold text-white bg-navy-900 hover:bg-navy-800 shadow-lg shadow-navy-900/20 transition-all"
+            >
+              <span>Contact Me</span>
+              <svg class="w-4 h-4 text-sky-400 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Middle Footer Row: Brand Logo + 3 Bullets on Left | Nav Links + Tagline on Right -->
+        <div class="py-8 sm:py-10 flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
+          <!-- Left Column -->
+          <div class="space-y-4">
+            <img
+              id="footer-brand-logo"
+              alt="BIWASH DIGIVERSE Logo"
+              class="h-10 sm:h-11 w-auto object-contain"
+            />
+            <ul class="space-y-2 text-sm sm:text-base text-slate-700 font-medium">
+              <li>- Creative ideas, thoughtfully designed 🎨</li>
+              <li>- Purpose-driven digital solutions 💻</li>
+              <li>- Built to make an impact 🚀</li>
+            </ul>
+          </div>
+
+          <!-- Right Column -->
+          <div class="flex flex-col lg:items-end justify-between space-y-4">
+            <nav class="flex flex-wrap items-center gap-5 sm:gap-7 text-sm sm:text-base font-semibold text-navy-900" aria-label="Footer Navigation">
+              <a href="#home" class="hover:text-ice-500 transition-colors">Home</a>
+              <a href="#about" class="hover:text-ice-500 transition-colors">About</a>
+              <a href="#services" class="hover:text-ice-500 transition-colors">Portfolio</a>
+              <a href="#footer-contact" onclick="openContactModal(); return false;" class="hover:text-ice-500 transition-colors">Contact</a>
+            </nav>
+
+            <p class="font-display font-bold text-sm sm:text-base text-navy-800 lg:text-right">
+              Think Creatively. Build Purposefully. Create Impact.
+            </p>
+          </div>
+        </div>
+
+        <!-- Horizontal Divider Line -->
+        <div class="border-t border-dashed border-ice-300 my-2"></div>
+
+        <!-- Bottom Copyright Row -->
+        <div class="pt-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs sm:text-sm text-slate-500">
+          <p>&copy; 2026 biwash.creatives. All rights reserved.</p>
+          <p class="text-navy-800/70 font-medium">BIWASH DIGIVERSE &bull; Ice-Blue Edition</p>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       INTERACTIVE CONTACT MODAL (NO ALERT() USED)
+  ========================================================== -->
+  <div id="contact-modal" class="fixed inset-0 z-[70] hidden items-center justify-center p-4 bg-navy-950/50 backdrop-blur-md">
+    <div class="glass-surface bg-white/95 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-ice-300 relative transform transition-all">
+      <button
+        type="button"
+        onclick="closeContactModal()"
+        aria-label="Close Contact Dialog"
+        class="absolute top-5 right-5 w-9 h-9 rounded-full bg-ice-100 hover:bg-ice-200 text-navy-900 flex items-center justify-center transition-colors"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <span class="inline-block px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-ice-100 text-ice-600 mb-3">
+        BIWASH DIGIVERSE
+      </span>
+      <h3 class="font-display font-extrabold text-2xl text-navy-900 mb-1.5">
+        Start a Conversation
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 mb-6">
+        Tell me about your web platform, UI/UX design, video production, or security project.
+      </p>
+
+      <form id="contact-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-navy-900 mb-1">Your Name</label>
+          <input type="text" required placeholder="Alex Morgan" class="w-full px-4 py-2.5 rounded-xl bg-ice-50/80 border border-ice-300 text-sm text-navy-900 focus:outline-none focus:border-ice-500" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-navy-900 mb-1">Email Address</label>
+          <input type="email" required placeholder="alex@company.com" class="w-full px-4 py-2.5 rounded-xl bg-ice-50/80 border border-ice-300 text-sm text-navy-900 focus:outline-none focus:border-ice-500" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-navy-900 mb-1">Service Needed</label>
+          <select class="w-full px-4 py-2.5 rounded-xl bg-ice-50/80 border border-ice-300 text-sm text-navy-900 focus:outline-none focus:border-ice-500">
+            <option>Full-Stack Django Web Development</option>
+            <option>UI/UX &amp; Brand Identity Design</option>
+            <option>Video Editing, Motion &amp; Voice Dubbing</option>
+            <option>Cybersecurity Audit &amp; Assessment</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-navy-900 mb-1">Project Brief</label>
+          <textarea rows="3" required placeholder="Share your goals, timeline, and vision..." class="w-full px-4 py-2.5 rounded-xl bg-ice-50/80 border border-ice-300 text-sm text-navy-900 focus:outline-none focus:border-ice-500"></textarea>
+        </div>
+        <button type="submit" class="w-full py-3.5 rounded-full text-sm font-semibold text-white bg-navy-900 hover:bg-navy-800 shadow-lg transition-all">
+          Send Project Inquiry
+        </button>
+      </form>
+
+      <div id="contact-success" class="hidden text-center py-6">
+        <div class="w-12 h-12 rounded-full bg-ice-100 text-ice-600 flex items-center justify-center mx-auto mb-3">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <h4 class="font-display font-bold text-lg text-navy-900 mb-1">Message Received!</h4>
+        <p class="text-sm text-slate-600 mb-4">Thank you for reaching out to BIWASH DIGIVERSE. I'll get back to you within 24 hours.</p>
+        <button type="button" onclick="closeContactModal()" class="px-6 py-2 rounded-full text-xs font-semibold bg-navy-900 text-white">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       APPLICATION LOGIC (LOGO SVG URI, GLOBE 3D, MARQUEE, GSAP)
+  ========================================================== -->
+  <script>
+    // 1. EMBEDDED CRISP SVG BRAND LOGO AS DATA URI FOR <img> TAGS
+    (function renderBrandLogos() {
+      const svgMarkup = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="236" height="44" viewBox="0 0 236 44" fill="none">
+          <defs>
+            <linearGradient id="bdGrad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#0A192F"/>
+              <stop offset="55%" stop-color="#0F294A"/>
+              <stop offset="100%" stop-color="#0284C7"/>
+            </linearGradient>
+            <linearGradient id="iceAccent" x1="10" y1="8" x2="32" y2="34" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#7DD3FC"/>
+              <stop offset="100%" stop-color="#38BDF8"/>
+            </linearGradient>
+          </defs>
+          <!-- Geometric Emblem -->
+          <rect x="2" y="2" width="40" height="40" rx="12" fill="url(#bdGrad)"/>
+          <path d="M13 13H22.5C25.5 13 27.5 14.7 27.5 17.2C27.5 19.1 26.2 20.5 24.4 21C26.7 21.5 28.2 23.1 28.2 25.4C28.2 28.3 25.9 30.2 22.5 30.2H13V13Z" stroke="#FFFFFF" stroke-width="2.4" stroke-linejoin="round"/>
+          <circle cx="31" cy="13" r="3" fill="url(#iceAccent)"/>
+          <!-- Wordmark -->
+          <text x="52" y="21" fill="#0A192F" font-family="Manrope, Inter, sans-serif" font-weight="800" font-size="16.5" letter-spacing="0.8">BIWASH</text>
+          <text x="52" y="35" fill="#0284C7" font-family="Manrope, Inter, sans-serif" font-weight="700" font-size="10.5" letter-spacing="2.8">DIGIVERSE</text>
+        </svg>
+      `.trim();
+
+      const encodedUri = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svgMarkup);
+      const navLogo = document.getElementById('nav-brand-logo');
+      const footerLogo = document.getElementById('footer-brand-logo');
+      if (navLogo) navLogo.src = encodedUri;
+      if (footerLogo) footerLogo.src = encodedUri;
+    })();
+
+    // 2. MOBILE MENU & PORTFOLIO DROPDOWN INTERACTIONS
+    (function setupNavigation() {
+      const mobileBtn = document.getElementById('mobile-menu-btn');
+      const mobileDrawer = document.getElementById('mobile-drawer');
+      const iconOpen = document.getElementById('menu-icon-open');
+      const iconClose = document.getElementById('menu-icon-close');
+
+      const portfolioToggle = document.getElementById('mobile-portfolio-toggle');
+      const portfolioList = document.getElementById('mobile-portfolio-list');
+      const portfolioChevron = document.getElementById('mobile-portfolio-chevron');
+
+      const desktopWrapper = document.getElementById('portfolio-dropdown-wrapper');
+      const desktopBtn = document.getElementById('portfolio-dropdown-btn');
+
+      if (mobileBtn && mobileDrawer) {
+        mobileBtn.addEventListener('click', () => {
+          const isOpen = !mobileDrawer.classList.contains('hidden');
+          mobileDrawer.classList.toggle('hidden');
+          iconOpen.classList.toggle('hidden', !isOpen);
+          iconClose.classList.toggle('hidden', isOpen);
+          mobileBtn.setAttribute('aria-expanded', String(!isOpen));
+        });
+      }
+
+      if (portfolioToggle && portfolioList) {
+        portfolioToggle.addEventListener('click', () => {
+          portfolioList.classList.toggle('hidden');
+          portfolioChevron.classList.toggle('rotate-180');
+        });
+      }
+
+      // Close mobile drawer when clicking any link
+      document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileDrawer.classList.add('hidden');
+          iconOpen.classList.remove('hidden');
+          iconClose.classList.add('hidden');
+        });
+      });
+
+      // Click toggle support for Desktop Portfolio Dropdown (for touch laptops/iPads)
+      if (desktopBtn && desktopWrapper) {
+        desktopBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          desktopWrapper.classList.toggle('dropdown-open');
+        });
+        document.addEventListener('click', () => {
+          desktopWrapper.classList.remove('dropdown-open');
+        });
+      }
+
+      // Highlight matching service card when choosing a Portfolio dropdown discipline
+      document.querySelectorAll('.portfolio-cat-link').forEach(item => {
+        item.addEventListener('click', () => {
+          const cat = item.getAttribute('data-filter');
+          document.querySelectorAll('.service-card').forEach(card => {
+            if (card.getAttribute('data-category') === cat) {
+              card.style.borderColor = '#0284C7';
+              card.style.boxShadow = '0 20px 44px -10px rgba(2, 132, 199, 0.25)';
+              setTimeout(() => {
+                card.style.borderColor = '';
+                card.style.boxShadow = '';
+              }, 2400);
+            }
+          });
+        });
+      });
+    })();
+
+    // 3. CONTACT MODAL CONTROLS
+    function openContactModal() {
+      const modal = document.getElementById('contact-modal');
+      const form = document.getElementById('contact-form');
+      const success = document.getElementById('contact-success');
+      if (form && success) {
+        form.classList.remove('hidden');
+        success.classList.add('hidden');
+      }
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeContactModal() {
+      const modal = document.getElementById('contact-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    document.getElementById('contact-form')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      this.classList.add('hidden');
+      document.getElementById('contact-success').classList.remove('hidden');
+      this.reset();
+    });
+
+    // 4. INTERACTIVE 360° ROTATING GLOBE WITH HIGHLIGHTED COUNTRY BORDERS
+    (function initInteractiveGlobe() {
+      const stage = document.getElementById('globe-stage');
+      const countryLabel = document.getElementById('globe-country-label');
+      const resetBtn = document.getElementById('globe-reset-rotation');
+      if (!stage) return;
+
+      // Target countries with coordinates, ISO numeric codes (world-atlas), & custom colors
+      const TARGET_MARKETS = {
+        'Nepal': {
+          lat: 28.3949,
+          lng: 84.1240,
+          altitude: 1.75,
+          iso: '524',
+          fill: 'rgba(2, 132, 199, 0.85)',
+          stroke: '#0A192F',
+          badge: 'Nepal • HQ & Full-Stack / Design'
+        },
+        'India': {
+          lat: 21.5937,
+          lng: 78.9629,
+          altitude: 1.85,
+          iso: '356',
+          fill: 'rgba(14, 165, 233, 0.72)',
+          stroke: '#0F294A',
+          badge: 'India • Web Series Dubbing & Post'
+        },
+        'Australia': {
+          lat: -25.2744,
+          lng: 133.7751,
+          altitude: 1.95,
+          iso: '036',
+          fill: 'rgba(3, 105, 161, 0.78)',
+          stroke: '#0A192F',
+          badge: 'Australia • Brand & Social Media'
+        },
+        'New Zealand': {
+          lat: -40.9006,
+          lng: 174.8860,
+          altitude: 1.85,
+          iso: '554',
+          fill: 'rgba(56, 189, 248, 0.85)',
+          stroke: '#0A192F',
+          badge: 'New Zealand • Creative & Motion'
+        },
+        'Canada': {
+          lat: 56.1304,
+          lng: -106.3468,
+          altitude: 2.05,
+          iso: '124',
+          fill: 'rgba(15, 41, 74, 0.80)',
+          stroke: '#0284C7',
+          badge: 'Canada • Real Estate & Finance Media'
+        }
+      };
+
+      const TARGET_ISOS = new Set(Object.values(TARGET_MARKETS).map(m => m.iso));
+      const TARGET_NAMES = new Set(['Nepal', 'India', 'Australia', 'New Zealand', 'Canada']);
+
+      let activeCountry = 'Nepal';
+      let globeInstance = null;
+
+      // Create clean ice-blue sphere texture via offscreen canvas (zero external image URLs)
+      function createIceSphereTexture() {
+        const canvas = document.createElement('canvas');
+        canvas.width = 512;
+        canvas.height = 256;
+        const ctx = canvas.getContext('2d');
+        const grad = ctx.createLinearGradient(0, 0, 512, 256);
+        grad.addColorStop(0, '#EAF3FC');
+        grad.addColorStop(0.5, '#DCEAF8');
+        grad.addColorStop(1, '#CFE2F5');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 512, 256);
+
+        // Subtle latitude/longitude grid lines
+        ctx.strokeStyle = 'rgba(2, 132, 199, 0.12)';
+        ctx.lineWidth = 1;
+        for (let x = 0; x <= 512; x += 32) {
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, 256);
+          ctx.stroke();
+        }
+        for (let y = 0; y <= 256; y += 32) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(512, y);
+          ctx.stroke();
+        }
+        return canvas.toDataURL();
+      }
+
+      function isTargetFeature(feat) {
+        const idStr = String(feat.id || '').padStart(3, '0');
+        const name = feat.properties && feat.properties.name;
+        return TARGET_ISOS.has(idStr) || TARGET_NAMES.has(name);
+      }
+
+      function getFeatureMarket(feat) {
+        const idStr = String(feat.id || '').padStart(3, '0');
+        const name = feat.properties && feat.properties.name;
+        for (const [key, val] of Object.entries(TARGET_MARKETS)) {
+          if (val.iso === idStr || key === name) return { key, ...val };
+        }
+        return null;
+      }
+
+      // Initialize Globe.gl if loaded
+      if (typeof Globe !== 'undefined' && typeof topojson !== 'undefined') {
+        const width = stage.clientWidth || 500;
+        const height = stage.clientHeight || 420;
+
+        globeInstance = Globe()(stage)
+          .width(width)
+          .height(height)
+          .backgroundColor('rgba(0,0,0,0)')
+          .globeImageUrl(createIceSphereTexture())
+          .showAtmosphere(true)
+          .atmosphereColor('#7DD3FC')
+          .atmosphereAltitude(0.16)
+          .polygonCapColor(feat => {
+            const market = getFeatureMarket(feat);
+            if (!market) return 'rgba(255, 255, 255, 0.85)';
+            return market.key === activeCountry ? '#0A192F' : market.fill;
+          })
+          .polygonSideColor(feat => isTargetFeature(feat) ? 'rgba(2, 132, 199, 0.45)' : 'rgba(189, 208, 227, 0.25)')
+          .polygonStrokeColor(feat => {
+            const market = getFeatureMarket(feat);
+            if (!market) return 'rgba(148, 179, 212, 0.55)';
+            return market.key === activeCountry ? '#38BDF8' : '#0A192F';
+          })
+          .polygonAltitude(feat => {
+            const market = getFeatureMarket(feat);
+            if (!market) return 0.008;
+            return market.key === activeCountry ? 0.045 : 0.025;
+          })
+          .polygonsTransitionDuration(450)
+          .ringsData(Object.entries(TARGET_MARKETS).map(([name, m]) => ({
+            name,
+            lat: m.lat,
+            lng: m.lng,
+            maxR: name === activeCountry ? 7 : 4.5,
+            propagationSpeed: 2.2,
+            repeatPeriod: 1100
+          })))
+          .ringColor(d => d.name === activeCountry ? ['#0A192F', '#0284C7'] : ['#0284C7', '#7DD3FC'])
+          .ringMaxRadius('maxR')
+          .ringPropagationSpeed('propagationSpeed')
+          .ringRepeatPeriod('repeatPeriod')
+          .htmlElementsData(Object.entries(TARGET_MARKETS).map(([name, m]) => ({
+            name,
+            lat: m.lat,
+            lng: m.lng
+          })))
+          .htmlElement(d => {
+            const el = document.createElement('div');
+            const isSelected = d.name === activeCountry;
+            el.innerHTML = `
+              <div style="
+                padding: 3px 8px;
+                border-radius: 9999px;
+                font-family: 'Manrope', sans-serif;
+                font-size: 10px;
+                font-weight: 800;
+                letter-spacing: 0.03em;
+                white-space: nowrap;
+                background: ${isSelected ? '#0A192F' : 'rgba(255,255,255,0.92)'};
+                color: ${isSelected ? '#38BDF8' : '#0A192F'};
+                border: 1.5px solid ${isSelected ? '#38BDF8' : '#0284C7'};
+                box-shadow: 0 4px 12px rgba(10,25,47,0.18);
+                transform: translate(-50%, -135%);
+                pointer-events: none;
+              ">${d.name}</div>
+            `;
+            return el;
+          });
+
+        // Configure 360° Controls & Continuous Auto-Rotation
+        const controls = globeInstance.controls();
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.07;
+        controls.enableZoom = false; // Keeps page scroll smooth while allowing full 360 drag
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 0.85;
+
+        // Pause auto-rotation momentarily while user drags, resume gracefully after
+        let resumeTimer = null;
+        controls.addEventListener('start', () => {
+          controls.autoRotate = false;
+          if (resumeTimer) clearTimeout(resumeTimer);
+        });
+        controls.addEventListener('end', () => {
+          resumeTimer = setTimeout(() => {
+            controls.autoRotate = true;
+          }, 3200);
+        });
+
+        // Fetch world-atlas 110m country boundaries so borders render cleanly
+        fetch('https://unpkg.com/world-atlas@2/countries-110m.json')
+          .then(res => res.json())
+          .then(worldData => {
+            const countries = topojson.feature(worldData, worldData.objects.countries).features;
+            globeInstance.polygonsData(countries);
+            focusCountry('Nepal', false);
+          })
+          .catch(() => {
+            // Graceful fallback if offline: pins and rings still rotate in 360°
+            focusCountry('Nepal', false);
+          });
+
+        // Responsive Resize Handling for Globe
+        window.addEventListener('resize', () => {
+          if (!globeInstance || !stage) return;
+          globeInstance.width(stage.clientWidth);
+          globeInstance.height(stage.clientHeight);
+        });
+
+        if (resetBtn) {
+          resetBtn.addEventListener('click', () => {
+            controls.autoRotate = true;
+            controls.autoRotateSpeed = 0.9;
+          });
+        }
+      }
+
+      // Focus Globe Camera on Selected Country
+      function focusCountry(countryName, pauseBriefly = true) {
+        const target = TARGET_MARKETS[countryName];
+        if (!target) return;
+        activeCountry = countryName;
+
+        // Update Left List Active State
+        document.querySelectorAll('.country-item').forEach(btn => {
+          btn.classList.toggle('active', btn.getAttribute('data-country') === countryName);
+        });
+
+        // Update Top Pill Label
+        if (countryLabel) {
+          countryLabel.textContent = target.badge;
+        }
+
+        if (globeInstance) {
+          const controls = globeInstance.controls();
+          if (pauseBriefly) {
+            controls.autoRotate = false;
+            setTimeout(() => {
+              controls.autoRotate = true;
+            }, 4000);
+          }
+
+          globeInstance.pointOfView(
+            { lat: target.lat, lng: target.lng, altitude: target.altitude },
+            1100
+          );
+
+          // Refresh polygon highlight & pin styling
+          globeInstance
+            .polygonCapColor(globeInstance.polygonCapColor())
+            .polygonStrokeColor(globeInstance.polygonStrokeColor())
+            .polygonAltitude(globeInstance.polygonAltitude())
+            .htmlElementsData(Object.entries(TARGET_MARKETS).map(([name, m]) => ({
+              name,
+              lat: m.lat,
+              lng: m.lng
+            })))
+            .ringsData(Object.entries(TARGET_MARKETS).map(([name, m]) => ({
+              name,
+              lat: m.lat,
+              lng: m.lng,
+              maxR: name === activeCountry ? 7.5 : 4.5,
+              propagationSpeed: 2.2,
+              repeatPeriod: 1100
+            })));
+        }
+      }
+
+      // Bind Click Listeners on Left Country Items
+      document.querySelectorAll('.country-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const country = btn.getAttribute('data-country');
+          focusCountry(country, true);
+        });
+      });
+    })();
+
+    // 5. CONTINUOUS SEAMLESS CIRCULAR TESTIMONIAL MARQUEES (2 ROWS, 7 REVIEWS EACH)
+    (function populateTestimonials() {
+      const row1Reviews = [
+        {
+          quote: "Biwash brought rare dual capability to our project. He didn't just map out the UI and design our brand assets seamlessly; he delivered exceptional videos as well.",
+          client: "Little Heart Pet Shop",
+          role: "Pet Grooming Shop"
+        },
+        {
+          quote: "From high-converting social creatives to fast-paced motion graphics, Biwash consistently translates brand strategy into standout digital visuals across industries.",
+          client: "Swopu Creation",
+          role: "Creative & Digital Agency"
+        },
+        {
+          quote: "His precision in synchronizing Nepali voice dubbing with character expressions and scene pacing elevated our entire web series adaptation.",
+          client: "Infinitum Network Solutions",
+          role: "Media & Entertainment Production"
+        },
+        {
+          quote: "Biwash crafted our complete brand identity and packaging mockups with remarkable attention to detail, giving our pet treats line a truly premium shelf presence.",
+          client: "Angee's Snacks",
+          role: "Consumer Pet Nutrition Brand"
+        },
+        {
+          quote: "Working with Biwash on our Figma UI/UX design systems brought surgical consistency and modern polish to every client product we shipped.",
+          client: "Bytesoft Nepal",
+          role: "Software & Digital Solutions"
+        },
+        {
+          quote: "He redesigned the conversational UX for Telegram Xdezo Bot and simplified complex enrollment flows, measurably speeding up user task completion.",
+          client: "XDezo Technologies",
+          role: "EdTech & Automation Platform"
+        },
+        {
+          quote: "Biwash built our startup's foundational visual DNA and responsive UI component library from scratch, setting a strong standard for our launch.",
+          client: "Code Zenith Nepal",
+          role: "Technology Startup"
+        }
+      ];
+
+      const row2Reviews = [
+        {
+          quote: "The official logo and comprehensive brand style guide Biwash delivered gave our industrial brand immediate credibility and visual consistency.",
+          client: "Blue Sky Industries",
+          role: "Manufacturing & Industrial Enterprise"
+        },
+        {
+          quote: "Having a developer who understands both Django backend architecture and clean responsive frontend design saved us weeks of iteration.",
+          client: "Apex Digital Melbourne",
+          role: "Digital Commerce Partner • Australia"
+        },
+        {
+          quote: "Biwash's short-form promotional reels and dynamic motion overlays boosted our campaign retention rates across every social channel.",
+          client: "Harbourview Media",
+          role: "Creative Marketing Studio • New Zealand"
+        },
+        {
+          quote: "Clean code, thoughtful UI hierarchy, and proactive security awareness—BIWASH DIGIVERSE delivers agency-grade execution with personal dedication.",
+          client: "NorthStar Realty Group",
+          role: "Real Estate & Advisory • Canada"
+        },
+        {
+          quote: "Every poster, banner, and social campaign asset arrived on schedule with crisp typography and an unmistakable premium aesthetic.",
+          client: "Himalayan Roast Co.",
+          role: "Specialty Retail Brand • Nepal"
+        },
+        {
+          quote: "Biwash bridges the gap between technical engineering and visual storytelling better than anyone we've collaborated with.",
+          client: "Vanguard FinTech Labs",
+          role: "Financial Technology • Canada"
+        },
+        {
+          quote: "His ability to move effortlessly from wireframes to final edited video promos makes him an invaluable creative-tech partner.",
+          client: "Kora Events & Sports",
+          role: "Sports & Lifestyle Media • India"
+        }
+      ];
+
+      function createReviewCardHTML(item) {
+        return `
+          <article class="glass-card rounded-2xl p-6 w-[290px] sm:w-[360px] shrink-0 flex flex-col justify-between select-none">
+            <div>
+              <div class="font-display font-extrabold text-4xl leading-none text-ice-500 mb-2">“</div>
+              <p class="text-slate-700 text-xs sm:text-sm leading-relaxed mb-5">
+                "${item.quote}"
+              </p>
+            </div>
+            <div>
+              <div class="border-t border-dashed border-ice-300 mb-3.5"></div>
+              <div class="font-display font-bold text-sm sm:text-base text-navy-900">${item.client}</div>
+              <div class="text-xs text-ice-600 font-medium">${item.role}</div>
+            </div>
+          </article>
+        `;
+      }
+
+      const row1El = document.getElementById('marquee-row-1');
+      const row2El = document.getElementById('marquee-row-2');
+
+      // Duplicate array twice inside the flex track so -50% translate loops infinitely without any jump
+      if (row1El) {
+        const doubled1 = [...row1Reviews, ...row1Reviews];
+        row1El.innerHTML = doubled1.map(createReviewCardHTML).join('');
+      }
+      if (row2El) {
+        const doubled2 = [...row2Reviews, ...row2Reviews];
+        row2El.innerHTML = doubled2.map(createReviewCardHTML).join('');
+      }
+    })();
+
+    // 6. GSAP + SCROLLTRIGGER PREMIUM ENTRANCE & COUNTER ANIMATIONS
+    window.addEventListener('load', () => {
+      if (typeof gsap === 'undefined') return;
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Top Scroll Progress Bar
+      gsap.to('#scroll-progress', {
+        width: '100%',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: document.body,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.2
+        }
+      });
+
+      // Hero Stagger Entrance
+      gsap.from('.hero-animate', {
+        y: 28,
+        opacity: 0,
+        duration: 0.85,
+        stagger: 0.12,
+        ease: 'power3.out'
+      });
+
+      // Section Headers & Containers Reveal
+      gsap.utils.toArray('.reveal-section').forEach(section => {
+        gsap.from(section, {
+          y: 30,
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 85%',
+            once: true
+          }
+        });
+      });
+
+      // Service & Tech Stack Cards Stagger Reveal
+      gsap.utils.toArray('.reveal-card').forEach((card, idx) => {
+        gsap.from(card, {
+          y: 26,
+          opacity: 0,
+          duration: 0.7,
+          delay: (idx % 3) * 0.08,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 88%',
+            once: true
+          }
+        });
+      });
+
+      // Timeline Career Cards Reveal
+      gsap.utils.toArray('.timeline-card').forEach(item => {
+        gsap.from(item, {
+          x: -20,
+          y: 20,
+          opacity: 0,
+          duration: 0.75,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: item,
+            start: 'top 88%',
+            once: true
+          }
+        });
+      });
+
+      // Animated Metric Counters
+      document.querySelectorAll('.metric-counter').forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'), 10);
+        const suffix = counter.getAttribute('data-suffix') || '';
+        const obj = { val: 0 };
+
+        gsap.to(obj, {
+          val: target,
+          duration: 1.6,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: counter,
+            start: 'top 90%',
+            once: true
+          },
+          onUpdate: () => {
+            counter.textContent = Math.round(obj.val) + suffix;
+          }
+        });
+      });
+
+      // Subtle Magnetic Hover Effect on Primary CTA Buttons
+      document.querySelectorAll('.magnetic-btn').forEach(btn => {
+        btn.addEventListener('mousemove', e => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          gsap.to(btn, {
+            x: x * 0.16,
+            y: y * 0.16,
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+        });
+        btn.addEventListener('mouseleave', () => {
+          gsap.to(btn, {
+            x: 0,
+            y: 0,
+            duration: 0.4,
+            ease: 'elastic.out(1, 0.5)'
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
