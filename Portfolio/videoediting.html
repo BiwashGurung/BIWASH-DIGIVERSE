@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Editing — Post-Production &amp; Motion Storytelling | BIWASH DIGIVERSE</title>
+  <meta name="description" content="Widescreen commercial films, brand documentaries, and high-retention vertical Reels engineered with Premiere Pro, After Effects, VN Editor, and layered sound design by BIWASH DIGIVERSE (biwash.creatives)." />
+
+  <!-- Google Fonts: Manrope (Headings), Inter (Body & UI), JetBrains Mono (URL Placeholders) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          screens: {
+            xs: '380px',
+          },
+          colors: {
+            navy: {
+              700: '#1E3A5F',
+              800: '#112240',
+              900: '#0A192F',
+            },
+            ice: {
+              50: '#F7FAFD',
+              100: '#EEF4FA',
+              200: '#DAE6F2',
+              300: '#BDD0E3',
+              600: '#0284C7',
+            },
+          },
+          fontFamily: {
+            display: ['Manrope', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* Full-page BIWASH DIGIVERSE background */
+    html,
+    body {
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(
+          ellipse at 15% 10%,
+          rgba(189, 208, 227, 0.45) 0%,
+          transparent 45%
+        ),
+        radial-gradient(
+          ellipse at 85% 30%,
+          rgba(218, 230, 242, 0.55) 0%,
+          transparent 45%
+        ),
+        radial-gradient(
+          ellipse at 50% 90%,
+          rgba(232, 241, 250, 0.65) 0%,
+          transparent 50%
+        ),
+        linear-gradient(
+          135deg,
+          #ffffff 0%,
+          #f7fafd 45%,
+          #eef4fa 100%
+        );
+
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: cover;
+      font-family: 'Inter', sans-serif;
+      color: #0A192F;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, .font-manrope {
+      font-family: 'Manrope', sans-serif;
+    }
+
+    /* BIWASH DIGIVERSE Glassmorphic Navigation & Dropdown System */
+    .ice-glass-strong {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(189, 208, 227, 0.85);
+      box-shadow: 0 12px 32px -12px rgba(10, 25, 47, 0.08);
+    }
+
+    /* Frosted White Surface Cards */
+    .ice-card {
+      background: rgba(255, 255, 255, 0.84);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(189, 208, 227, 0.85);
+      box-shadow: 0 10px 30px -12px rgba(10, 25, 47, 0.07);
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .ice-card-hover:hover {
+      transform: translateY(-3px);
+      border-color: rgba(2, 132, 199, 0.5);
+      box-shadow: 0 18px 34px -14px rgba(10, 25, 47, 0.12);
+    }
+
+    .nav-dropdown-panel {
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(-50%, 8px);
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-dropdown-wrapper:hover .nav-dropdown-panel,
+    .nav-dropdown-wrapper.open .nav-dropdown-panel {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
+    }
+
+    @keyframes livePulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.55);
+        opacity: 1;
+      }
+      50% {
+        box-shadow: 0 0 0 6px rgba(14, 165, 233, 0);
+        opacity: 0.85;
+      }
+    }
+
+    .live-dot {
+      animation: livePulse 2.2s infinite ease-in-out;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #EEF4FA;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #BDD0E3;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #8FAEC9;
+    }
+  </style>
+</head>
+<body class="selection:bg-ice-600 selection:text-white">
+
+  <!-- ==================== EXACT FIXED TOP NAVIGATION BAR ==================== -->
+  <header
+    id="mainHeader"
+    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-3 xs:px-4 sm:px-6 lg:px-10 pt-3 sm:pt-4"
+  >
+    <nav
+      class="max-w-7xl mx-auto ice-glass-strong rounded-2xl px-3.5 xs:px-5 sm:px-7 py-3 flex items-center justify-between relative"
+      aria-label="Primary Navigation"
+    >
+      <!-- LEFT: Brand Logo (<img> form) -->
+      <a
+        href="index.html"
+        class="flex items-center gap-2.5 shrink-0 group focus:outline-none"
+      >
+        <img
+          src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='196' height='42' viewBox='0 0 196 42' fill='none'%3E%3Cdefs%3E%3ClinearGradient id='bdGrad' x1='0' y1='0' x2='42' y2='42' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%230A192F'/%3E%3Cstop offset='100%25' stop-color='%230284C7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='1' y='1' width='40' height='40' rx='11' fill='url(%23bdGrad)'/%3E%3Cpath d='M13 12H23.5C26.5 12 28.5 13.7 28.5 16.3C28.5 18.2 27.3 19.6 25.6 20.2C27.8 20.8 29.2 22.4 29.2 24.8C29.2 27.9 26.8 29.8 23.2 29.8H13V12ZM22.6 19.1C24.2 19.1 25.1 18.2 25.1 16.9C25.1 15.6 24.2 14.8 22.6 14.8H16.6V19.1H22.6ZM23 27C24.7 27 25.7 26.1 25.7 24.6C25.7 23.1 24.6 22.2 22.8 22.2H16.6V27H23Z' fill='white'/%3E%3Ccircle cx='33' cy='11' r='3' fill='%237DD3FC'/%3E%3Ctext x='50' y='20' fill='%230A192F' font-family='Manrope, sans-serif' font-weight='800' font-size='14.5' letter-spacing='0.06em'%3EBIWASH%3C/text%3E%3Ctext x='50' y='34' fill='%230284C7' font-family='Manrope, sans-serif' font-weight='700' font-size='10.5' letter-spacing='0.18em'%3EDIGIVERSE%3C/text%3E%3C/svg%3E"
+          alt="BIWASH DIGIVERSE Logo"
+          class="h-8 xs:h-9 sm:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+        />
+      </a>
+
+      <!-- CENTER: 4 Nav Menus -->
+      <ul class="hidden lg:flex items-center gap-1 xl:gap-2">
+        <li>
+          <a
+            href="index.html"
+            class="px-4 py-2 rounded-xl text-sm font-medium text-navy-800/80 hover:text-navy-900 hover:bg-ice-100/80 transition-all"
+          >
+            Home 
+          </a>
+        </li>
+        <li>
+          <a
+            href="About.html"
+            class="px-4 py-2 rounded-xl text-sm font-medium text-navy-800/80 hover:text-navy-900 hover:bg-ice-100/80 transition-all"
+          >
+            About 
+          </a>
+        </li>
+        <li class="relative nav-dropdown-wrapper" id="portfolioDropdownWrap">
+          <button
+            type="button"
+            onclick="toggleDesktopDropdown(event)"
+            class="px-4 py-2 rounded-xl text-sm font-semibold text-navy-900 bg-ice-100/95 border border-ice-300/70 transition-all inline-flex items-center gap-1.5"
+            aria-expanded="false"
+            aria-haspopup="true"
+          >
+            <span>Portfolio </span>
+            <svg
+              id="desktopDropdownChevron"
+              class="w-4 h-4 text-ice-600 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+
+          <!-- Portfolio Dropdown Menu (4 Sub-Menus) -->
+          <div
+            class="nav-dropdown-panel absolute left-1/2 -translate-x-1/2 top-full pt-3 w-80 z-50"
+          >
+            <div
+              class="ice-glass-strong rounded-2xl p-2.5 shadow-2xl border border-ice-300/80 space-y-1"
+            >
+              <a
+                href="Graphics.html"
+                class="flex items-start gap-3 p-3 rounded-xl hover:bg-ice-100/90 transition-colors group"
+              >
+                <span
+                  class="w-7 h-7 rounded-lg bg-navy-900 text-white text-xs font-display font-bold flex items-center justify-center shrink-0 group-hover:bg-ice-600 transition-colors"
+                  >1</span
+                >
+                <div>
+                  <p class="text-sm font-display font-bold text-navy-900">
+                    1. Graphic Designs
+                  </p>
+                  <p class="text-xs text-navy-700/75">
+                    Brand Identity, Packaging &amp; Ad Systems
+                  </p>
+                </div>
+              </a>
+              <a
+                href="videoediting.html"
+                aria-current="page"
+                class="flex items-start gap-3 p-3 rounded-xl bg-ice-100/95 border border-ice-300/85 transition-colors group"
+              >
+                <span
+                  class="w-7 h-7 rounded-lg bg-ice-600 text-white text-xs font-display font-bold flex items-center justify-center shrink-0 transition-colors"
+                  >2</span
+                >
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between gap-2">
+                    <p class="text-sm font-display font-bold text-navy-900">
+                      2. Video Editing
+                    </p>
+                    <span
+                      class="px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-navy-900 text-white shrink-0"
+                      >Current</span
+                    >
+                  </div>
+                  <p class="text-xs text-navy-700/80 mt-0.5">
+                    Cinematic Cuts, UGC &amp; Web Series Dubbing
+                  </p>
+                </div>
+              </a>
+              <a
+                href="webdev.html"
+                class="flex items-start gap-3 p-3 rounded-xl hover:bg-ice-100/90 transition-colors group"
+              >
+                <span
+                  class="w-7 h-7 rounded-lg bg-navy-900 text-white text-xs font-display font-bold flex items-center justify-center shrink-0 group-hover:bg-ice-600 transition-colors"
+                  >3</span
+                >
+                <div>
+                  <p class="text-sm font-display font-bold text-navy-900">
+                    3. Web Development
+                  </p>
+                  <p class="text-xs text-navy-700/75">
+                    Full-Stack Python, Django &amp; UI Systems
+                  </p>
+                </div>
+              </a>
+              <a
+                href="cybersecurity.html"
+                class="flex items-start gap-3 p-3 rounded-xl hover:bg-ice-100/90 transition-colors group"
+              >
+                <span
+                  class="w-7 h-7 rounded-lg bg-navy-900 text-white text-xs font-display font-bold flex items-center justify-center shrink-0 group-hover:bg-ice-600 transition-colors"
+                  >4</span
+                >
+                <div>
+                  <p class="text-sm font-display font-bold text-navy-900">
+                    4. Cybersecurity
+                  </p>
+                  <p class="text-xs text-navy-700/75">
+                    Recon, Vulnerability Audits &amp; Packet Labs
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a
+            href="Contact.html"
+            class="px-4 py-2 rounded-xl text-sm font-medium text-navy-800/80 hover:text-navy-900 hover:bg-ice-100/80 transition-all"
+          >
+            Contact 
+          </a>
+        </li>
+      </ul>
+
+      <!-- RIGHT: Status Pill (XL+) & Mobile Hamburger -->
+      <div class="flex items-center gap-2.5">
+        <span
+          class="hidden xl:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-ice-100 text-navy-900 border border-ice-300/80"
+        >
+          <span class="w-2 h-2 rounded-full bg-sky-500 live-dot"></span>
+          Design · Dev · CyberSec
+        </span>
+
+        <button
+          id="mobileMenuBtn"
+          type="button"
+          onclick="toggleMobileDrawer()"
+          class="lg:hidden p-2 rounded-xl bg-ice-100/90 text-navy-900 hover:bg-ice-200 transition-colors focus:outline-none"
+          aria-label="Toggle Navigation Menu"
+          aria-expanded="false"
+        >
+          <svg
+            id="menuIconOpen"
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+          <svg
+            id="menuIconClose"
+            class="w-5 h-5 hidden"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile / Tablet / Folding Device Drawer -->
+    <div
+      id="mobileDrawer"
+      class="lg:hidden hidden max-w-7xl mx-auto mt-2 ice-glass-strong rounded-2xl p-4 shadow-xl border border-ice-300/80"
+    >
+      <div class="flex flex-col space-y-1.5">
+        <a
+          href="index.html"
+          class="px-4 py-2.5 rounded-xl text-sm font-semibold text-navy-900 hover:bg-ice-100"
+          >1. Home Page</a
+        >
+        <a
+          href="About.html"
+          class="px-4 py-2.5 rounded-xl text-sm font-semibold text-navy-900 hover:bg-ice-100"
+          >2. About Page</a
+        >
+
+        <!-- Mobile Portfolio Accordion (Expanded by default so active subpage is immediately visible) -->
+        <div
+          class="rounded-xl bg-ice-50/90 border border-ice-200/80 overflow-hidden"
+        >
+          <button
+            type="button"
+            onclick="toggleMobilePortfolio()"
+            class="w-full px-4 py-2.5 flex items-center justify-between text-sm font-bold text-navy-900"
+            aria-expanded="true"
+          >
+            <span>3. Portfolio Page</span>
+            <svg
+              id="mobilePortfolioChevron"
+              class="w-4 h-4 text-ice-600 transition-transform duration-200 rotate-180"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+          <div
+            id="mobilePortfolioSub"
+            class="px-3 pb-3 pt-1.5 space-y-1 border-t border-ice-200/70"
+          >
+            <a
+              href="Portfolio/Graphics.html"
+              class="block px-3 py-2 rounded-lg text-xs font-semibold text-navy-800 hover:bg-ice-200/60"
+              >1. Graphic Designs</a
+            >
+            <a
+              href="Portfolio/videoediting.html"
+              aria-current="page"
+              class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-bold text-navy-900 bg-ice-100 border border-ice-300/80"
+            >
+              <span>2. Video Editing</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-navy-900 text-white">Current</span>
+            </a>
+            <a
+              href="Portfolio/webdev.html"
+              class="block px-3 py-2 rounded-lg text-xs font-semibold text-navy-800 hover:bg-ice-200/60"
+              >3. Web Development</a
+            >
+            <a
+              href="Portfolio/cybersecurity.html"
+              class="block px-3 py-2 rounded-lg text-xs font-semibold text-navy-800 hover:bg-ice-200/60"
+              >4. Cybersecurity</a
+            >
+          </div>
+        </div>
+
+        <a
+          href="Contact.html"
+          class="px-4 py-2.5 rounded-xl text-sm font-semibold text-navy-900 hover:bg-ice-100"
+          >4. Contact Page</a
+        >
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main id="top">
+
+    <!-- =========================================================
+         SECTION 1 — HERO (#hero)
+         ========================================================= -->
+    <section id="hero" class="pt-28 sm:pt-32 lg:pt-36 pb-16 sm:pb-20 border-b border-ice-300/70">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+
+          <!-- Left Column: Eyebrow, Headline, Description, Software Badges, CTAs -->
+          <div class="lg:col-span-7 space-y-6">
+            <div>
+              <span class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-navy-900 bg-ice-100 border border-ice-300 px-3.5 py-1.5 rounded-full">
+                <span class="w-2 h-2 rounded-full bg-ice-600 live-dot"></span>
+                Post-Production &amp; Motion Storytelling
+              </span>
+            </div>
+
+            <h1 class="font-display font-extrabold text-3xl sm:text-5xl lg:text-[3.35rem] text-navy-900 leading-[1.12] tracking-tight">
+              Crafting Rhythm, Emotion &amp; High-Retention Edits.
+            </h1>
+
+            <p class="text-base sm:text-lg text-navy-800/85 leading-relaxed max-w-2xl">
+              From widescreen commercial films and brand documentaries to punchy vertical Reels engineered for scroll-stopping retention—explore my curated long-form and short-form video productions.
+            </p>
+
+            <!-- Software & Skill Badges -->
+            <div class="flex flex-wrap items-center gap-2.5 pt-1">
+              <!-- Pr Premiere Pro -->
+              <span class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/90 border border-ice-300 text-xs sm:text-sm font-semibold text-navy-900 shadow-sm">
+                <span class="inline-flex items-center justify-center px-1.5 py-0.5 rounded-md bg-navy-900 text-sky-300 text-[11px] font-bold leading-none">
+                  Pr
+                </span>
+                Premiere Pro
+              </span>
+
+              <!-- Ae After Effects -->
+              <span class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/90 border border-ice-300 text-xs sm:text-sm font-semibold text-navy-900 shadow-sm">
+                <span class="inline-flex items-center justify-center px-1.5 py-0.5 rounded-md bg-navy-900 text-indigo-300 text-[11px] font-bold leading-none">
+                  Ae
+                </span>
+                After Effects
+              </span>
+
+              <!-- VN VN Editor -->
+              <span class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/90 border border-ice-300 text-xs sm:text-sm font-semibold text-navy-900 shadow-sm">
+                <span class="inline-flex items-center justify-center px-1.5 py-0.5 rounded-md bg-ice-600 text-white text-[11px] font-bold leading-none">
+                  VN
+                </span>
+                VN Editor
+              </span>
+
+              <!-- Sound Design -->
+              <span class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-navy-900 text-white border border-navy-900 text-xs sm:text-sm font-semibold shadow-sm">
+                <svg class="w-4 h-4 text-sky-300 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h2l2-5 3 10 3-14 3 12 2-3h3" />
+                </svg>
+                Sound Design
+              </span>
+            </div>
+
+            <!-- Clean CTA Buttons -->
+            <div class="flex flex-wrap items-center gap-3.5 pt-2">
+              <a
+                href="#widescreen"
+                class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-navy-900 hover:bg-ice-600 text-white font-display font-bold text-sm shadow-lg shadow-navy-900/15 transition-all hover:-translate-y-0.5"
+              >
+                Widescreen Showcase
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </a>
+
+              <a
+                href="#timeline"
+                class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white/90 hover:bg-ice-100 text-navy-900 border border-ice-300 font-display font-bold text-sm transition-all hover:-translate-y-0.5"
+              >
+                Behind the Timeline
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Side Card: Production Overview -->
+          <div class="lg:col-span-5">
+            <div class="ice-card rounded-3xl p-6 sm:p-8 space-y-6">
+              <!-- Card Header -->
+              <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-ice-300/80">
+                <div class="flex items-center gap-2.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-ice-600"></span>
+                  <h2 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">
+                    Production Overview
+                  </h2>
+                </div>
+                <span class="px-3.5 py-1 rounded-full bg-navy-900 text-white text-xs font-semibold">
+                  13 Featured Cuts
+                </span>
+              </div>
+
+              <!-- Two Clean Stat Cards Side-by-Side -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Stat Card 07 -->
+                <div class="rounded-2xl bg-white/95 border border-ice-300 p-5 shadow-sm">
+                  <div class="flex items-center justify-between gap-2 mb-3">
+                    <span class="font-display font-extrabold text-3xl sm:text-4xl text-navy-900">
+                      07
+                    </span>
+                    <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-md bg-ice-100 text-navy-900 border border-ice-300">
+                      16:9
+                    </span>
+                  </div>
+                  <h3 class="font-display font-bold text-base text-navy-900">
+                    Long-Form Films
+                  </h3>
+                  <p class="text-xs text-navy-700/80 mt-1 font-medium">
+                    Commercial &amp; Narrative
+                  </p>
+                </div>
+
+                <!-- Stat Card 06 -->
+                <div class="rounded-2xl bg-white/95 border border-ice-300 p-5 shadow-sm">
+                  <div class="flex items-center justify-between gap-2 mb-3">
+                    <span class="font-display font-extrabold text-3xl sm:text-4xl text-navy-900">
+                      06
+                    </span>
+                    <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-md bg-ice-100 text-navy-900 border border-ice-300">
+                      9:16
+                    </span>
+                  </div>
+                  <h3 class="font-display font-bold text-base text-navy-900">
+                    Short-Form Reels
+                  </h3>
+                  <p class="text-xs text-navy-700/80 mt-1 font-medium">
+                    High-Retention Vertical
+                  </p>
+                </div>
+              </div>
+
+              <!-- Bottom Summary Strip Inside Card -->
+              <div class="rounded-2xl bg-ice-100/95 border border-ice-300 px-4 py-3.5 flex flex-col xs:flex-row xs:items-center justify-between gap-1.5">
+                <span class="font-display font-extrabold text-xs sm:text-sm text-navy-900">
+                  End-to-End Post Production
+                </span>
+                <span class="text-xs font-semibold text-ice-600">
+                  Pacing • Color Grading • Motion Graphics
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 2 — BEHIND THE TIMELINE (#timeline)
+         ========================================================= -->
+    <section id="timeline" class="py-16 sm:py-24 border-b border-ice-300/70">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Section Header -->
+        <div class="mb-10">
+          <span class="inline-block text-xs font-semibold uppercase tracking-[0.14em] text-navy-900 bg-ice-100 border border-ice-300 px-3.5 py-1.5 rounded-full mb-3">
+            Behind the Timeline
+          </span>
+          <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-navy-900 tracking-tight">
+            Why Pacing &amp; Sound Define Every Cut
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+
+          <!-- Left Column: Narrative + Blockquote + Studio Badge Card -->
+          <div class="lg:col-span-6 space-y-6">
+            <p class="text-navy-800/85 text-base leading-relaxed">
+              Video editing is where raw footage transforms into an emotional experience. My journey in post-production started with cutting travel films and commercial spots—discovering how a single frame cut on beat or a subtle ambient riser completely shifts how an audience feels.
+            </p>
+
+            <blockquote class="ice-card border-l-4 border-l-ice-600 p-5 sm:p-6 rounded-r-2xl">
+              <p class="font-display font-bold text-base sm:text-lg text-navy-900 leading-snug">
+                "Viewers will forgive a slightly imperfect shot, but they will never stay for poor audio or sluggish pacing. Rhythm is everything."
+              </p>
+            </blockquote>
+
+            <p class="text-navy-800/85 text-base leading-relaxed">
+              Whether building a widescreen brand commercial in Premiere Pro and After Effects or engineering a 30-second vertical hook for social feeds, I focus on intentional narrative flow, clean color grading, and dynamic motion typography.
+            </p>
+
+            <!-- Studio Badge Card -->
+            <div class="inline-flex flex-wrap items-center gap-3 px-4 py-3 rounded-2xl bg-white/90 border border-ice-300 shadow-sm">
+              <span class="w-2.5 h-2.5 rounded-full bg-navy-900"></span>
+              <span class="font-display font-extrabold text-sm text-navy-900">biwash.digiverse Post-Studio</span>
+              <span class="text-ice-300">•</span>
+              <span class="text-xs font-semibold text-ice-600">4K / 60fps Workflow</span>
+            </div>
+          </div>
+
+          <!-- Right Column: Post-Production Pillars (3 Clean Non-Interactive Feature Cards) -->
+          <div class="lg:col-span-6 space-y-5">
+            <div>
+              <h3 class="font-display font-extrabold text-xl sm:text-2xl text-navy-900">
+                Post-Production Pillars
+              </h3>
+              <p class="text-navy-800/80 text-sm sm:text-base mt-1">
+                How I structure both widescreen and vertical edits.
+              </p>
+            </div>
+
+            <div class="space-y-4">
+              <!-- Pillar 1 -->
+              <article class="ice-card p-5 sm:p-6 rounded-2xl flex items-start gap-4">
+                <div class="w-11 h-11 rounded-xl bg-ice-100 border border-ice-300 flex items-center justify-center text-ice-600 shrink-0 mt-0.5">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 10-4.243 4.243 3 3 0 004.243-4.243zm0-5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-display font-bold text-base sm:text-lg text-navy-900 mb-1.5">
+                    Retention-Driven Pacing
+                  </h4>
+                  <p class="text-navy-800/80 text-sm leading-relaxed">
+                    Pattern interrupts, J-cuts, and visual hooks timed to eliminate viewer drop-off.
+                  </p>
+                </div>
+              </article>
+
+              <!-- Pillar 2 -->
+              <article class="ice-card p-5 sm:p-6 rounded-2xl flex items-start gap-4">
+                <div class="w-11 h-11 rounded-xl bg-ice-100 border border-ice-300 flex items-center justify-center text-ice-600 shrink-0 mt-0.5">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h2l2-5 3 10 3-14 3 12 2-3h3" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-display font-bold text-base sm:text-lg text-navy-900 mb-1.5">
+                    Layered Sound Design
+                  </h4>
+                  <p class="text-navy-800/80 text-sm leading-relaxed">
+                    Crisp vocal mixing paired with tactile foley, risers, and beat-synced transitions.
+                  </p>
+                </div>
+              </article>
+
+              <!-- Pillar 3 -->
+              <article class="ice-card p-5 sm:p-6 rounded-2xl flex items-start gap-4">
+                <div class="w-11 h-11 rounded-xl bg-ice-100 border border-ice-300 flex items-center justify-center text-ice-600 shrink-0 mt-0.5">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-display font-bold text-base sm:text-lg text-navy-900 mb-1.5">
+                    Color &amp; Motion Graphics
+                  </h4>
+                  <p class="text-navy-800/80 text-sm leading-relaxed">
+                    Cinematic LUT grading and custom After Effects callouts tailored to brand identity.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 3 — WIDESCREEN SHOWCASE • 16:9 (#widescreen)
+         ========================================================= -->
+    <section id="widescreen" class="py-16 sm:py-24 border-b border-ice-300/70">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Section Header -->
+        <div class="mb-12">
+          <span class="inline-block text-xs font-semibold uppercase tracking-[0.14em] text-navy-900 bg-ice-100 border border-ice-300 px-3.5 py-1.5 rounded-full mb-3">
+            Widescreen Showcase • 16:9
+          </span>
+          <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-navy-900 tracking-tight">
+            Long-Form Edits
+          </h2>
+          <p class="text-navy-800/80 text-base mt-2 max-w-2xl">
+            Commercial advertisements, travel documentaries, and narrative films produced in widescreen format.
+          </p>
+        </div>
+
+        <!-- Responsive 2-Column Grid of 7 Widescreen 16:9 Video Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-7">
+
+          <!-- WIDESCREEN CARD 01: Nepal Tourism Cinematic Film -->
+          <article class="ice-card ice-card-hover rounded-2xl overflow-hidden flex flex-col">
+            <div class="relative aspect-video w-full bg-navy-900 border-b border-ice-300/80 overflow-hidden">
+              <iframe
+                class="w-full h-full border-0"
+                src="https://www.youtube.com/embed/19tyb-XhXls?rel=0"
+                title="Nepal Tourism Cinematic Film — BIWASH DIGIVERSE"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+
+            <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between gap-4">
+              <h3 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">
+                Nepal Tourism Cinematic Film
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">After Effects</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Premiere Pro</span>
+                <span class="px-3 py-1 rounded-lg bg-navy-900 text-white font-medium text-xs">Motion Graphics</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- WIDESCREEN CARD 02: Just Married — Full Narrative Cut -->
+          <article class="ice-card ice-card-hover rounded-2xl overflow-hidden flex flex-col">
+            <div class="relative aspect-video w-full bg-navy-900 border-b border-ice-300/80 overflow-hidden">
+              <iframe
+                class="w-full h-full border-0"
+                src="https://www.youtube.com/embed/rVbk458-62c?rel=0"
+                title="Just Married — Full Narrative Cut — BIWASH DIGIVERSE"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+
+            <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between gap-4">
+              <h3 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">
+                Just Married — Full Narrative Cut
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Premiere Pro</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Storytelling</span>
+                <span class="px-3 py-1 rounded-lg bg-navy-900 text-white font-medium text-xs">Color Grading</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- WIDESCREEN CARD 03: WorldLink Commercial Spot -->
+          <article class="ice-card ice-card-hover rounded-2xl overflow-hidden flex flex-col">
+            <div class="relative aspect-video w-full bg-navy-900 border-b border-ice-300/80 overflow-hidden">
+              <iframe
+                class="w-full h-full border-0"
+                src="https://www.youtube.com/embed/rco9nOsDHO0?rel=0"
+                title="WorldLink Commercial Spot — BIWASH DIGIVERSE"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+
+            <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between gap-4">
+              <h3 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">
+                WorldLink Commercial Spot
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">After Effects</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Motion Graphics</span>
+                <span class="px-3 py-1 rounded-lg bg-navy-900 text-white font-medium text-xs">Commercial</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- WIDESCREEN CARD 04: Nepal: Mountains & Culture -->
+          <article class="ice-card ice-card-hover rounded-2xl overflow-hidden flex flex-col">
+            <div class="relative aspect-video w-full bg-navy-900 border-b border-ice-300/80 overflow-hidden">
+              <iframe
+                class="w-full h-full border-0"
+                src="https://www.youtube.com/embed/3uE-oPOA6-E?rel=0"
+                title="Nepal: Mountains &amp; Culture — BIWASH DIGIVERSE"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+
+            <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between gap-4">
+              <h3 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">
+                Nepal: Mountains &amp; Culture
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Premiere Pro</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Cinematic</span>
+                <span class="px-3 py-1 rounded-lg bg-navy-900 text-white font-medium text-xs">Sound Design</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- WIDESCREEN CARD 05 (16:9 YouTube Link Placeholder #05) -->
+          <article class="ice-card ice-card-hover rounded-2xl overflow-hidden flex flex-col">
+            <div class="relative aspect-video w-full bg-gradient-to-br from-ice-100 via-white to-ice-200/80 border-b border-ice-300/80 flex flex-col items-center justify-center p-6 text-center">
+              <!-- Replace with <iframe src="https://www.youtube.com/embed/VIDEO_ID"> -->
+              <div class="flex flex-col items-center justify-center space-y-2.5">
+                <div class="w-12 h-12 rounded-2xl bg-navy-900 text-sky-300 flex items-center justify-center shadow-sm">
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                  </svg>
+                </div>
+                <p class="font-display font-extrabold text-sm sm:text-base text-navy-900">
+                  16:9 Widescreen Slot #05
+                </p>
+                <span class="text-xs font-semibold text-ice-600">
+                  YouTube Link Placeholder
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full bg-white/95 border border-ice-300 font-mono text-[11px] font-medium text-navy-700 shadow-sm">
+                  https://youtu.be/VIDEO_ID
+                </span>
+              </div>
+            </div>
+
+            <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between gap-4">
+              <h3 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">
+                Brand Documentary Feature #05
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Premiere Pro</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Color Grade</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- WIDESCREEN CARD 06 (16:9 YouTube Link Placeholder #06) -->
+          <article class="ice-card ice-card-hover rounded-2xl overflow-hidden flex flex-col">
+            <div class="relative aspect-video w-full bg-gradient-to-br from-ice-100 via-white to-ice-200/80 border-b border-ice-300/80 flex flex-col items-center justify-center p-6 text-center">
+              <!-- Replace with <iframe src="https://www.youtube.com/embed/VIDEO_ID"> -->
+              <div class="flex flex-col items-center justify-center space-y-2.5">
+                <div class="w-12 h-12 rounded-2xl bg-navy-900 text-sky-300 flex items-center justify-center shadow-sm">
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                  </svg>
+                </div>
+                <p class="font-display font-extrabold text-sm sm:text-base text-navy-900">
+                  16:9 Widescreen Slot #06
+                </p>
+                <span class="text-xs font-semibold text-ice-600">
+                  YouTube Link Placeholder
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full bg-white/95 border border-ice-300 font-mono text-[11px] font-medium text-navy-700 shadow-sm">
+                  https://youtu.be/VIDEO_ID
+                </span>
+              </div>
+            </div>
+
+            <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between gap-4">
+              <h3 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">
+                Product Launch Film #06
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">After Effects</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Motion Design</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- WIDESCREEN CARD 07 (16:9 YouTube Link Placeholder #07) -->
+          <article class="ice-card ice-card-hover rounded-2xl overflow-hidden flex flex-col">
+            <div class="relative aspect-video w-full bg-gradient-to-br from-ice-100 via-white to-ice-200/80 border-b border-ice-300/80 flex flex-col items-center justify-center p-6 text-center">
+              <!-- Replace with <iframe src="https://www.youtube.com/embed/VIDEO_ID"> -->
+              <div class="flex flex-col items-center justify-center space-y-2.5">
+                <div class="w-12 h-12 rounded-2xl bg-navy-900 text-sky-300 flex items-center justify-center shadow-sm">
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                  </svg>
+                </div>
+                <p class="font-display font-extrabold text-sm sm:text-base text-navy-900">
+                  16:9 Widescreen Slot #07
+                </p>
+                <span class="text-xs font-semibold text-ice-600">
+                  YouTube Link Placeholder
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full bg-white/95 border border-ice-300 font-mono text-[11px] font-medium text-navy-700 shadow-sm">
+                  https://youtu.be/VIDEO_ID
+                </span>
+              </div>
+            </div>
+
+            <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between gap-4">
+              <h3 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">
+                Event Highlight Aftermovie #07
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Premiere Pro</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Sound Design</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 4 — VERTICAL SHOWCASE • 9:16 (#vertical)
+         ========================================================= -->
+    <section id="vertical" class="py-16 sm:py-24 border-b border-ice-300/70">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Section Header -->
+        <div class="mb-12">
+          <span class="inline-block text-xs font-semibold uppercase tracking-[0.14em] text-navy-900 bg-ice-100 border border-ice-300 px-3.5 py-1.5 rounded-full mb-3">
+            Vertical Showcase • 9:16
+          </span>
+          <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-navy-900 tracking-tight">
+            Short-Form Edits
+          </h2>
+          <p class="text-navy-800/80 text-base mt-2 max-w-2xl">
+            Fast-paced Instagram Reels, YouTube Shorts, and promotional vertical cuts designed for mobile engagement.
+          </p>
+        </div>
+
+        <!-- Responsive Grid of 6 Vertical 9:16 Video Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
+
+          <!-- VERTICAL CARD 01: Swastha Nepal App Commercial (Moved to Portrait Grid) -->
+          <article class="ice-card ice-card-hover rounded-2xl overflow-hidden flex flex-col">
+            <div class="relative aspect-[9/16] w-full bg-navy-900 border-b border-ice-300/80 overflow-hidden">
+              <iframe
+                class="w-full h-full border-0"
+                src="https://www.youtube.com/embed/QxeMaMVpHvk?rel=0"
+                title="Swastha Nepal App Commercial — BIWASH DIGIVERSE"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+
+            <div class="p-5 flex-1 flex flex-col justify-between gap-3.5">
+              <h3 class="font-display font-extrabold text-base sm:text-lg text-navy-900 leading-snug">
+                Swastha Nepal App Commercial
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Premiere Pro</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">After Effects</span>
+                <span class="px-3 py-1 rounded-lg bg-navy-900 text-white font-medium text-xs">Ad Campaign</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- VERTICAL CARD 02: Premium Grooming Cut -->
+          <article class="ice-card ice-card-hover rounded-2xl overflow-hidden flex flex-col">
+            <div class="relative aspect-[9/16] w-full bg-navy-900 border-b border-ice-300/80 overflow-hidden">
+              <iframe
+                class="w-full h-full border-0"
+                src="https://www.youtube.com/embed/cZwj9T71W58?rel=0"
+                title="Premium Grooming Cut — BIWASH DIGIVERSE"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+
+            <div class="p-5 flex-1 flex flex-col justify-between gap-3.5">
+              <h3 class="font-display font-extrabold text-base sm:text-lg text-navy-900 leading-snug">
+                Premium Grooming Cut
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 rounded-lg bg-navy-900 text-white font-medium text-xs">YT Shorts</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Visual Rhythm</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- VERTICAL CARD 03 (9:16 Portrait YouTube Link Placeholder #02) -->
+          <article class="ice-card ice-card-hover rounded-2xl overflow-hidden flex flex-col">
+            <div class="relative aspect-[9/16] w-full bg-gradient-to-b from-ice-100 via-white to-ice-200/80 border-b border-ice-300/80 flex flex-col items-center justify-center p-6 text-center">
+              <!-- Replace with <iframe src="https://www.youtube.com/embed/VIDEO_ID"> -->
+              <div class="flex flex-col items-center justify-center space-y-3">
+                <div class="w-12 h-12 rounded-2xl bg-navy-900 text-sky-300 flex items-center justify-center shadow-sm">
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                  </svg>
+                </div>
+                <p class="font-display font-extrabold text-sm sm:text-base text-navy-900 leading-tight">
+                  9:16 Portrait Slot #02
+                </p>
+                <span class="text-xs font-semibold text-ice-600">
+                  YouTube Link Placeholder
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full bg-white/95 border border-ice-300 font-mono text-[11px] font-medium text-navy-700 shadow-sm">
+                  https://youtu.be/VIDEO_ID
+                </span>
+              </div>
+            </div>
+
+            <div class="p-5 flex-1 flex flex-col justify-between gap-3.5">
+              <h3 class="font-display font-extrabold text-base sm:text-lg text-navy-900 leading-snug">
+                Brand Promo Reel #02
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Instagram Reel</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Motion</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- VERTICAL CARD 04 (9:16 Portrait YouTube Link Placeholder #03) -->
+          <article class="ice-card ice-card-hover rounded-2xl overflow-hidden flex flex-col">
+            <div class="relative aspect-[9/16] w-full bg-gradient-to-b from-ice-100 via-white to-ice-200/80 border-b border-ice-300/80 flex flex-col items-center justify-center p-6 text-center">
+              <!-- Replace with <iframe src="https://www.youtube.com/embed/VIDEO_ID"> -->
+              <div class="flex flex-col items-center justify-center space-y-3">
+                <div class="w-12 h-12 rounded-2xl bg-navy-900 text-sky-300 flex items-center justify-center shadow-sm">
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                  </svg>
+                </div>
+                <p class="font-display font-extrabold text-sm sm:text-base text-navy-900 leading-tight">
+                  9:16 Portrait Slot #03
+                </p>
+                <span class="text-xs font-semibold text-ice-600">
+                  YouTube Link Placeholder
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full bg-white/95 border border-ice-300 font-mono text-[11px] font-medium text-navy-700 shadow-sm">
+                  https://youtu.be/VIDEO_ID
+                </span>
+              </div>
+            </div>
+
+            <div class="p-5 flex-1 flex flex-col justify-between gap-3.5">
+              <h3 class="font-display font-extrabold text-base sm:text-lg text-navy-900 leading-snug">
+                Dynamic Product Hook #03
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">After Effects</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">9:16 Cut</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- VERTICAL CARD 05 (9:16 Portrait YouTube Link Placeholder #04) -->
+          <article class="ice-card ice-card-hover rounded-2xl overflow-hidden flex flex-col">
+            <div class="relative aspect-[9/16] w-full bg-gradient-to-b from-ice-100 via-white to-ice-200/80 border-b border-ice-300/80 flex flex-col items-center justify-center p-6 text-center">
+              <!-- Replace with <iframe src="https://www.youtube.com/embed/VIDEO_ID"> -->
+              <div class="flex flex-col items-center justify-center space-y-3">
+                <div class="w-12 h-12 rounded-2xl bg-navy-900 text-sky-300 flex items-center justify-center shadow-sm">
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                  </svg>
+                </div>
+                <p class="font-display font-extrabold text-sm sm:text-base text-navy-900 leading-tight">
+                  9:16 Portrait Slot #04
+                </p>
+                <span class="text-xs font-semibold text-ice-600">
+                  YouTube Link Placeholder
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full bg-white/95 border border-ice-300 font-mono text-[11px] font-medium text-navy-700 shadow-sm">
+                  https://youtu.be/VIDEO_ID
+                </span>
+              </div>
+            </div>
+
+            <div class="p-5 flex-1 flex flex-col justify-between gap-3.5">
+              <h3 class="font-display font-extrabold text-base sm:text-lg text-navy-900 leading-snug">
+                Lifestyle Transition Edit #04
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Premiere Pro</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Beat Sync</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- VERTICAL CARD 06 (9:16 Portrait YouTube Link Placeholder #05) -->
+          <article class="ice-card ice-card-hover rounded-2xl overflow-hidden flex flex-col">
+            <div class="relative aspect-[9/16] w-full bg-gradient-to-b from-ice-100 via-white to-ice-200/80 border-b border-ice-300/80 flex flex-col items-center justify-center p-6 text-center">
+              <!-- Replace with <iframe src="https://www.youtube.com/embed/VIDEO_ID"> -->
+              <div class="flex flex-col items-center justify-center space-y-3">
+                <div class="w-12 h-12 rounded-2xl bg-navy-900 text-sky-300 flex items-center justify-center shadow-sm">
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                  </svg>
+                </div>
+                <p class="font-display font-extrabold text-sm sm:text-base text-navy-900 leading-tight">
+                  9:16 Portrait Slot #05
+                </p>
+                <span class="text-xs font-semibold text-ice-600">
+                  YouTube Link Placeholder
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full bg-white/95 border border-ice-300 font-mono text-[11px] font-medium text-navy-700 shadow-sm">
+                  https://youtu.be/VIDEO_ID
+                </span>
+              </div>
+            </div>
+
+            <div class="p-5 flex-1 flex flex-col justify-between gap-3.5">
+              <h3 class="font-display font-extrabold text-base sm:text-lg text-navy-900 leading-snug">
+                Social Ad Highlight #05
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">VN</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Fast Pacing</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       SECTION 5 — FOOTER (SAME AS HOMEPAGE)
+       ========================================================= -->
+  <footer class="pt-14 pb-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Frosted Footer Container -->
+      <div class="ice-glass-strong rounded-3xl p-6 sm:p-10 lg:p-12">
+
+        <!-- Top Left Bordered Badge + CTA Row -->
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-10 border-b border-ice-300/70">
+          <div class="space-y-3">
+            <span class="inline-block border border-ice-300 bg-white/80 rounded-full px-4 py-1.5 text-xs font-semibold text-navy-900">
+              Connect with me
+            </span>
+            <h2 class="font-display font-extrabold text-2xl sm:text-3xl lg:text-4xl text-navy-900 tracking-tight">
+              Let's talk about your Project
+            </h2>
+          </div>
+
+          <a
+            href="Contact.html"
+            class="inline-flex items-center justify-center gap-2.5 bg-navy-900 text-white hover:bg-ice-600 rounded-xl px-6 py-3.5 font-display font-semibold text-sm sm:text-base shadow-lg shadow-navy-900/15 transition-all hover:-translate-y-0.5 shrink-0"
+          >
+            Contact Me
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Middle Row: Two-Column Brand & Navigation Row -->
+        <div class="flex flex-col md:flex-row items-start justify-between gap-10 py-10">
+          <!-- Left Column: BIWASH DIGIVERSE Logo + 3 Bullets -->
+          <div class="space-y-5">
+            <a href="index.html" class="inline-flex items-center group focus:outline-none">
+              <img
+                src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='196' height='42' viewBox='0 0 196 42' fill='none'%3E%3Cdefs%3E%3ClinearGradient id='bdGradFooter' x1='0' y1='0' x2='42' y2='42' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%230A192F'/%3E%3Cstop offset='100%25' stop-color='%230284C7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='1' y='1' width='40' height='40' rx='11' fill='url(%23bdGradFooter)'/%3E%3Cpath d='M13 12H23.5C26.5 12 28.5 13.7 28.5 16.3C28.5 18.2 27.3 19.6 25.6 20.2C27.8 20.8 29.2 22.4 29.2 24.8C29.2 27.9 26.8 29.8 23.2 29.8H13V12ZM22.6 19.1C24.2 19.1 25.1 18.2 25.1 16.9C25.1 15.6 24.2 14.8 22.6 14.8H16.6V19.1H22.6ZM23 27C24.7 27 25.7 26.1 25.7 24.6C25.7 23.1 24.6 22.2 22.8 22.2H16.6V27H23Z' fill='white'/%3E%3Ccircle cx='33' cy='11' r='3' fill='%237DD3FC'/%3E%3Ctext x='50' y='20' fill='%230A192F' font-family='Manrope, sans-serif' font-weight='800' font-size='14.5' letter-spacing='0.06em'%3EBIWASH%3C/text%3E%3Ctext x='50' y='34' fill='%230284C7' font-family='Manrope, sans-serif' font-weight='700' font-size='10.5' letter-spacing='0.18em'%3EDIGIVERSE%3C/text%3E%3C/svg%3E"
+                alt="BIWASH DIGIVERSE Logo"
+                class="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+              />
+            </a>
+
+            <ul class="space-y-2 text-sm sm:text-base text-navy-800/85 font-medium">
+              <li>- Creative ideas, thoughtfully designed </li>
+              <li>- Purpose-driven digital solutions </li>
+              <li>- Built to make an impact </li>
+            </ul>
+          </div>
+
+          <!-- Right Column: Footer Nav Links + Tagline -->
+          <div class="flex flex-col items-start md:items-end justify-between gap-4">
+            <nav class="flex flex-wrap items-center gap-6 sm:gap-8" aria-label="Footer Navigation">
+              <a href="index.html" class="font-display font-bold text-sm sm:text-base text-navy-900 hover:text-ice-600 transition-colors">Home</a>
+              <a href="About.html" class="font-display font-bold text-sm sm:text-base text-navy-900 hover:text-ice-600 transition-colors">About</a>
+              <a href="Contact.html" class="font-display font-bold text-sm sm:text-base text-navy-900 hover:text-ice-600 transition-colors">Contact</a>
+            </nav>
+
+            <p class="font-display font-bold text-sm sm:text-base text-navy-800/85 md:text-right">
+              Think Creatively. Build Purposefully. Create Impact.
+            </p>
+          </div>
+        </div>
+
+        <!-- Horizontal Rule + Copyright Line -->
+        <hr class="border-t border-ice-300/70 mb-6" />
+
+        <div class="text-center text-xs sm:text-sm text-navy-800/75 font-medium">
+          &copy; 2026 biwash.digiverse. All rights reserved.
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       TOP NAVIGATION INTERACTIONS (DESKTOP DROPDOWN & MOBILE DRAWER)
+       ========================================================= -->
+  <script>
+    function toggleDesktopDropdown(event) {
+      if (event) event.stopPropagation();
+      const wrap = document.getElementById('portfolioDropdownWrap');
+      const btn = wrap ? wrap.querySelector('button') : null;
+      const chevron = document.getElementById('desktopDropdownChevron');
+      if (!wrap) return;
+
+      const isOpen = wrap.classList.toggle('open');
+      if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      if (chevron) chevron.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+    }
+
+    function toggleMobileDrawer() {
+      const drawer = document.getElementById('mobileDrawer');
+      const btn = document.getElementById('mobileMenuBtn');
+      const iconOpen = document.getElementById('menuIconOpen');
+      const iconClose = document.getElementById('menuIconClose');
+      if (!drawer) return;
+
+      const isHidden = drawer.classList.toggle('hidden');
+      const isExpanded = !isHidden;
+      if (btn) btn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+      if (iconOpen) iconOpen.classList.toggle('hidden', isExpanded);
+      if (iconClose) iconClose.classList.toggle('hidden', !isExpanded);
+    }
+
+    function toggleMobilePortfolio() {
+      const sub = document.getElementById('mobilePortfolioSub');
+      const chevron = document.getElementById('mobilePortfolioChevron');
+      const btn = chevron ? chevron.closest('button') : null;
+      if (!sub) return;
+
+      const isHidden = sub.classList.toggle('hidden');
+      if (btn) btn.setAttribute('aria-expanded', !isHidden ? 'true' : 'false');
+      if (chevron) chevron.style.transform = !isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+    }
+
+    // Outside click & Escape key dismissal for navigation dropdowns
+    document.addEventListener('click', (e) => {
+      const wrap = document.getElementById('portfolioDropdownWrap');
+      if (wrap && !wrap.contains(e.target) && wrap.classList.contains('open')) {
+        wrap.classList.remove('open');
+        const btn = wrap.querySelector('button');
+        const chevron = document.getElementById('desktopDropdownChevron');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+        if (chevron) chevron.style.transform = 'rotate(0deg)';
+      }
+
+      const header = document.getElementById('mainHeader');
+      const drawer = document.getElementById('mobileDrawer');
+      if (header && drawer && !header.contains(e.target) && !drawer.classList.contains('hidden')) {
+        toggleMobileDrawer();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const wrap = document.getElementById('portfolioDropdownWrap');
+        if (wrap && wrap.classList.contains('open')) {
+          wrap.classList.remove('open');
+          const btn = wrap.querySelector('button');
+          const chevron = document.getElementById('desktopDropdownChevron');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+          if (chevron) chevron.style.transform = 'rotate(0deg)';
+        }
+        const drawer = document.getElementById('mobileDrawer');
+        if (drawer && !drawer.classList.contains('hidden')) {
+          toggleMobileDrawer();
+        }
+      }
+    });
+
+    // Subtle header padding compression on scroll
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('mainHeader');
+      if (!header) return;
+      if (window.scrollY > 24) {
+        header.classList.add('pt-2', 'sm:pt-2.5');
+        header.classList.remove('pt-3', 'sm:pt-4');
+      } else {
+        header.classList.add('pt-3', 'sm:pt-4');
+        header.classList.remove('pt-2', 'sm:pt-2.5');
+      }
+    }, { passive: true });
+  </script>
+</body>
+</html>

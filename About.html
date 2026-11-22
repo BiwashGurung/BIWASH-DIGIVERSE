@@ -1,0 +1,1822 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>
+      About — BIWASH DIGIVERSE | Design, Development, Video & Cybersecurity
+    </title>
+    <meta
+      name="description"
+      content="About Biwash Gurung — Multidisciplinary Creative Designer, Full-Stack Django Developer, Video Editor, and Cybersecurity Practitioner at BIWASH DIGIVERSE."
+    />
+
+    <!-- Google Fonts: Manrope + Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          screens: {
+            fold: "280px" /* Folding phone cover screens & ultra-compact viewports */,
+            xs: "360px" /* Mini phones (iPhone SE / 13 Mini) */,
+            sm: "640px" /* Large phones & unfolded dual-screen devices */,
+            md: "768px" /* iPads & tablets portrait */,
+            lg: "1024px" /* iPads landscape & laptops */,
+            xl: "1280px" /* MacBook / Desktop */,
+            "2xl": "1536px" /* Wide Studio / Pro displays */,
+          },
+          extend: {
+            fontFamily: {
+              display: ["Manrope", "sans-serif"],
+              sans: ["Inter", "sans-serif"],
+            },
+            colors: {
+              navy: {
+                950: "#06101E",
+                900: "#0A192F",
+                800: "#112645",
+                700: "#1B3A66",
+                600: "#27508A",
+              },
+              ice: {
+                50: "#F7FAFD",
+                100: "#EEF4FA",
+                200: "#DAE6F2",
+                300: "#BDD0E3",
+                400: "#7FB5E8",
+                500: "#3898EC",
+                600: "#0284C7",
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- GSAP & ScrollTrigger for Premium Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <style>
+      /* Full-page BIWASH DIGIVERSE background */
+      html,
+      body {
+        min-height: 100%;
+        margin: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        background:
+          radial-gradient(
+            ellipse at 15% 10%,
+            rgba(189, 208, 227, 0.45) 0%,
+            transparent 45%
+          ),
+          radial-gradient(
+            ellipse at 85% 30%,
+            rgba(218, 230, 242, 0.55) 0%,
+            transparent 45%
+          ),
+          radial-gradient(
+            ellipse at 50% 90%,
+            rgba(232, 241, 250, 0.65) 0%,
+            transparent 50%
+          ),
+          linear-gradient(135deg, #ffffff 0%, #f7fafd 45%, #eef4fa 100%);
+
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-size: cover;
+        font-family: "Inter", sans-serif;
+        color: #0a192f;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      .font-display {
+        font-family: "Manrope", sans-serif;
+      }
+
+      /* Frosted Ice-Glass Surfaces */
+      .ice-glass {
+        background: rgba(255, 255, 255, 0.74);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border: 1px solid rgba(189, 208, 227, 0.65);
+        box-shadow:
+          0 14px 40px -12px rgba(10, 25, 47, 0.07),
+          inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      }
+
+      .ice-glass-strong {
+        background: rgba(255, 255, 255, 0.88);
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+        border: 1px solid rgba(189, 208, 227, 0.75);
+        box-shadow:
+          0 20px 50px -15px rgba(10, 25, 47, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 1);
+      }
+
+      .ice-card-hover {
+        transition:
+          transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+          border-color 0.38s ease;
+      }
+
+      .ice-card-hover:hover {
+        transform: translateY(-6px);
+        border-color: rgba(2, 132, 199, 0.45);
+        box-shadow:
+          0 24px 52px -14px rgba(10, 25, 47, 0.13),
+          0 0 0 1px rgba(56, 152, 236, 0.16);
+      }
+
+      /* Fluid Responsive Typography for Folding, Mini, Tablet, Mac & Desktop */
+      .hero-title {
+        font-size: clamp(1.85rem, 4.6vw, 3.85rem);
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+      }
+
+      .section-title {
+        font-size: clamp(1.6rem, 3.2vw, 2.75rem);
+        line-height: 1.16;
+        letter-spacing: -0.025em;
+      }
+
+      /* Navigation Dropdown Animation */
+      .nav-dropdown-panel {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px) scale(0.98);
+        transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .nav-dropdown-wrapper:hover .nav-dropdown-panel,
+      .nav-dropdown-wrapper:focus-within .nav-dropdown-panel,
+      .nav-dropdown-wrapper.open .nav-dropdown-panel {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+      }
+
+      /* Journey Step Badge & Active Glow */
+      .journey-step-badge {
+        background: linear-gradient(135deg, #0a192f 0%, #1b3a66 100%);
+        color: #ffffff;
+        box-shadow: 0 10px 24px -6px rgba(10, 25, 47, 0.32);
+      }
+
+      .journey-present-card {
+        background: linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.92) 0%,
+          rgba(238, 244, 250, 0.94) 100%
+        );
+        border: 1.5px solid rgba(2, 132, 199, 0.48);
+        box-shadow:
+          0 22px 54px -14px rgba(2, 132, 199, 0.18),
+          inset 0 1px 0 rgba(255, 255, 255, 1);
+      }
+
+      /* Animated Scroll Progress Line on Journey Timeline */
+      .timeline-rail {
+        background: rgba(189, 208, 227, 0.55);
+      }
+
+      .timeline-rail-fill {
+        background: linear-gradient(
+          180deg,
+          #0a192f 0%,
+          #0284c7 65%,
+          #38bdf8 100%
+        );
+        transform-origin: top center;
+      }
+
+      /* Pulse Indicator */
+      @keyframes pulseDot {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.45);
+          opacity: 0.5;
+        }
+      }
+
+      .live-dot {
+        animation: pulseDot 2s ease-in-out infinite;
+      }
+
+      /* Folding & Dual-Screen Hardware Adaptation */
+      @media (max-width: 340px) {
+        .hero-title {
+          font-size: 1.65rem;
+        }
+      }
+
+      @media (horizontal-viewport-segments: 2) {
+        .dual-screen-grid {
+          gap: env(viewport-segment-width 0 0, 2rem);
+        }
+      }
+    </style>
+  </head>
+  <body class="selection:bg-ice-600 selection:text-white">
+    <!-- ==================== TOP NAVIGATION BAR ==================== -->
+    <header
+      id="mainHeader"
+      class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-3 xs:px-4 sm:px-6 lg:px-10 pt-3 sm:pt-4"
+    >
+      <nav
+        class="max-w-7xl mx-auto ice-glass-strong rounded-2xl px-3.5 xs:px-5 sm:px-7 py-3 flex items-center justify-between relative"
+        aria-label="Primary Navigation"
+      >
+        <!-- LEFT: Brand Logo (<img> form) -->
+        <a
+          href="index.html"
+          class="flex items-center gap-2.5 shrink-0 group focus:outline-none"
+        >
+          <img
+            src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='196' height='42' viewBox='0 0 196 42' fill='none'%3E%3Cdefs%3E%3ClinearGradient id='bdGrad' x1='0' y1='0' x2='42' y2='42' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%230A192F'/%3E%3Cstop offset='100%25' stop-color='%230284C7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='1' y='1' width='40' height='40' rx='11' fill='url(%23bdGrad)'/%3E%3Cpath d='M13 12H23.5C26.5 12 28.5 13.7 28.5 16.3C28.5 18.2 27.3 19.6 25.6 20.2C27.8 20.8 29.2 22.4 29.2 24.8C29.2 27.9 26.8 29.8 23.2 29.8H13V12ZM22.6 19.1C24.2 19.1 25.1 18.2 25.1 16.9C25.1 15.6 24.2 14.8 22.6 14.8H16.6V19.1H22.6ZM23 27C24.7 27 25.7 26.1 25.7 24.6C25.7 23.1 24.6 22.2 22.8 22.2H16.6V27H23Z' fill='white'/%3E%3Ccircle cx='33' cy='11' r='3' fill='%237DD3FC'/%3E%3Ctext x='50' y='20' fill='%230A192F' font-family='Manrope, sans-serif' font-weight='800' font-size='14.5' letter-spacing='0.06em'%3EBIWASH%3C/text%3E%3Ctext x='50' y='34' fill='%230284C7' font-family='Manrope, sans-serif' font-weight='700' font-size='10.5' letter-spacing='0.18em'%3EDIGIVERSE%3C/text%3E%3C/svg%3E"
+            alt="BIWASH DIGIVERSE Logo"
+            class="h-8 xs:h-9 sm:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+          />
+        </a>
+
+        <!-- CENTER: 4 Nav Menus -->
+        <ul class="hidden lg:flex items-center gap-1 xl:gap-2">
+          <li>
+            <a
+              href="index.html"
+              class="px-4 py-2 rounded-xl text-sm font-medium text-navy-800/80 hover:text-navy-900 hover:bg-ice-100/80 transition-all"
+            >
+              Home 
+            </a>
+          </li>
+          <li>
+            <a
+              href="About.html"
+              aria-current="page"
+              class="px-4 py-2 rounded-xl text-sm font-semibold text-navy-900 bg-ice-100/95 border border-ice-300/70 transition-all"
+            >
+              About 
+            </a>
+          </li>
+          <li class="relative nav-dropdown-wrapper" id="portfolioDropdownWrap">
+            <button
+              type="button"
+              onclick="toggleDesktopDropdown(event)"
+              class="px-4 py-2 rounded-xl text-sm font-medium text-navy-800/80 hover:text-navy-900 hover:bg-ice-100/80 transition-all inline-flex items-center gap-1.5"
+              aria-expanded="false"
+              aria-haspopup="true"
+            >
+              <span>Portfolio</span>
+              <svg
+                class="w-4 h-4 text-ice-600 transition-transform duration-200"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+
+            <!-- Portfolio Dropdown Menu (4 Sub-Menus) -->
+            <div
+              class="nav-dropdown-panel absolute left-1/2 -translate-x-1/2 top-full pt-3 w-72 z-50"
+            >
+              <div
+                class="ice-glass-strong rounded-2xl p-2.5 shadow-2xl border border-ice-300/80"
+              >
+                <a
+                  href="Portfolio/Graphics.html"
+                  class="flex items-start gap-3 p-3 rounded-xl hover:bg-ice-100/90 transition-colors group"
+                >
+                  <span
+                    class="w-7 h-7 rounded-lg bg-navy-900 text-white text-xs font-display font-bold flex items-center justify-center shrink-0 group-hover:bg-ice-600 transition-colors"
+                    >1</span
+                  >
+                  <div>
+                    <p class="text-sm font-display font-bold text-navy-900">
+                      Graphic Designs
+                    </p>
+                    <p class="text-xs text-navy-700/75">
+                      Brand Identity, Packaging & Ad Systems
+                    </p>
+                  </div>
+                </a>
+                <a
+                  href="Portfolio/videoediting.html"
+                  class="flex items-start gap-3 p-3 rounded-xl hover:bg-ice-100/90 transition-colors group"
+                >
+                  <span
+                    class="w-7 h-7 rounded-lg bg-navy-900 text-white text-xs font-display font-bold flex items-center justify-center shrink-0 group-hover:bg-ice-600 transition-colors"
+                    >2</span
+                  >
+                  <div>
+                    <p class="text-sm font-display font-bold text-navy-900">
+                      Video Editing
+                    </p>
+                    <p class="text-xs text-navy-700/75">
+                      Cinematic Cuts, UGC & Web Series Dubbing
+                    </p>
+                  </div>
+                </a>
+                <a
+                  href="Portfolio/webdev.html"
+                  class="flex items-start gap-3 p-3 rounded-xl hover:bg-ice-100/90 transition-colors group"
+                >
+                  <span
+                    class="w-7 h-7 rounded-lg bg-navy-900 text-white text-xs font-display font-bold flex items-center justify-center shrink-0 group-hover:bg-ice-600 transition-colors"
+                    >3</span
+                  >
+                  <div>
+                    <p class="text-sm font-display font-bold text-navy-900">
+                      Web Development
+                    </p>
+                    <p class="text-xs text-navy-700/75">
+                      Full-Stack Python, Django & UI Systems
+                    </p>
+                  </div>
+                </a>
+                <a
+                  href="Portfolio/cybersecurity.html"
+                  class="flex items-start gap-3 p-3 rounded-xl hover:bg-ice-100/90 transition-colors group"
+                >
+                  <span
+                    class="w-7 h-7 rounded-lg bg-navy-900 text-white text-xs font-display font-bold flex items-center justify-center shrink-0 group-hover:bg-ice-600 transition-colors"
+                    >4</span
+                  >
+                  <div>
+                    <p class="text-sm font-display font-bold text-navy-900">
+                      Cybersecurity
+                    </p>
+                    <p class="text-xs text-navy-700/75">
+                      Recon, Vulnerability Audits & Packet Labs
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <a
+              href="Contact.html"
+              class="px-4 py-2 rounded-xl text-sm font-medium text-navy-800/80 hover:text-navy-900 hover:bg-ice-100/80 transition-all"
+            >
+              Contact 
+            </a>
+          </li>
+        </ul>
+
+        <!-- RIGHT: Status Pill (XL+) & Mobile Hamburger -->
+        <div class="flex items-center gap-2.5">
+          <span
+            class="hidden xl:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-ice-100 text-navy-900 border border-ice-300/80"
+          >
+            <span class="w-2 h-2 rounded-full bg-sky-500 live-dot"></span>
+            Design · Dev · CyberSec
+          </span>
+
+          <button
+            id="mobileMenuBtn"
+            type="button"
+            onclick="toggleMobileDrawer()"
+            class="lg:hidden p-2 rounded-xl bg-ice-100/90 text-navy-900 hover:bg-ice-200 transition-colors focus:outline-none"
+            aria-label="Toggle Navigation Menu"
+            aria-expanded="false"
+          >
+            <svg
+              id="menuIconOpen"
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+            <svg
+              id="menuIconClose"
+              class="w-5 h-5 hidden"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Mobile / Tablet / Folding Device Drawer -->
+      <div
+        id="mobileDrawer"
+        class="lg:hidden hidden max-w-7xl mx-auto mt-2 ice-glass-strong rounded-2xl p-4 shadow-xl border border-ice-300/80"
+      >
+        <div class="flex flex-col space-y-1.5">
+          <a
+            href="index.html"
+            class="px-4 py-2.5 rounded-xl text-sm font-semibold text-navy-900 hover:bg-ice-100"
+            >1. Home Page</a
+          >
+          <a
+            href="about.html"
+            aria-current="page"
+            class="px-4 py-2.5 rounded-xl text-sm font-bold text-navy-900 bg-ice-100 border border-ice-300/70"
+            >2. About Page</a
+          >
+
+          <!-- Mobile Portfolio Accordion -->
+          <div
+            class="rounded-xl bg-ice-50/90 border border-ice-200/80 overflow-hidden"
+          >
+            <button
+              type="button"
+              onclick="toggleMobilePortfolio()"
+              class="w-full px-4 py-2.5 flex items-center justify-between text-sm font-semibold text-navy-900"
+            >
+              <span>3. Portfolio Page</span>
+              <svg
+                id="mobilePortfolioChevron"
+                class="w-4 h-4 text-ice-600 transition-transform duration-200"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+            <div
+              id="mobilePortfolioSub"
+              class="hidden px-3 pb-3 pt-1 space-y-1 border-t border-ice-200/70"
+            >
+              <a
+                href="portfolio.html#graphic-designs"
+                class="block px-3 py-2 rounded-lg text-xs font-semibold text-navy-800 hover:bg-ice-200/60"
+                >1. Graphic Designs</a
+              >
+              <a
+                href="portfolio.html#video-editing"
+                class="block px-3 py-2 rounded-lg text-xs font-semibold text-navy-800 hover:bg-ice-200/60"
+                >2. Video Editing</a
+              >
+              <a
+                href="portfolio.html#web-development"
+                class="block px-3 py-2 rounded-lg text-xs font-semibold text-navy-800 hover:bg-ice-200/60"
+                >3. Web Development</a
+              >
+              <a
+                href="portfolio.html#cybersecurity"
+                class="block px-3 py-2 rounded-lg text-xs font-semibold text-navy-800 hover:bg-ice-200/60"
+                >4. Cybersecurity</a
+              >
+            </div>
+          </div>
+
+          <a
+            href="contact.html"
+            class="px-4 py-2.5 rounded-xl text-sm font-semibold text-navy-900 hover:bg-ice-100"
+            >4. Contact Page</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <!-- ==================== MAIN CONTENT: ABOUT PAGE ==================== -->
+    <main class="pt-24 sm:pt-28 lg:pt-32">
+      <!-- ================================================================ -->
+      <!-- 1. HERO SECTION                                                  -->
+      <!-- ================================================================ -->
+      <section
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-5 sm:pt-10 pb-14 sm:pb-20"
+      >
+        <div
+          class="ice-glass rounded-3xl p-6 xs:p-8 sm:p-12 lg:p-16 relative overflow-hidden"
+        >
+          <!-- Ambient Ice-Blue Glow Orbs -->
+          <div
+            class="pointer-events-none absolute -top-24 -right-24 w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-gradient-to-br from-ice-300/45 to-ice-500/20 blur-3xl"
+          ></div>
+          <div
+            class="pointer-events-none absolute -bottom-24 -left-20 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-gradient-to-tr from-navy-900/10 to-ice-400/25 blur-3xl"
+          ></div>
+
+          <div
+            class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center dual-screen-grid"
+          >
+            <!-- Left / Main Bio Copy -->
+            <div class="lg:col-span-8">
+              <div
+                class="about-hero-stagger inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 border border-ice-300 text-xs font-display font-extrabold tracking-widest uppercase text-navy-900 mb-5 shadow-sm"
+              >
+                <span class="w-2 h-2 rounded-full bg-ice-600"></span>
+                About Me
+              </div>
+
+              <h1
+                class="about-hero-stagger hero-title font-display font-extrabold text-navy-900 mb-6"
+              >
+                I design, build &amp; <br class="hidden sm:inline" />
+                <span
+                  class="bg-gradient-to-r from-navy-900 via-ice-600 to-navy-700 bg-clip-text text-transparent"
+                >
+                  secure digital experiences.
+                </span>
+              </h1>
+
+              <div
+                class="about-hero-stagger space-y-4 text-sm xs:text-base sm:text-lg text-navy-800/85 leading-relaxed max-w-3xl"
+              >
+                <p>
+                  Hi, I'm
+                  <strong class="text-navy-900 font-semibold"
+                    >Biwash Gurung</strong
+                  >
+                  — a multidisciplinary designer, developer, and emerging
+                  <strong class="text-navy-900 font-semibold"
+                    >cybersecurity practitioner</strong
+                  >
+                  from Pokhara, Nepal. I graduated from
+                  <strong class="text-navy-900 font-semibold"
+                    >London Metropolitan University</strong
+                  >
+                  with a
+                  <strong class="text-navy-900 font-semibold"
+                    >Bachelor's degree in Computing</strong
+                  >, building a strong foundation in software development,
+                  networking, problem-solving, and digital technologies.
+                </p>
+                <p>
+                  I work across graphic design, UI/UX design, web development,
+                  branding, video editing, and cybersecurity. Currently, I work
+                  as a
+                  <strong class="text-navy-900 font-semibold"
+                    >Creative Designer at Swopu Creation</strong
+                  >
+                  creating visual solutions for local and international brands,
+                  while actively transitioning my career into
+                  <strong class="text-navy-900 font-semibold"
+                    >Cyber Security</strong
+                  >. I enjoy combining creativity, resilient engineering, and
+                  security awareness to craft digital experiences that look
+                  good, work well, stay safe, and communicate with purpose.
+                </p>
+              </div>
+
+              <!-- 5 Discipline Badges -->
+              <div
+                class="about-hero-stagger flex flex-wrap gap-2.5 sm:gap-3 mt-8 pt-7 border-t border-ice-200/90"
+              >
+                <span
+                  class="px-4 py-2 rounded-xl bg-white/95 border border-ice-300/90 text-xs sm:text-sm font-display font-bold text-navy-900 shadow-sm hover:border-ice-600 hover:-translate-y-0.5 transition-all"
+                >
+                  Graphic Design
+                </span>
+                <span
+                  class="px-4 py-2 rounded-xl bg-white/95 border border-ice-300/90 text-xs sm:text-sm font-display font-bold text-navy-900 shadow-sm hover:border-ice-600 hover:-translate-y-0.5 transition-all"
+                >
+                  UI/UX Design
+                </span>
+                <span
+                  class="px-4 py-2 rounded-xl bg-white/95 border border-ice-300/90 text-xs sm:text-sm font-display font-bold text-navy-900 shadow-sm hover:border-ice-600 hover:-translate-y-0.5 transition-all"
+                >
+                  Video Editing
+                </span>
+                <span
+                  class="px-4 py-2 rounded-xl bg-white/95 border border-ice-300/90 text-xs sm:text-sm font-display font-bold text-navy-900 shadow-sm hover:border-ice-600 hover:-translate-y-0.5 transition-all"
+                >
+                  Web Development
+                </span>
+                <span
+                  class="px-4 py-2 rounded-xl bg-gradient-to-r from-navy-900 to-ice-600 text-white text-xs sm:text-sm font-display font-bold shadow-md hover:-translate-y-0.5 transition-all inline-flex items-center gap-1.5"
+                >
+                  <span
+                    class="w-1.5 h-1.5 rounded-full bg-sky-300 live-dot"
+                  ></span>
+                  Cyber Sec
+                </span>
+              </div>
+            </div>
+
+            <!-- Right Profile & Trajectory Card -->
+            <div class="lg:col-span-4 about-hero-stagger">
+              <div
+                class="ice-glass-strong rounded-3xl p-6 sm:p-7 border border-ice-300/85 space-y-5"
+              >
+                <div class="flex items-center gap-3.5">
+                  <div
+                    class="w-14 h-14 rounded-2xl bg-gradient-to-br from-navy-900 to-ice-600 text-white font-display font-extrabold text-xl flex items-center justify-center shadow-lg shrink-0"
+                  >
+                    BG
+                  </div>
+                  <div>
+                    <h2
+                      class="font-display font-extrabold text-lg text-navy-900"
+                    >
+                      Biwash Gurung
+                    </h2>
+                    <p class="text-xs font-semibold text-ice-600">
+                      Pokhara, Nepal · Global Remote
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="space-y-3 pt-2 border-t border-ice-200/80 text-xs sm:text-sm"
+                >
+                  <div class="flex items-start justify-between gap-2">
+                    <span class="text-navy-700/75 font-medium">Degree</span>
+                    <span
+                      class="font-display font-bold text-navy-900 text-right"
+                      >BSc (Hons) Computing<br /><span
+                        class="text-[11px] font-normal text-navy-700"
+                        >London Metropolitan Univ.</span
+                      ></span
+                    >
+                  </div>
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="text-navy-700/75 font-medium">Networking</span>
+                    <span class="font-display font-bold text-navy-900"
+                      >L4 &amp; L5 + Cisco CCNA</span
+                    >
+                  </div>
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="text-navy-700/75 font-medium"
+                      >Current Focus</span
+                    >
+                    <span class="font-display font-bold text-ice-600"
+                      >Cyber Security Transition</span
+                    >
+                  </div>
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="text-navy-700/75 font-medium"
+                      >Active Role</span
+                    >
+                    <span class="font-display font-bold text-navy-900"
+                      >Creative Designer @ Swopu</span
+                    >
+                  </div>
+                </div>
+
+                <a
+                  href="#my-journey"
+                  class="w-full py-3 px-4 rounded-xl bg-navy-900 text-white font-display font-bold text-xs sm:text-sm hover:bg-ice-600 transition-colors flex items-center justify-center gap-2"
+                >
+                  <span>Explore My Journey</span>
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.3"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================ -->
+      <!-- 2. MY JOURNEY (FROM COMPUTING & CREATIVE CRAFT TO CYBER SECURITY)-->
+      <!-- ================================================================ -->
+      <section
+        id="my-journey"
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-16 reveal-section"
+      >
+        <div class="max-w-3xl mb-10 sm:mb-14">
+          <span
+            class="text-xs font-display font-extrabold uppercase tracking-[0.2em] text-ice-600 block mb-2.5"
+          >
+            My Journey
+          </span>
+          <h2
+            class="section-title font-display font-extrabold text-navy-900 mb-3.5"
+          >
+            From Computing &amp; Creative Craft to Cyber Security
+          </h2>
+          <p
+            class="text-sm sm:text-base lg:text-lg text-navy-800/80 leading-relaxed"
+          >
+            My path began with a childhood fascination for how systems and cyber
+            attacks work, evolved through formal Computing &amp; Networking
+            education, expanded into full-stack web development, branding, and
+            video production, and now converges into
+            <strong class="text-navy-900 font-semibold">Cyber Security</strong>.
+          </p>
+        </div>
+
+        <!-- Vertical Animated Journey Timeline -->
+        <div
+          id="journeyTimelineContainer"
+          class="relative space-y-7 sm:space-y-9"
+        >
+          <!-- Vertical Track Line (Desktop/Tablet) -->
+          <div
+            class="hidden md:block absolute left-7 top-6 bottom-6 w-1 rounded-full timeline-rail overflow-hidden"
+          >
+            <div
+              id="journeyProgressFill"
+              class="w-full h-full timeline-rail-fill scale-y-0"
+            ></div>
+          </div>
+
+          <!-- STEP 1: EDUCATION (Grade 8 Curiosity + BSc Computing + L4/L5 Networking + Cisco CCNA) -->
+          <article class="journey-card relative md:pl-20">
+            <div
+              class="hidden md:flex absolute left-1.5 top-7 w-12 h-12 rounded-2xl journey-step-badge font-display font-extrabold text-sm items-center justify-center z-10"
+            >
+              01
+            </div>
+            <div class="ice-glass ice-card-hover rounded-3xl p-6 sm:p-8 lg:p-9">
+              <div
+                class="flex flex-wrap items-center justify-between gap-2 mb-3"
+              >
+                <span
+                  class="px-3 py-1 rounded-full bg-ice-100 text-ice-600 font-display font-extrabold text-xs uppercase tracking-wider border border-ice-300/70"
+                >
+                  Education &amp; Early Roots
+                </span>
+                <span class="text-xs font-display font-bold text-navy-700/75">
+                  Grade 8 Curiosity → BSc Computing · Cisco CCNA
+                </span>
+              </div>
+              <h3
+                class="font-display font-extrabold text-xl sm:text-2xl text-navy-900 mb-3.5"
+              >
+                Building a Foundation in Computing, Networking &amp; Cyber
+                Curiosity
+              </h3>
+              <div
+                class="space-y-3 text-sm sm:text-base text-navy-800/85 leading-relaxed"
+              >
+                <p>
+                  My interest in cybersecurity started long before
+                  university—back in
+                  <strong class="text-navy-900 font-semibold">Grade 8</strong>,
+                  when I was deeply curious about how hacking works, how
+                  phishing lures deceive users, and the mechanics behind
+                  everyday cyber attacks. That early curiosity inspired me to
+                  understand technology from the inside out.
+                </p>
+                <p>
+                  I went on to graduate from
+                  <strong class="text-navy-900 font-semibold"
+                    >London Metropolitan University</strong
+                  >
+                  with a
+                  <strong class="text-navy-900 font-semibold"
+                    >Bachelor's degree in Computing</strong
+                  >, developing a strong foundation in software development,
+                  programming, problem-solving, databases, and digital
+                  technologies. Throughout my degree, I was especially drawn to
+                  the
+                  <strong class="text-navy-900 font-semibold"
+                    >Networking modules</strong
+                  >—gaining advanced knowledge across both
+                  <strong class="text-navy-900 font-semibold"
+                    >Level 4 and Level 5</strong
+                  >—and during my summer break I also studied
+                  <strong class="text-navy-900 font-semibold"
+                    >CCNA (Cisco)</strong
+                  >, which gave me practical clarity in network protocols,
+                  routing, and infrastructure defense.
+                </p>
+              </div>
+              <div
+                class="flex flex-wrap gap-2 mt-5 pt-4 border-t border-ice-200/80"
+              >
+                <span
+                  class="px-3 py-1 rounded-lg bg-white/90 border border-ice-300/70 text-xs font-display font-bold text-navy-900"
+                  >BSc Computing (London Met)</span
+                >
+                <span
+                  class="px-3 py-1 rounded-lg bg-white/90 border border-ice-300/70 text-xs font-display font-bold text-navy-900"
+                  >Level 4 &amp; 5 Networking</span
+                >
+                <span
+                  class="px-3 py-1 rounded-lg bg-white/90 border border-ice-300/70 text-xs font-display font-bold text-navy-900"
+                  >Cisco CCNA Foundations</span
+                >
+                <span
+                  class="px-3 py-1 rounded-lg bg-white/90 border border-ice-300/70 text-xs font-display font-bold text-navy-900"
+                  >Phishing &amp; Attack Mechanics</span
+                >
+              </div>
+            </div>
+          </article>
+
+          <!-- STEP 2: WEB DEVELOPMENT -->
+          <article class="journey-card relative md:pl-20">
+            <div
+              class="hidden md:flex absolute left-1.5 top-7 w-12 h-12 rounded-2xl journey-step-badge font-display font-extrabold text-sm items-center justify-center z-10"
+            >
+              02
+            </div>
+            <div class="ice-glass ice-card-hover rounded-3xl p-6 sm:p-8 lg:p-9">
+              <div
+                class="flex flex-wrap items-center justify-between gap-2 mb-3"
+              >
+                <span
+                  class="px-3 py-1 rounded-full bg-ice-100 text-ice-600 font-display font-extrabold text-xs uppercase tracking-wider border border-ice-300/70"
+                >
+                  Web Development
+                </span>
+                <span class="text-xs font-display font-bold text-navy-700/75">
+                  300+ Real Bookings Processed
+                </span>
+              </div>
+              <h3
+                class="font-display font-extrabold text-xl sm:text-2xl text-navy-900 mb-3.5"
+              >
+                Turning Ideas into Functional Experiences
+              </h3>
+              <div
+                class="space-y-3 text-sm sm:text-base text-navy-800/85 leading-relaxed"
+              >
+                <p>
+                  I began developing responsive websites and web applications
+                  using technologies including
+                  <strong class="text-navy-900 font-semibold"
+                    >Python, Django, MySQL, HTML, CSS, JavaScript, and
+                    Bootstrap</strong
+                  >. Working on real-world projects helped me understand how
+                  thoughtful development can turn an idea into a useful digital
+                  product.
+                </p>
+                <p>
+                  One of my key projects was a fully responsive grooming booking
+                  platform for
+                  <strong class="text-navy-900 font-semibold"
+                    >Little Heart Pet Shop</strong
+                  >. The platform combined frontend design, backend development,
+                  database management, deployment, and booking functionality and
+                  has successfully processed
+                  <strong class="text-ice-600 font-bold">300+ bookings</strong>.
+                </p>
+              </div>
+              <div
+                class="flex flex-wrap gap-2 mt-5 pt-4 border-t border-ice-200/80"
+              >
+                <span
+                  class="px-3 py-1 rounded-lg bg-white/90 border border-ice-300/70 text-xs font-display font-bold text-navy-900"
+                  >Python &amp; Django</span
+                >
+                <span
+                  class="px-3 py-1 rounded-lg bg-white/90 border border-ice-300/70 text-xs font-display font-bold text-navy-900"
+                  >MySQL</span
+                >
+                <span
+                  class="px-3 py-1 rounded-lg bg-white/90 border border-ice-300/70 text-xs font-display font-bold text-navy-900"
+                  >HTML · CSS · JS · Bootstrap</span
+                >
+              </div>
+            </div>
+          </article>
+
+          <!-- STEP 3: VISUAL DESIGN (MERGED WITH CREATIVE DESIGNER AT SWOPU CREATION) -->
+          <article class="journey-card relative md:pl-20">
+            <div
+              class="hidden md:flex absolute left-1.5 top-7 w-12 h-12 rounded-2xl journey-step-badge font-display font-extrabold text-sm items-center justify-center z-10"
+            >
+              03
+            </div>
+            <div class="ice-glass ice-card-hover rounded-3xl p-6 sm:p-8 lg:p-9">
+              <div
+                class="flex flex-wrap items-center justify-between gap-2 mb-3"
+              >
+                <span
+                  class="px-3 py-1 rounded-full bg-ice-100 text-ice-600 font-display font-extrabold text-xs uppercase tracking-wider border border-ice-300/70"
+                >
+                  Visual Design &amp; Brand Systems
+                </span>
+                <span class="text-xs font-display font-bold text-navy-700/75">
+                  Angee's Snacks · Swopu Creation
+                </span>
+              </div>
+              <h3
+                class="font-display font-extrabold text-xl sm:text-2xl text-navy-900 mb-3.5"
+              >
+                Moving into Branding, Graphic Design &amp; Global Visual
+                Solutions
+              </h3>
+              <div
+                class="space-y-3 text-sm sm:text-base text-navy-800/85 leading-relaxed"
+              >
+                <p>
+                  As my technical experience developed, I expanded into graphic
+                  design and branding. At
+                  <strong class="text-navy-900 font-semibold"
+                    >Angee's Snacks</strong
+                  >, I worked on brand identity, logo design, typography, colour
+                  systems, packaging, mockups, and promotional visuals. This
+                  experience strengthened my understanding of visual
+                  communication and taught me how consistent design can help a
+                  brand establish recognition, trust, and personality.
+                </p>
+                <p>
+                  Working as a
+                  <strong class="text-navy-900 font-semibold"
+                    >Creative Designer at Swopu Creation</strong
+                  >, I continue designing creative visual solutions, brand
+                  assets, and marketing collateral for local and international
+                  brands across diverse industries—where my background in web
+                  development and UI/UX allows me to approach every digital
+                  project from both the visual and technical side.
+                </p>
+              </div>
+              <div
+                class="flex flex-wrap gap-2 mt-5 pt-4 border-t border-ice-200/80"
+              >
+                <span
+                  class="px-3 py-1 rounded-lg bg-white/90 border border-ice-300/70 text-xs font-display font-bold text-navy-900"
+                  >Brand Identity &amp; Logos</span
+                >
+                <span
+                  class="px-3 py-1 rounded-lg bg-white/90 border border-ice-300/70 text-xs font-display font-bold text-navy-900"
+                  >Packaging &amp; Mockups</span
+                >
+                <span
+                  class="px-3 py-1 rounded-lg bg-white/90 border border-ice-300/70 text-xs font-display font-bold text-navy-900"
+                  >Swopu Creation</span
+                >
+                <span
+                  class="px-3 py-1 rounded-lg bg-white/90 border border-ice-300/70 text-xs font-display font-bold text-navy-900"
+                  >UI/UX Systems</span
+                >
+              </div>
+            </div>
+          </article>
+
+          <!-- STEP 4: CREATIVE PRODUCTION -->
+          <article class="journey-card relative md:pl-20">
+            <div
+              class="hidden md:flex absolute left-1.5 top-7 w-12 h-12 rounded-2xl journey-step-badge font-display font-extrabold text-sm items-center justify-center z-10"
+            >
+              04
+            </div>
+            <div class="ice-glass ice-card-hover rounded-3xl p-6 sm:p-8 lg:p-9">
+              <div
+                class="flex flex-wrap items-center justify-between gap-2 mb-3"
+              >
+                <span
+                  class="px-3 py-1 rounded-full bg-ice-100 text-ice-600 font-display font-extrabold text-xs uppercase tracking-wider border border-ice-300/70"
+                >
+                  Creative Production
+                </span>
+                <span class="text-xs font-display font-bold text-navy-700/75">
+                  100+ Videos · Web Series Dubbing Sync
+                </span>
+              </div>
+              <h3
+                class="font-display font-extrabold text-xl sm:text-2xl text-navy-900 mb-3.5"
+              >
+                Combining Design with Video &amp; Audio Post-Production
+              </h3>
+              <div
+                class="space-y-3 text-sm sm:text-base text-navy-800/85 leading-relaxed"
+              >
+                <p>
+                  My creative work expanded into video editing, social media
+                  content, and motion graphics. While working with
+                  <strong class="text-navy-900 font-semibold"
+                    >Little Heart Pet Shop</strong
+                  >, I filmed and edited more than
+                  <strong class="text-ice-600 font-bold"
+                    >100 dog grooming videos</strong
+                  >
+                  and created promotional graphics for digital platforms.
+                </p>
+                <p>
+                  I also worked with
+                  <strong class="text-navy-900 font-semibold"
+                    >Infinitum Network Solutions</strong
+                  >
+                  as a
+                  <strong class="text-navy-900 font-semibold"
+                    >Video Editor</strong
+                  >
+                  on a web series, where I managed, synchronized, enhanced, and
+                  integrated audio recorded by voice artists to ensure seamless
+                  audio-video synchronization and a polished final production.
+                </p>
+              </div>
+              <div
+                class="flex flex-wrap gap-2 mt-5 pt-4 border-t border-ice-200/80"
+              >
+                <span
+                  class="px-3 py-1 rounded-lg bg-white/90 border border-ice-300/70 text-xs font-display font-bold text-navy-900"
+                  >Premiere Pro &amp; After Effects</span
+                >
+                <span
+                  class="px-3 py-1 rounded-lg bg-white/90 border border-ice-300/70 text-xs font-display font-bold text-navy-900"
+                  >VN Video Production</span
+                >
+                <span
+                  class="px-3 py-1 rounded-lg bg-white/90 border border-ice-300/70 text-xs font-display font-bold text-navy-900"
+                  >Voice Dubbing Sync</span
+                >
+              </div>
+            </div>
+          </article>
+
+          <!-- STEP 5: FIELDS & INDUSTRIES -->
+          <article class="journey-card relative md:pl-20">
+            <div
+              class="hidden md:flex absolute left-1.5 top-7 w-12 h-12 rounded-2xl journey-step-badge font-display font-extrabold text-sm items-center justify-center z-10"
+            >
+              05
+            </div>
+            <div class="ice-glass ice-card-hover rounded-3xl p-6 sm:p-8 lg:p-9">
+              <div
+                class="flex flex-wrap items-center justify-between gap-2 mb-3"
+              >
+                <span
+                  class="px-3 py-1 rounded-full bg-ice-100 text-ice-600 font-display font-extrabold text-xs uppercase tracking-wider border border-ice-300/70"
+                >
+                  Fields &amp; Industries
+                </span>
+                <span class="text-xs font-display font-bold text-navy-700/75">
+                  Cross-Sector Adaptability
+                </span>
+              </div>
+              <h3
+                class="font-display font-extrabold text-xl sm:text-2xl text-navy-900 mb-3"
+              >
+                Creating Across Different Industries
+              </h3>
+              <p
+                class="text-sm sm:text-base text-navy-800/85 leading-relaxed mb-6"
+              >
+                Over time, my work has expanded across a wide range of
+                industries, allowing me to adapt my creative and technical
+                skills to different audiences, brands, and business
+                requirements.
+              </p>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div
+                  class="p-4 sm:p-5 rounded-2xl bg-white/85 border border-ice-200/90"
+                >
+                  <h4
+                    class="font-display font-extrabold text-sm sm:text-base text-navy-900 mb-1.5 flex items-center gap-2"
+                  >
+                    <span class="w-2 h-2 rounded-full bg-ice-600"></span>
+                    Graphic Design
+                  </h4>
+                  <p
+                    class="text-xs sm:text-sm text-navy-800/80 leading-relaxed"
+                  >
+                    Pet shops, pet treat businesses, technology companies,
+                    sports, finance, real estate, music, local clubs, travel
+                    agencies, healthcare, and restaurants.
+                  </p>
+                </div>
+
+                <div
+                  class="p-4 sm:p-5 rounded-2xl bg-white/85 border border-ice-200/90"
+                >
+                  <h4
+                    class="font-display font-extrabold text-sm sm:text-base text-navy-900 mb-1.5 flex items-center gap-2"
+                  >
+                    <span class="w-2 h-2 rounded-full bg-ice-600"></span>
+                    Logo &amp; Brand Identity
+                  </h4>
+                  <p
+                    class="text-xs sm:text-sm text-navy-800/80 leading-relaxed"
+                  >
+                    Pet shops, pet treat businesses, import/export industries,
+                    IT companies, and co-living agencies.
+                  </p>
+                </div>
+
+                <div
+                  class="p-4 sm:p-5 rounded-2xl bg-white/85 border border-ice-200/90"
+                >
+                  <h4
+                    class="font-display font-extrabold text-sm sm:text-base text-navy-900 mb-1.5 flex items-center gap-2"
+                  >
+                    <span class="w-2 h-2 rounded-full bg-ice-600"></span>
+                    Video Editing
+                  </h4>
+                  <p
+                    class="text-xs sm:text-sm text-navy-800/80 leading-relaxed"
+                  >
+                    Technology companies, real estate, travel agencies, life
+                    insurance, and web series productions.
+                  </p>
+                </div>
+
+                <div
+                  class="p-4 sm:p-5 rounded-2xl bg-white/85 border border-ice-200/90"
+                >
+                  <h4
+                    class="font-display font-extrabold text-sm sm:text-base text-navy-900 mb-1.5 flex items-center gap-2"
+                  >
+                    <span class="w-2 h-2 rounded-full bg-ice-600"></span>
+                    Web Design &amp; Development
+                  </h4>
+                  <p
+                    class="text-xs sm:text-sm text-navy-800/80 leading-relaxed"
+                  >
+                    IT companies and pet shops, combining responsive UI/UX
+                    design with functional web development.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- STEP 6: PRESENT DAY — TRANSITIONING INTO CYBER SECURITY -->
+          <article class="journey-card relative md:pl-20">
+            <div
+              class="hidden md:flex absolute left-1.5 top-7 w-12 h-12 rounded-2xl bg-gradient-to-br from-ice-600 to-navy-900 text-white font-display font-extrabold text-sm items-center justify-center z-10 shadow-lg ring-4 ring-sky-200/70"
+            >
+              06
+            </div>
+            <div
+              class="journey-present-card ice-card-hover rounded-3xl p-6 sm:p-8 lg:p-10 relative overflow-hidden"
+            >
+              <div
+                class="flex flex-wrap items-center justify-between gap-2 mb-4"
+              >
+                <span
+                  class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-navy-900 to-ice-600 text-white font-display font-extrabold text-xs uppercase tracking-wider shadow-sm"
+                >
+                  <span
+                    class="w-2 h-2 rounded-full bg-emerald-300 live-dot"
+                  ></span>
+                  Present Day · Career Transition
+                </span>
+                <span class="text-xs font-display font-extrabold text-ice-600">
+                  Cyber Security &amp; Holistic Digital Defense
+                </span>
+              </div>
+
+              <h3
+                class="font-display font-extrabold text-xl sm:text-2xl lg:text-3xl text-navy-900 mb-4"
+              >
+                Building a Career in Cyber Security Through Real-World
+                Multi-Disciplinary Insight
+              </h3>
+
+              <div
+                class="space-y-4 text-sm sm:text-base text-navy-800/90 leading-relaxed"
+              >
+                <p>
+                  Today, I am actively pursuing a dedicated
+                  <strong class="text-navy-900 font-semibold"
+                    >Cyber Security course</strong
+                  >
+                  and transitioning my career into information
+                  security—combining my formal
+                  <strong class="text-navy-900 font-semibold"
+                    >Computing &amp; Networking (Level 4, Level 5 &amp; Cisco
+                    CCNA)</strong
+                  >
+                  background with hands-on industry experience across
+                  <strong class="text-navy-900 font-semibold"
+                    >Web Development, Visual Design, and Video Editing</strong
+                  >.
+                </p>
+                <p>
+                  Having built real digital products and creative campaigns
+                  across these three fields gives me a distinct, multi-angle
+                  security perspective that goes beyond textbook theory:
+                </p>
+
+                <!-- 3-Pillar Security Perspective Cards -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 my-5">
+                  <div
+                    class="p-4 sm:p-5 rounded-2xl bg-white/95 border border-ice-300/80 shadow-sm"
+                  >
+                    <span
+                      class="text-[11px] font-display font-extrabold uppercase tracking-wider text-ice-600 block mb-1"
+                      >Web Dev Lens</span
+                    >
+                    <h4
+                      class="font-display font-bold text-sm sm:text-base text-navy-900 mb-1.5"
+                    >
+                      Code Strength &amp; App Hardening
+                    </h4>
+                    <p
+                      class="text-xs sm:text-sm text-navy-800/80 leading-relaxed"
+                    >
+                      Understanding backend logic, databases, and web
+                      technologies reveals how strong, clean code must be
+                      written and secured against injection, session flaws, and
+                      infrastructure exploits.
+                    </p>
+                  </div>
+
+                  <div
+                    class="p-4 sm:p-5 rounded-2xl bg-white/95 border border-ice-300/80 shadow-sm"
+                  >
+                    <span
+                      class="text-[11px] font-display font-extrabold uppercase tracking-wider text-ice-600 block mb-1"
+                      >Visual Design Lens</span
+                    >
+                    <h4
+                      class="font-display font-bold text-sm sm:text-base text-navy-900 mb-1.5"
+                    >
+                      Phishing Lures &amp; Transparent Image Links
+                    </h4>
+                    <p
+                      class="text-xs sm:text-sm text-navy-800/80 leading-relaxed"
+                    >
+                      Attackers weaponize polished graphics to spoof
+                      trust—hiding malicious URLs behind invisible/transparent
+                      clickable overlays (clickjacking) or weaponized image
+                      formats where clicking an ordinary-looking graphic
+                      triggers a payload.
+                    </p>
+                  </div>
+
+                  <div
+                    class="p-4 sm:p-5 rounded-2xl bg-white/95 border border-ice-300/80 shadow-sm"
+                  >
+                    <span
+                      class="text-[11px] font-display font-extrabold uppercase tracking-wider text-ice-600 block mb-1"
+                      >Video Editing Lens</span
+                    >
+                    <h4
+                      class="font-display font-bold text-sm sm:text-base text-navy-900 mb-1.5"
+                    >
+                      Media Manipulation &amp; Social Engineering
+                    </h4>
+                    <p
+                      class="text-xs sm:text-sm text-navy-800/80 leading-relaxed"
+                    >
+                      Experience in video and audio post-production sharpens
+                      awareness of deceptive video lures, synthetic media
+                      manipulation, and malicious media-wrapper tactics used to
+                      bait unsuspecting users.
+                    </p>
+                  </div>
+                </div>
+
+                <p>
+                  By uniting practical professional experience in
+                  <strong class="text-navy-900 font-semibold"
+                    >Web Development, Visual Design, and Video Editing</strong
+                  >
+                  with offensive and defensive
+                  <strong class="text-navy-900 font-semibold"
+                    >Cyber Security</strong
+                  >
+                  training, I can analyze digital risks from multiple
+                  perspectives—helping organizations and users stay resilient
+                  and safe in the modern digital era.
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ================================================================ -->
+      <!-- 3. WHAT I DO (DESIGN, UI/UX, CODE, VIDEO, CYBER SECURITY + STATS)-->
+      <!-- ================================================================ -->
+      <section
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-20 reveal-section"
+      >
+        <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <span
+            class="text-xs font-display font-extrabold uppercase tracking-[0.2em] text-ice-600 block mb-2.5"
+          >
+            What I Do
+          </span>
+          <h2
+            class="section-title font-display font-extrabold text-navy-900 mb-3"
+          >
+            Design, Development, Creative Production &amp; Cyber Security
+          </h2>
+          <p class="text-sm sm:text-base lg:text-lg text-navy-800/80">
+            I work across multiple creative, technical, and security
+            disciplines, combining design thinking with resilient development,
+            visual storytelling, and digital protection.
+          </p>
+        </div>
+
+        <!-- 5 Core Discipline Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+          <!-- 1. Design -->
+          <article
+            class="ice-glass ice-card-hover rounded-3xl p-6 sm:p-8 flex flex-col justify-between"
+          >
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <span
+                  class="px-3.5 py-1 rounded-full bg-navy-900 text-white font-display font-extrabold text-xs uppercase tracking-wider"
+                  >Design</span
+                >
+                <svg
+                  class="w-6 h-6 text-ice-600"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                  />
+                </svg>
+              </div>
+              <h3
+                class="font-display font-extrabold text-xl text-navy-900 mb-2.5"
+              >
+                Graphic &amp; Brand Design
+              </h3>
+              <p class="text-sm sm:text-base text-navy-800/80 leading-relaxed">
+                Creating brand identities, social media graphics, packaging,
+                promotional visuals, and other creative assets designed to
+                communicate clearly and consistently.
+              </p>
+            </div>
+          </article>
+
+          <!-- 2. UI/UX -->
+          <article
+            class="ice-glass ice-card-hover rounded-3xl p-6 sm:p-8 flex flex-col justify-between"
+          >
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <span
+                  class="px-3.5 py-1 rounded-full bg-navy-900 text-white font-display font-extrabold text-xs uppercase tracking-wider"
+                  >UI/UX</span
+                >
+                <svg
+                  class="w-6 h-6 text-ice-600"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
+                  />
+                </svg>
+              </div>
+              <h3
+                class="font-display font-extrabold text-xl text-navy-900 mb-2.5"
+              >
+                Digital Experiences
+              </h3>
+              <p class="text-sm sm:text-base text-navy-800/80 leading-relaxed">
+                Designing clean, intuitive interfaces and user experiences with
+                a focus on usability, visual hierarchy, consistency, and
+                responsive design.
+              </p>
+            </div>
+          </article>
+
+          <!-- 3. Code -->
+          <article
+            class="ice-glass ice-card-hover rounded-3xl p-6 sm:p-8 flex flex-col justify-between"
+          >
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <span
+                  class="px-3.5 py-1 rounded-full bg-navy-900 text-white font-display font-extrabold text-xs uppercase tracking-wider"
+                  >Code</span
+                >
+                <svg
+                  class="w-6 h-6 text-ice-600"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                  />
+                </svg>
+              </div>
+              <h3
+                class="font-display font-extrabold text-xl text-navy-900 mb-2.5"
+              >
+                Web Development
+              </h3>
+              <p class="text-sm sm:text-base text-navy-800/80 leading-relaxed">
+                Building responsive websites and web applications using
+                technologies such as Python, Django, HTML, CSS, JavaScript,
+                Bootstrap, and MySQL.
+              </p>
+            </div>
+          </article>
+
+          <!-- 4. Video -->
+          <article
+            class="ice-glass ice-card-hover rounded-3xl p-6 sm:p-8 flex flex-col justify-between"
+          >
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <span
+                  class="px-3.5 py-1 rounded-full bg-navy-900 text-white font-display font-extrabold text-xs uppercase tracking-wider"
+                  >Video</span
+                >
+                <svg
+                  class="w-6 h-6 text-ice-600"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                  />
+                </svg>
+              </div>
+              <h3
+                class="font-display font-extrabold text-xl text-navy-900 mb-2.5"
+              >
+                Editing &amp; Motion
+              </h3>
+              <p class="text-sm sm:text-base text-navy-800/80 leading-relaxed">
+                Editing promotional videos, UGC content, social media reels,
+                motion graphics, and web-series content with attention to
+                pacing, storytelling, and production quality.
+              </p>
+            </div>
+          </article>
+
+          <!-- 5. Cyber Security -->
+          <article
+            class="ice-glass-strong ice-card-hover rounded-3xl p-6 sm:p-8 flex flex-col justify-between md:col-span-2 lg:col-span-2 border-ice-400/70"
+          >
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <span
+                  class="px-3.5 py-1 rounded-full bg-gradient-to-r from-navy-900 to-ice-600 text-white font-display font-extrabold text-xs uppercase tracking-wider inline-flex items-center gap-1.5"
+                >
+                  <span
+                    class="w-1.5 h-1.5 rounded-full bg-sky-300 live-dot"
+                  ></span>
+                  Cyber Security
+                </span>
+                <svg
+                  class="w-6 h-6 text-ice-600"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                  />
+                </svg>
+              </div>
+              <h3
+                class="font-display font-extrabold text-xl text-navy-900 mb-2.5"
+              >
+                Network Defense, Web Security &amp; Phishing Resilience
+              </h3>
+              <p
+                class="text-sm sm:text-base text-navy-800/85 leading-relaxed mb-4"
+              >
+                Applying Computing &amp; Cisco CCNA networking knowledge
+                alongside security tools (<strong class="text-navy-900"
+                  >Nmap, OWASP ZAP, Burp Suite, Wireshark</strong
+                >) to audit web applications, harden backend code, analyze
+                network traffic, and identify deceptive visual/media phishing
+                vectors such as transparent clickable image overlays.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-3 border-t border-ice-200/80">
+              <span
+                class="px-3 py-1 rounded-lg bg-ice-100 text-navy-900 text-xs font-display font-bold"
+                >Nmap</span
+              >
+              <span
+                class="px-3 py-1 rounded-lg bg-ice-100 text-navy-900 text-xs font-display font-bold"
+                >ZAP Proxy</span
+              >
+              <span
+                class="px-3 py-1 rounded-lg bg-ice-100 text-navy-900 text-xs font-display font-bold"
+                >Burp Suite</span
+              >
+              <span
+                class="px-3 py-1 rounded-lg bg-ice-100 text-navy-900 text-xs font-display font-bold"
+                >Wireshark</span
+              >
+              <span
+                class="px-3 py-1 rounded-lg bg-ice-100 text-navy-900 text-xs font-display font-bold"
+                >Cisco CCNA</span
+              >
+            </div>
+          </article>
+        </div>
+
+        <!-- Proof & Impact Metrics Row -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="ice-glass-strong ice-card-hover rounded-3xl p-7 sm:p-8">
+            <p
+              class="font-display font-extrabold text-3xl sm:text-5xl text-navy-900 mb-2"
+            >
+              <span class="about-counter" data-target="300">0</span>+
+            </p>
+            <h3 class="font-display font-extrabold text-lg text-ice-600 mb-2">
+              Bookings Processed
+            </h3>
+            <p class="text-sm text-navy-800/80 leading-relaxed">
+              Developed and deployed a responsive Django/MySQL grooming booking
+              platform that has successfully processed more than 300 real
+              bookings.
+            </p>
+          </div>
+
+          <div class="ice-glass-strong ice-card-hover rounded-3xl p-7 sm:p-8">
+            <p
+              class="font-display font-extrabold text-3xl sm:text-5xl text-navy-900 mb-2"
+            >
+              <span class="about-counter" data-target="100">0</span>+
+            </p>
+            <h3 class="font-display font-extrabold text-lg text-ice-600 mb-2">
+              Videos Created
+            </h3>
+            <p class="text-sm text-navy-800/80 leading-relaxed">
+              Filmed and edited more than 100 grooming-session videos for social
+              media and digital content.
+            </p>
+          </div>
+
+          <div class="ice-glass-strong ice-card-hover rounded-3xl p-7 sm:p-8">
+            <p
+              class="font-display font-extrabold text-3xl sm:text-5xl text-navy-900 mb-2"
+            >
+              360°
+            </p>
+            <h3 class="font-display font-extrabold text-lg text-ice-600 mb-2">
+              Hybrid Security Perspective
+            </h3>
+            <p class="text-sm text-navy-800/80 leading-relaxed">
+              Uniting BSc Computing, Level 4/5 Networking, Cisco CCNA, Web Dev,
+              Visual Design, and Video Production to spot and prevent
+              multi-vector digital threats.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ==================== 4. FOOTER (EXACT LAYOUT) ==================== -->
+    <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-8 pb-10 sm:pb-14">
+      <div class="ice-glass-strong rounded-3xl p-6 xs:p-8 sm:p-12">
+        <!-- Top Left Bordered Tag -->
+        <div class="mb-5">
+          <span
+            class="inline-block px-4 py-1.5 rounded-full border border-navy-900/30 bg-white/80 text-xs sm:text-sm font-display font-bold text-navy-900 tracking-wide"
+          >
+            Connect with me
+          </span>
+        </div>
+
+        <!-- CTA Row: Let's talk about your Project + Contact Me Button -->
+        <div
+          class="flex flex-col sm:flex-row sm:items-center justify-between gap-5 pb-8 sm:pb-10 border-b border-ice-200/90"
+        >
+          <h2
+            class="font-display font-extrabold text-2xl sm:text-3xl lg:text-4xl text-navy-900 tracking-tight"
+          >
+            Let's talk about your Project
+          </h2>
+          <a
+            href="contact.html"
+            class="self-start sm:self-auto px-7 py-3.5 rounded-2xl bg-navy-900 text-white font-display font-bold text-sm sm:text-base hover:bg-ice-600 transition-all duration-300 shadow-lg shadow-navy-900/15 shrink-0"
+          >
+            Contact Me
+          </a>
+        </div>
+
+        <!-- Middle Brand + Nav Row -->
+        <div
+          class="grid grid-cols-1 lg:grid-cols-12 gap-8 py-8 sm:py-10 items-start lg:items-center"
+        >
+          <!-- Left Brand Logo (<img> form) & 3 Value Bullets -->
+          <div class="lg:col-span-6 space-y-4">
+            <img
+              src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='210' height='44' viewBox='0 0 210 44' fill='none'%3E%3Cdefs%3E%3ClinearGradient id='bdGradFoot' x1='0' y1='0' x2='44' y2='44' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%230A192F'/%3E%3Cstop offset='100%25' stop-color='%230284C7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='1' y='1' width='42' height='42' rx='12' fill='url(%23bdGradFoot)'/%3E%3Cpath d='M13.5 12.5H24.5C27.6 12.5 29.7 14.3 29.7 17C29.7 19 28.4 20.5 26.6 21.1C28.9 21.7 30.4 23.4 30.4 25.9C30.4 29.1 27.9 31.2 24.2 31.2H13.5V12.5ZM23.5 20C25.2 20 26.1 19 26.1 17.6C26.1 16.3 25.2 15.4 23.5 15.4H17.3V20H23.5ZM24 28.2C25.8 28.2 26.8 27.3 26.8 25.7C26.8 24.1 25.7 23.2 23.8 23.2H17.3V28.2H24Z' fill='white'/%3E%3Ccircle cx='34.5' cy='11.5' r='3.2' fill='%237DD3FC'/%3E%3Ctext x='53' y='21' fill='%230A192F' font-family='Manrope, sans-serif' font-weight='800' font-size='15.5' letter-spacing='0.06em'%3EBIWASH%3C/text%3E%3Ctext x='53' y='36' fill='%230284C7' font-family='Manrope, sans-serif' font-weight='700' font-size='11' letter-spacing='0.18em'%3EDIGIVERSE%3C/text%3E%3C/svg%3E"
+              alt="BIWASH DIGIVERSE Logo"
+              class="h-10 sm:h-11 w-auto object-contain"
+            />
+            <ul
+              class="space-y-1.5 text-sm sm:text-base text-navy-800/85 font-medium"
+            >
+              <li>- Creative ideas, thoughtfully designed </li>
+              <li>- Purpose-driven digital solutions </li>
+              <li>- Built to make an impact </li>
+            </ul>
+          </div>
+
+          <!-- Right Links + Tagline -->
+          <div class="lg:col-span-6 lg:text-right space-y-4">
+            <div
+              class="flex flex-wrap lg:justify-end gap-5 sm:gap-7 text-sm sm:text-base font-display font-bold text-navy-900"
+            >
+              <a href="index.html" class="hover:text-ice-600 transition-colors"
+                >Home</a
+              >
+              <a href="About.html" class="hover:text-ice-600 transition-colors"
+                >About</a
+              >
+              <a
+                href="Contact.html"
+                class="hover:text-ice-600 transition-colors"
+                >Contact</a
+              >
+            </div>
+            <p
+              class="font-display font-extrabold text-base sm:text-lg text-navy-800"
+            >
+              Think Creatively. Build Purposefully. Create Impact.
+            </p>
+          </div>
+        </div>
+
+        <!-- Divider Line -->
+        <hr class="border-ice-300/75" />
+
+        <!-- Bottom Copyright -->
+        <div
+          class="pt-6 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-2 text-xs sm:text-sm text-navy-700/80 font-medium"
+        >
+          <p>© 2026 biwash.digiverse. All rights reserved.</p>
+          <p class="text-navy-600/80">BIWASH DIGIVERSE · Pokhara, Nepal</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ==================== JAVASCRIPT: NAV DROPDOWNS & GSAP ANIMATIONS ==================== -->
+    <script>
+      function toggleDesktopDropdown(e) {
+        e.stopPropagation();
+        const wrap = document.getElementById("portfolioDropdownWrap");
+        wrap.classList.toggle("open");
+      }
+
+      document.addEventListener("click", () => {
+        const wrap = document.getElementById("portfolioDropdownWrap");
+        if (wrap) wrap.classList.remove("open");
+      });
+
+      function toggleMobileDrawer(forceState) {
+        const drawer = document.getElementById("mobileDrawer");
+        const openIcon = document.getElementById("menuIconOpen");
+        const closeIcon = document.getElementById("menuIconClose");
+        const willOpen =
+          typeof forceState === "boolean"
+            ? forceState
+            : drawer.classList.contains("hidden");
+
+        drawer.classList.toggle("hidden", !willOpen);
+        openIcon.classList.toggle("hidden", willOpen);
+        closeIcon.classList.toggle("hidden", !willOpen);
+      }
+
+      function toggleMobilePortfolio() {
+        const sub = document.getElementById("mobilePortfolioSub");
+        const chev = document.getElementById("mobilePortfolioChevron");
+        sub.classList.toggle("hidden");
+        chev.classList.toggle("rotate-180");
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Entrance Stagger
+        gsap.from(".about-hero-stagger", {
+          y: 26,
+          opacity: 0,
+          duration: 0.85,
+          stagger: 0.12,
+          ease: "power3.out",
+        });
+
+        // Scroll-Triggered Section Reveals
+        gsap.utils.toArray(".reveal-section").forEach((section) => {
+          gsap.from(section, {
+            y: 34,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: section,
+              start: "top 86%",
+              once: true,
+            },
+          });
+        });
+
+        // Animated Timeline Fill Rail
+        const timelineContainer = document.getElementById(
+          "journeyTimelineContainer",
+        );
+        const progressFill = document.getElementById("journeyProgressFill");
+        if (timelineContainer && progressFill) {
+          gsap.to(progressFill, {
+            scaleY: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: timelineContainer,
+              start: "top 70%",
+              end: "bottom 75%",
+              scrub: 0.5,
+            },
+          });
+        }
+
+        // Journey Milestone Cards Staggered Slide-In
+        gsap.utils.toArray(".journey-card").forEach((card) => {
+          gsap.from(card, {
+            y: 28,
+            opacity: 0,
+            duration: 0.72,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 88%",
+              once: true,
+            },
+          });
+        });
+
+        // Animated Metric Counters (300+, 100+)
+        gsap.utils.toArray(".about-counter").forEach((counter) => {
+          const target = parseInt(counter.getAttribute("data-target"), 10);
+          const obj = { val: 0 };
+          gsap.to(obj, {
+            val: target,
+            duration: 1.7,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: counter,
+              start: "top 90%",
+              once: true,
+            },
+            onUpdate: () => {
+              counter.textContent = Math.round(obj.val);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

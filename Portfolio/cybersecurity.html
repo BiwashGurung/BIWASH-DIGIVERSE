@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cyber Security — Threat Intelligence & Defensive Security | BIWASH DIGIVERSE</title>
+  <meta name="description" content="Proactive vulnerability assessment, penetration testing, secure code review, and multi-OS network defense hardening by biwash.creatives (BIWASH DIGIVERSE)." />
+
+  <!-- Google Fonts: Manrope (Headings & Brand), Inter (Body & UI), JetBrains Mono (Terminal & Badges) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          screens: {
+            xs: '380px',
+          },
+          colors: {
+            navy: {
+              700: '#1E3A5F',
+              800: '#102A43',
+              900: '#0A192F',
+            },
+            ice: {
+              50: '#F4F9FD',
+              100: '#E8F1FA',
+              200: '#DAE6F2',
+              300: '#BDD0E3',
+              600: '#0284C7',
+            },
+          },
+          fontFamily: {
+            display: ['Manrope', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* Full-page BIWASH DIGIVERSE background */
+    html,
+    body {
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(
+          ellipse at 15% 10%,
+          rgba(189, 208, 227, 0.45) 0%,
+          transparent 45%
+        ),
+        radial-gradient(
+          ellipse at 85% 30%,
+          rgba(218, 230, 242, 0.55) 0%,
+          transparent 45%
+        ),
+        radial-gradient(
+          ellipse at 50% 90%,
+          rgba(232, 241, 250, 0.65) 0%,
+          transparent 50%
+        ),
+        linear-gradient(
+          135deg,
+          #ffffff 0%,
+          #f7fafd 45%,
+          #eef4fa 100%
+        );
+
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: cover;
+      font-family: 'Inter', sans-serif;
+      color: #0A192F;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, .font-manrope {
+      font-family: 'Manrope', sans-serif;
+    }
+
+    /* BIWASH DIGIVERSE Glassmorphic Navigation & Dropdown System */
+    .ice-glass-strong {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(189, 208, 227, 0.82);
+      box-shadow: 0 12px 32px -12px rgba(10, 25, 47, 0.08);
+    }
+
+    .nav-dropdown-panel {
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(-50%, 8px);
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-dropdown-wrapper:hover .nav-dropdown-panel,
+    .nav-dropdown-wrapper.open .nav-dropdown-panel {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
+    }
+
+    @keyframes livePulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.55);
+        opacity: 1;
+      }
+      50% {
+        box-shadow: 0 0 0 6px rgba(14, 165, 233, 0);
+        opacity: 0.85;
+      }
+    }
+
+    .live-dot {
+      animation: livePulse 2.2s infinite ease-in-out;
+    }
+
+    /* Elevated Frosted-White Card Surface */
+    .frosted-card {
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid #BDD0E3;
+      box-shadow: 0 10px 30px -10px rgba(10, 25, 47, 0.07);
+    }
+
+    .frosted-card-hover {
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .frosted-card-hover:hover {
+      transform: translateY(-4px);
+      border-color: #0A192F;
+      box-shadow: 0 18px 38px -12px rgba(10, 25, 47, 0.14);
+    }
+
+    /* Terminal Blinking Cursor */
+    @keyframes cursorBlink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+
+    .terminal-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 15px;
+      background-color: #34D399;
+      vertical-align: middle;
+      margin-left: 5px;
+      animation: cursorBlink 1s infinite;
+    }
+
+    /* Sequential Terminal Line Reveal */
+    .term-line {
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .term-line.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #EEF4FA;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #BDD0E3;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #8FAEC9;
+    }
+  </style>
+</head>
+<body class="selection:bg-ice-600 selection:text-white">
+
+  <!-- ==================== TOP NAVIGATION BAR ==================== -->
+  <header
+    id="mainHeader"
+    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-3 xs:px-4 sm:px-6 lg:px-10 pt-3 sm:pt-4"
+  >
+    <nav
+      class="max-w-7xl mx-auto ice-glass-strong rounded-2xl px-3.5 xs:px-5 sm:px-7 py-3 flex items-center justify-between relative"
+      aria-label="Primary Navigation"
+    >
+      <!-- LEFT: Brand Logo (<img> form) -->
+      <a
+        href="index.html"
+        class="flex items-center gap-2.5 shrink-0 group focus:outline-none"
+      >
+        <img
+          src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='196' height='42' viewBox='0 0 196 42' fill='none'%3E%3Cdefs%3E%3ClinearGradient id='bdGrad' x1='0' y1='0' x2='42' y2='42' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%230A192F'/%3E%3Cstop offset='100%25' stop-color='%230284C7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='1' y='1' width='40' height='40' rx='11' fill='url(%23bdGrad)'/%3E%3Cpath d='M13 12H23.5C26.5 12 28.5 13.7 28.5 16.3C28.5 18.2 27.3 19.6 25.6 20.2C27.8 20.8 29.2 22.4 29.2 24.8C29.2 27.9 26.8 29.8 23.2 29.8H13V12ZM22.6 19.1C24.2 19.1 25.1 18.2 25.1 16.9C25.1 15.6 24.2 14.8 22.6 14.8H16.6V19.1H22.6ZM23 27C24.7 27 25.7 26.1 25.7 24.6C25.7 23.1 24.6 22.2 22.8 22.2H16.6V27H23Z' fill='white'/%3E%3Ccircle cx='33' cy='11' r='3' fill='%237DD3FC'/%3E%3Ctext x='50' y='20' fill='%230A192F' font-family='Manrope, sans-serif' font-weight='800' font-size='14.5' letter-spacing='0.06em'%3EBIWASH%3C/text%3E%3Ctext x='50' y='34' fill='%230284C7' font-family='Manrope, sans-serif' font-weight='700' font-size='10.5' letter-spacing='0.18em'%3EDIGIVERSE%3C/text%3E%3C/svg%3E"
+          alt="BIWASH DIGIVERSE Logo"
+          class="h-8 xs:h-9 sm:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+        />
+      </a>
+
+      <!-- CENTER: 4 Nav Menus -->
+      <ul class="hidden lg:flex items-center gap-1 xl:gap-2">
+        <li>
+          <a
+            href="index.html"
+            class="px-4 py-2 rounded-xl text-sm font-medium text-navy-800/80 hover:text-navy-900 hover:bg-ice-100/80 transition-all"
+          >
+            Home Page
+          </a>
+        </li>
+        <li>
+          <a
+            href="About.html"
+            class="px-4 py-2 rounded-xl text-sm font-medium text-navy-800/80 hover:text-navy-900 hover:bg-ice-100/80 transition-all"
+          >
+            About Page
+          </a>
+        </li>
+        <li class="relative nav-dropdown-wrapper" id="portfolioDropdownWrap">
+          <button
+            type="button"
+            onclick="toggleDesktopDropdown(event)"
+            class="px-4 py-2 rounded-xl text-sm font-semibold text-navy-900 bg-ice-100/95 border border-ice-300/70 transition-all inline-flex items-center gap-1.5"
+            aria-expanded="false"
+            aria-haspopup="true"
+          >
+            <span>Portfolio Page</span>
+            <svg
+              id="desktopDropdownChevron"
+              class="w-4 h-4 text-ice-600 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+
+          <!-- Portfolio Dropdown Menu (4 Sub-Menus) -->
+          <div
+            class="nav-dropdown-panel absolute left-1/2 -translate-x-1/2 top-full pt-3 w-72 z-50"
+          >
+            <div
+              class="ice-glass-strong rounded-2xl p-2.5 shadow-2xl border border-ice-300/80"
+            >
+              <a
+                href="Portfolio/Graphics.html"
+                class="flex items-start gap-3 p-3 rounded-xl hover:bg-ice-100/90 transition-colors group"
+              >
+                <span
+                  class="w-7 h-7 rounded-lg bg-navy-900 text-white text-xs font-display font-bold flex items-center justify-center shrink-0 group-hover:bg-ice-600 transition-colors"
+                  >1</span
+                >
+                <div>
+                  <p class="text-sm font-display font-bold text-navy-900">
+                    Graphic Designs
+                  </p>
+                  <p class="text-xs text-navy-700/75">
+                    Brand Identity, Packaging &amp; Ad Systems
+                  </p>
+                </div>
+              </a>
+              <a
+                href="Portfolio/videoediting.html"
+                class="flex items-start gap-3 p-3 rounded-xl hover:bg-ice-100/90 transition-colors group"
+              >
+                <span
+                  class="w-7 h-7 rounded-lg bg-navy-900 text-white text-xs font-display font-bold flex items-center justify-center shrink-0 group-hover:bg-ice-600 transition-colors"
+                  >2</span
+                >
+                <div>
+                  <p class="text-sm font-display font-bold text-navy-900">
+                    Video Editing
+                  </p>
+                  <p class="text-xs text-navy-700/75">
+                    Cinematic Cuts, UGC &amp; Web Series Dubbing
+                  </p>
+                </div>
+              </a>
+              <a
+                href="Portfolio/webdev.html"
+                class="flex items-start gap-3 p-3 rounded-xl hover:bg-ice-100/90 transition-colors group"
+              >
+                <span
+                  class="w-7 h-7 rounded-lg bg-navy-900 text-white text-xs font-display font-bold flex items-center justify-center shrink-0 group-hover:bg-ice-600 transition-colors"
+                  >3</span
+                >
+                <div>
+                  <p class="text-sm font-display font-bold text-navy-900">
+                    Web Development
+                  </p>
+                  <p class="text-xs text-navy-700/75">
+                    Full-Stack Python, Django &amp; UI Systems
+                  </p>
+                </div>
+              </a>
+              <a
+                href="Portfolio/cybersecurity.html"
+                aria-current="page"
+                class="flex items-start gap-3 p-3 rounded-xl bg-ice-100/95 border border-ice-300/80 transition-colors group"
+              >
+                <span
+                  class="w-7 h-7 rounded-lg bg-ice-600 text-white text-xs font-display font-bold flex items-center justify-center shrink-0 transition-colors"
+                  >4</span
+                >
+                <div>
+                  <p class="text-sm font-display font-bold text-navy-900">
+                    Cybersecurity
+                  </p>
+                  <p class="text-xs text-navy-700/75">
+                    Recon, Vulnerability Audits &amp; Packet Labs
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a
+            href="Contact.html"
+            class="px-4 py-2 rounded-xl text-sm font-medium text-navy-800/80 hover:text-navy-900 hover:bg-ice-100/80 transition-all"
+          >
+            Contact Page
+          </a>
+        </li>
+      </ul>
+
+      <!-- RIGHT: Status Pill (XL+) & Mobile Hamburger -->
+      <div class="flex items-center gap-2.5">
+        <span
+          class="hidden xl:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-ice-100 text-navy-900 border border-ice-300/80"
+        >
+          <span class="w-2 h-2 rounded-full bg-sky-500 live-dot"></span>
+          Design · Dev · CyberSec
+        </span>
+
+        <button
+          id="mobileMenuBtn"
+          type="button"
+          onclick="toggleMobileDrawer()"
+          class="lg:hidden p-2 rounded-xl bg-ice-100/90 text-navy-900 hover:bg-ice-200 transition-colors focus:outline-none"
+          aria-label="Toggle Navigation Menu"
+          aria-expanded="false"
+        >
+          <svg
+            id="menuIconOpen"
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+          <svg
+            id="menuIconClose"
+            class="w-5 h-5 hidden"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile / Tablet / Folding Device Drawer -->
+    <div
+      id="mobileDrawer"
+      class="lg:hidden hidden max-w-7xl mx-auto mt-2 ice-glass-strong rounded-2xl p-4 shadow-xl border border-ice-300/80"
+    >
+      <div class="flex flex-col space-y-1.5">
+        <a
+          href="index.html"
+          class="px-4 py-2.5 rounded-xl text-sm font-semibold text-navy-900 hover:bg-ice-100"
+          >1. Home </a
+        >
+        <a
+          href="About.html"
+          class="px-4 py-2.5 rounded-xl text-sm font-semibold text-navy-900 hover:bg-ice-100"
+          >2. About </a
+        >
+
+        <!-- Mobile Portfolio Accordion -->
+        <div
+          class="rounded-xl bg-ice-50/90 border border-ice-200/80 overflow-hidden"
+        >
+          <button
+            type="button"
+            onclick="toggleMobilePortfolio()"
+            class="w-full px-4 py-2.5 flex items-center justify-between text-sm font-bold text-navy-900"
+          >
+            <span>3. Portfolio </span>
+            <svg
+              id="mobilePortfolioChevron"
+              class="w-4 h-4 text-ice-600 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+          <div
+            id="mobilePortfolioSub"
+            class="hidden px-3 pb-3 pt-1 space-y-1 border-t border-ice-200/70"
+          >
+            <a
+              href="Graphics.html"
+              class="block px-3 py-2 rounded-lg text-xs font-semibold text-navy-800 hover:bg-ice-200/60"
+              >1. Graphic Designs</a
+            >
+            <a
+              href="videoediting.html"
+              class="block px-3 py-2 rounded-lg text-xs font-semibold text-navy-800 hover:bg-ice-200/60"
+              >2. Video Editing</a
+            >
+            <a
+              href="web-dev.html"
+              class="block px-3 py-2 rounded-lg text-xs font-semibold text-navy-800 hover:bg-ice-200/60"
+              >3. Web Development</a
+            >
+            <a
+              href="cybersecurity.html"
+              aria-current="page"
+              class="block px-3 py-2 rounded-lg text-xs font-bold text-navy-900 bg-ice-100 border border-ice-300/70"
+              >4. Cybersecurity</a
+            >
+          </div>
+        </div>
+
+        <a
+          href="Contact.html"
+          class="px-4 py-2.5 rounded-xl text-sm font-semibold text-navy-900 hover:bg-ice-100"
+          >4. Contact </a
+        >
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT (CLEAR OF FIXED NAVBAR) ==================== -->
+  <main id="top" class="pt-28 sm:pt-32 lg:pt-36">
+
+    <!-- =========================================================
+         1. HERO SECTION — THREAT INTELLIGENCE & DEFENSIVE SECURITY
+         ========================================================= -->
+    <section id="hero" class="pb-20 lg:pb-28 border-b border-ice-300/75">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+
+          <!-- Left Column: Headline, Description, Tooling & OS Arsenal, CTAs -->
+          <div class="lg:col-span-7 space-y-6">
+            <div class="hero-stagger">
+              <span class="inline-flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-[0.16em] text-navy-900 bg-ice-100 border border-ice-300 px-3.5 py-1.5 rounded-full">
+                <span class="w-2 h-2 rounded-full bg-ice-600 live-dot"></span>
+                01 · Threat Intelligence &amp; Defensive Security
+              </span>
+            </div>
+
+            <h1 class="hero-stagger font-display font-extrabold text-3xl sm:text-5xl lg:text-[3.35rem] text-navy-900 leading-[1.12] tracking-tight">
+              Securing Digital Assets &amp; Mitigating Vulnerabilities.
+            </h1>
+
+            <p class="hero-stagger text-base sm:text-lg text-navy-800/85 leading-relaxed max-w-2xl">
+              Proactive vulnerability assessment, penetration testing, secure code review, and network defense hardening designed to protect web applications and enterprise infrastructure against evolving cyber threats.
+            </p>
+
+            <!-- Structured Pill Groups: Security Tooling & Operating Systems -->
+            <div class="hero-stagger space-y-4 pt-1">
+              <!-- Group A: Security Tooling & Exploitation -->
+              <div>
+                <p class="font-mono text-[11px] font-semibold uppercase tracking-wider text-navy-700/80 mb-2">
+                  Security Tooling &amp; Exploitation
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/90 border border-ice-300 text-xs font-semibold text-navy-900 shadow-sm">
+                    <span class="w-1.5 h-1.5 rounded-full bg-ice-600"></span>
+                    Wireshark &amp; Nmap
+                  </span>
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/90 border border-ice-300 text-xs font-semibold text-navy-900 shadow-sm">
+                    <span class="w-1.5 h-1.5 rounded-full bg-ice-600"></span>
+                    Burp Suite Pro
+                  </span>
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-navy-900 text-white border border-navy-900 text-xs font-semibold shadow-sm">
+                    <span class="w-1.5 h-1.5 rounded-full bg-sky-300"></span>
+                    Metasploit
+                  </span>
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/90 border border-ice-300 text-xs font-semibold text-navy-900 shadow-sm">
+                    <span class="w-1.5 h-1.5 rounded-full bg-ice-600"></span>
+                    Python Security Automation
+                  </span>
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/90 border border-ice-300 text-xs font-semibold text-navy-900 shadow-sm">
+                    <span class="w-1.5 h-1.5 rounded-full bg-ice-600"></span>
+                    OWASP Top 10 Auditing
+                  </span>
+                </div>
+              </div>
+
+              <!-- Group B: Operating Systems & Environments -->
+              <div>
+                <p class="font-mono text-[11px] font-semibold uppercase tracking-wider text-navy-700/80 mb-2">
+                  Operating Systems &amp; Environments
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-ice-100/95 border border-ice-300 font-mono text-xs font-semibold text-navy-900">
+                    Linux
+                  </span>
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-navy-900 text-white border border-navy-900 font-mono text-xs font-semibold">
+                    Kali Linux
+                  </span>
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-ice-100/95 border border-ice-300 font-mono text-xs font-semibold text-navy-900">
+                    Ubuntu
+                  </span>
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-ice-100/95 border border-ice-300 font-mono text-xs font-semibold text-navy-900">
+                    Windows
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Primary & Secondary CTA Buttons -->
+            <div class="hero-stagger flex flex-wrap items-center gap-3.5 pt-2">
+              <a
+                href="#engagements"
+                class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-navy-900 hover:bg-navy-700 text-white font-display font-bold text-sm shadow-lg shadow-navy-900/15 transition-all hover:-translate-y-0.5"
+              >
+                Explore Security Projects
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </a>
+
+              <a
+                href="#methodology"
+                class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white/90 hover:bg-ice-100 text-navy-900 border border-ice-300 font-display font-bold text-sm transition-all hover:-translate-y-0.5"
+              >
+                Security Methodology
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Column: Interactive Security Audit Console (sec_audit_daemon.sh) -->
+          <div class="lg:col-span-5 hero-terminal">
+            <div class="rounded-2xl bg-navy-900 border border-navy-700 shadow-2xl shadow-navy-900/25 overflow-hidden">
+              <!-- Console Title Bar -->
+              <div class="flex items-center justify-between px-4 py-3 bg-[#071222] border-b border-navy-700/80">
+                <div class="flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-full bg-rose-400"></span>
+                  <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+                  <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+                  <span class="ml-2 font-mono text-xs font-medium text-ice-200">sec_audit_daemon.sh</span>
+                </div>
+
+                <button
+                  id="rerunScanBtn"
+                  type="button"
+                  class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-navy-800 hover:bg-navy-700 border border-navy-700 text-[11px] font-mono font-medium text-sky-300 transition-colors cursor-pointer"
+                  title="Re-run Security Audit Simulation"
+                >
+                  <svg id="rerunIcon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                  Re-run Scan
+                </button>
+              </div>
+
+              <!-- Console Body -->
+              <div class="p-5 sm:p-6 font-mono text-xs sm:text-[13px] leading-relaxed space-y-2.5 text-ice-100" id="terminalOutput">
+                <div class="flex items-center justify-between text-[11px] text-ice-300/80 pb-2 border-b border-navy-700/70">
+                  <span>HOST: kali-sec-node // TARGET: PROD-WEB</span>
+                  <span id="scanBadge" class="text-emerald-400 font-semibold">VERIFIED</span>
+                </div>
+
+                <p class="term-line visible text-sky-300">
+                  <span class="text-emerald-400 font-semibold">[+]</span> Initializing threat scan &amp; perimeter check...
+                </p>
+                <p class="term-line visible text-ice-100">
+                  <span class="text-emerald-400 font-semibold">[&#10003;]</span> Port mapping complete (Nmap target verified)
+                </p>
+                <p class="term-line visible text-ice-100">
+                  <span class="text-emerald-400 font-semibold">[&#10003;]</span> Burp Suite intercept proxy listening on :8080
+                </p>
+                <p class="term-line visible text-amber-300">
+                  <span class="text-amber-400 font-semibold">[!]</span> Analyzing OWASP Top 10 web vectors...
+                </p>
+                <p class="term-line visible text-ice-100">
+                  <span class="text-emerald-400 font-semibold">[+]</span> SQLi / XSS boundary fuzzing: <span class="text-emerald-400 font-semibold">SECURE</span>
+                </p>
+                <p class="term-line visible text-ice-100">
+                  <span class="text-emerald-400 font-semibold">[+]</span> Django CSRF/CORS middleware: <span class="text-emerald-400 font-semibold">ENFORCED</span>
+                </p>
+                <p class="term-line visible pt-2 border-t border-navy-700/70 text-emerald-400 font-semibold">
+                  // Status: Zero critical vulnerabilities detected.<span class="terminal-cursor"></span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         2. SECTION 2 — SECURITY METHODOLOGY & DEFENSIVE ARCHITECTURE
+         ========================================================= -->
+    <section id="methodology" class="py-20 lg:py-28 border-b border-ice-300/75">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+
+        <!-- Top Grid: Methodology Narrative + Interactive 3-Layer Stack & Multi-OS Card -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start reveal-section">
+
+          <!-- Left Narrative Column -->
+          <div class="lg:col-span-6 space-y-6">
+            <span class="inline-block font-mono text-xs font-semibold uppercase tracking-[0.16em] text-navy-900 bg-ice-100 border border-ice-300 px-3.5 py-1.5 rounded-full">
+              02 · Security Methodology
+            </span>
+
+            <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-navy-900 tracking-tight">
+              Proactive Defense &amp; Secure Architecture
+            </h2>
+
+            <p class="text-navy-800/85 text-base leading-relaxed">
+              In modern web development and digital infrastructure, security can never be treated as an afterthought or a superficial checklist. My approach integrates rigorous threat modeling, penetration testing, and defensive engineering directly into the software development lifecycle.
+            </p>
+
+            <blockquote class="frosted-card border-l-4 border-l-navy-900 p-5 sm:p-6 rounded-r-2xl">
+              <p class="font-display font-bold text-base sm:text-lg text-navy-900 leading-snug">
+                “An attacker only needs to find one open door. A security engineer must ensure every layer of the fortress is locked, monitored, and resilient.”
+              </p>
+            </blockquote>
+
+            <p class="text-navy-800/85 text-base leading-relaxed">
+              Whether conducting black-box penetration testing on client web applications, hardening Linux, Ubuntu, and Windows servers against unauthorized intrusion, or writing automated Python scripts to flag anomalous network traffic, the focus remains absolute: risk mitigation and data integrity.
+            </p>
+
+            <!-- Brand Sign-Off Badge -->
+            <div class="inline-flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/90 border border-ice-300 shadow-sm">
+              <span class="w-2.5 h-2.5 rounded-full bg-navy-900"></span>
+              <span class="font-display font-extrabold text-sm text-navy-900">biwash.creatives Security</span>
+              <span class="text-ice-300">|</span>
+              <span class="font-mono text-xs font-semibold text-ice-600">Defensive Architecture</span>
+            </div>
+          </div>
+
+          <!-- Right Column: Interactive 3-Layer Defensive Stack + Multi-OS Arsenal -->
+          <div class="lg:col-span-6 space-y-6">
+            <!-- Interactive 3-Tier Stack -->
+            <div class="frosted-card p-6 sm:p-7 rounded-2xl">
+              <div class="flex items-center justify-between gap-2 mb-4">
+                <h3 class="font-display font-extrabold text-lg text-navy-900">
+                  Layered Defensive Stack
+                </h3>
+                <span class="font-mono text-[11px] font-semibold text-ice-600 bg-ice-100 px-2.5 py-1 rounded-md border border-ice-300">
+                  Interactive Architecture
+                </span>
+              </div>
+
+              <div class="space-y-2.5" id="tierButtons">
+                <button
+                  type="button"
+                  data-tier="1"
+                  class="tier-btn active w-full text-left px-4 py-3.5 rounded-xl bg-navy-900 text-white border border-navy-900 transition-all flex items-center justify-between cursor-pointer"
+                >
+                  <div>
+                    <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-ice-300 block">
+                      Tier 01 · Network &amp; OS Edge
+                    </span>
+                    <strong class="font-display font-bold text-sm sm:text-base">
+                      Perimeter &amp; Firewall Defense
+                    </strong>
+                  </div>
+                  <span class="font-mono text-[11px] text-sky-300">Active</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-tier="2"
+                  class="tier-btn w-full text-left px-4 py-3.5 rounded-xl bg-ice-50 hover:bg-ice-100 text-navy-900 border border-ice-300 transition-all flex items-center justify-between cursor-pointer"
+                >
+                  <div>
+                    <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-navy-700/80 block">
+                      Tier 02 · Web &amp; Exploitation Testing
+                    </span>
+                    <strong class="font-display font-bold text-sm sm:text-base">
+                      Application &amp; API Hardening
+                    </strong>
+                  </div>
+                  <span class="font-mono text-[11px] text-navy-700/80">Inspect</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-tier="3"
+                  class="tier-btn w-full text-left px-4 py-3.5 rounded-xl bg-ice-50 hover:bg-ice-100 text-navy-900 border border-ice-300 transition-all flex items-center justify-between cursor-pointer"
+                >
+                  <div>
+                    <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-navy-700/80 block">
+                      Tier 03 · Persistence &amp; Telemetry
+                    </span>
+                    <strong class="font-display font-bold text-sm sm:text-base">
+                      Data Integrity &amp; Real-Time SIEM
+                    </strong>
+                  </div>
+                  <span class="font-mono text-[11px] text-navy-700/80">Inspect</span>
+                </button>
+              </div>
+
+              <!-- Dynamic Tier Detail Panel -->
+              <div id="tierDetailPanel" class="mt-4 p-4 rounded-xl bg-ice-100 border border-ice-300">
+                <div class="font-mono text-[11px] font-semibold uppercase tracking-wider text-navy-900 mb-1" id="tierDetailLabel">
+                  Layer 01 // Perimeter &amp; Firewall Defense Controls
+                </div>
+                <p class="text-xs sm:text-sm text-navy-800/85 leading-relaxed" id="tierDetailDesc">
+                  Strict UFW/iptables rule sets across Linux &amp; Ubuntu hosts, Windows Defender Firewall hardening, closed non-essential ports, enforced TLS 1.3 cipher suites, and Nmap/Wireshark topology verification.
+                </p>
+              </div>
+            </div>
+
+            <!-- Multi-OS & Offensive/Defensive Arsenal Card -->
+            <div class="frosted-card p-6 sm:p-7 rounded-2xl">
+              <div class="flex items-center justify-between gap-2 mb-3">
+                <h3 class="font-display font-extrabold text-base sm:text-lg text-navy-900">
+                  Multi-OS &amp; Offensive/Defensive Arsenal
+                </h3>
+                <span class="font-mono text-[11px] font-semibold text-navy-900 bg-ice-100 px-2.5 py-1 rounded-md border border-ice-300">
+                  5 Core Platforms
+                </span>
+              </div>
+              <p class="text-xs sm:text-sm text-navy-800/80 mb-4 leading-relaxed">
+                Cross-platform security operations spanning offensive audit environments, hardened Linux production servers, and enterprise Windows endpoints.
+              </p>
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                <div class="p-3 rounded-xl bg-white border border-ice-300">
+                  <span class="font-mono text-xs font-bold text-navy-900 block">Linux</span>
+                  <span class="text-[11px] text-navy-700/75">Kernel &amp; SSH Hardening</span>
+                </div>
+                <div class="p-3 rounded-xl bg-navy-900 text-white border border-navy-900">
+                  <span class="font-mono text-xs font-bold text-sky-300 block">Kali Linux</span>
+                  <span class="text-[11px] text-ice-200">Offensive Recon &amp; Audit</span>
+                </div>
+                <div class="p-3 rounded-xl bg-white border border-ice-300">
+                  <span class="font-mono text-xs font-bold text-navy-900 block">Ubuntu</span>
+                  <span class="text-[11px] text-navy-700/75">UFW &amp; Production Deploy</span>
+                </div>
+                <div class="p-3 rounded-xl bg-white border border-ice-300">
+                  <span class="font-mono text-xs font-bold text-navy-900 block">Windows</span>
+                  <span class="text-[11px] text-navy-700/75">Endpoint &amp; Policy Audit</span>
+                </div>
+                <div class="p-3 rounded-xl bg-navy-900 text-white border border-navy-900 col-span-2 sm:col-span-2">
+                  <span class="font-mono text-xs font-bold text-emerald-400 block">Metasploit Framework</span>
+                  <span class="text-[11px] text-ice-200">Exploit Verification &amp; Payload Validation</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Subsection: Core Security Domains -->
+        <div class="space-y-8 reveal-section">
+          <div>
+            <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-navy-900">Core Security Domains</h3>
+            <p class="text-navy-800/80 text-sm sm:text-base mt-1.5">The foundational layers of defensive engineering.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Domain Card 1 -->
+            <article class="frosted-card frosted-card-hover p-6 sm:p-7 rounded-2xl">
+              <div class="w-11 h-11 rounded-xl bg-ice-100 border border-ice-300 flex items-center justify-center text-navy-900 mb-5">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+              <h4 class="font-display font-bold text-lg text-navy-900 mb-2.5">Vulnerability Assessment &amp; Pentest</h4>
+              <p class="text-navy-800/80 text-sm leading-relaxed">
+                Simulated attacks using Kali Linux, Burp Suite, and Metasploit to uncover web and service vulnerabilities before malicious actors do.
+              </p>
+            </article>
+
+            <!-- Domain Card 2 -->
+            <article class="frosted-card frosted-card-hover p-6 sm:p-7 rounded-2xl">
+              <div class="w-11 h-11 rounded-xl bg-ice-100 border border-ice-300 flex items-center justify-center text-navy-900 mb-5">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+              </div>
+              <h4 class="font-display font-bold text-lg text-navy-900 mb-2.5">Secure Code Review</h4>
+              <p class="text-navy-800/80 text-sm leading-relaxed">
+                Inspecting Python/Django and JS codebases for insecure deserialization, injection flaws, and auth bypasses.
+              </p>
+            </article>
+
+            <!-- Domain Card 3 -->
+            <article class="frosted-card frosted-card-hover p-6 sm:p-7 rounded-2xl">
+              <div class="w-11 h-11 rounded-xl bg-ice-100 border border-ice-300 flex items-center justify-center text-navy-900 mb-5">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h4 class="font-display font-bold text-lg text-navy-900 mb-2.5">Perimeter Hardening &amp; Monitoring</h4>
+              <p class="text-navy-800/80 text-sm leading-relaxed">
+                Configuring robust firewalls across Linux, Ubuntu, and Windows systems alongside SSL/TLS protocols and intrusion detection logging.
+              </p>
+            </article>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================
+         3. SECTION 3 — SECURITY ENGAGEMENTS & RESEARCH
+         ========================================================= -->
+    <section id="engagements" class="py-20 lg:py-28 border-b border-ice-300/75">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Section Header -->
+        <div class="mb-12 reveal-section">
+          <span class="inline-block font-mono text-xs font-semibold uppercase tracking-[0.16em] text-navy-900 bg-ice-100 border border-ice-300 px-3.5 py-1.5 rounded-full mb-3">
+            03 · Security Engagements &amp; Research
+          </span>
+          <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-navy-900 tracking-tight">
+            Security Capabilities
+          </h2>
+          <p class="text-navy-800/80 text-base mt-2 max-w-2xl">
+            Audits, penetration tests, and defensive systems engineered for high-availability environments.
+          </p>
+        </div>
+
+        <!-- Clean 2x2 Grid of 4 Engagement Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+
+          <!-- ENGAGEMENT 01 -->
+          <article class="engagement-card frosted-card frosted-card-hover flex flex-col justify-between p-6 sm:p-8 rounded-2xl">
+            <div>
+              <div class="flex items-center justify-between gap-3 mb-5">
+                <span class="font-mono text-xs font-semibold tracking-wider text-navy-700">ENGAGEMENT 01</span>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-navy-900 text-white font-mono text-xs font-semibold">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  Remediated
+                </span>
+              </div>
+
+              <h3 class="font-display font-extrabold text-xl sm:text-2xl text-navy-900 mb-3">
+                Enterprise Web App Pentest &amp; OWASP Audit
+              </h3>
+
+              <p class="text-navy-800/85 text-sm sm:text-base leading-relaxed mb-6">
+                Conducted comprehensive black-box and grey-box penetration testing on client web applications from Kali Linux using Burp Suite Pro and Metasploit. Identified and patched critical OWASP Top 10 vulnerabilities including SQL injection, broken object-level authorization, and stored XSS vectors.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap gap-2 pt-4 border-t border-ice-300/80">
+              <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Burp Suite Pro</span>
+              <span class="px-3 py-1 rounded-lg bg-navy-900 text-white font-medium text-xs">Metasploit</span>
+              <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">OWASP Top 10</span>
+              <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">SQLi / XSS</span>
+              <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Session Management</span>
+            </div>
+          </article>
+
+          <!-- ENGAGEMENT 02 -->
+          <article class="engagement-card frosted-card frosted-card-hover flex flex-col justify-between p-6 sm:p-8 rounded-2xl">
+            <div>
+              <div class="flex items-center justify-between gap-3 mb-5">
+                <span class="font-mono text-xs font-semibold tracking-wider text-navy-700">ENGAGEMENT 02</span>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-navy-900 text-white font-mono text-xs font-semibold">
+                  <span class="w-1.5 h-1.5 rounded-full bg-sky-300"></span>
+                  Production Hardened
+                </span>
+              </div>
+
+              <h3 class="font-display font-extrabold text-xl sm:text-2xl text-navy-900 mb-3">
+                Django Backend Secure Code Review
+              </h3>
+
+              <p class="text-navy-800/85 text-sm sm:text-base leading-relaxed mb-6">
+                Performed deep-dive static and dynamic code analysis on production Python/Django systems (such as booking and e-commerce platforms). Hardened middleware configuration, enforced strict CSRF/CORS policies, and secured database query sanitization.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap gap-2 pt-4 border-t border-ice-300/80">
+              <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Python / Django</span>
+              <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Secure Coding</span>
+              <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Auth Hardening</span>
+              <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">MySQL Security</span>
+            </div>
+          </article>
+
+          <!-- ENGAGEMENT 03 -->
+          <article class="engagement-card frosted-card frosted-card-hover flex flex-col justify-between p-6 sm:p-8 rounded-2xl">
+            <div>
+              <div class="flex items-center justify-between gap-3 mb-5">
+                <span class="font-mono text-xs font-semibold tracking-wider text-navy-700">ENGAGEMENT 03</span>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-navy-900 text-white font-mono text-xs font-semibold">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  Automated SIEM
+                </span>
+              </div>
+
+              <h3 class="font-display font-extrabold text-xl sm:text-2xl text-navy-900 mb-3">
+                Python Security Automation &amp; Log Analyzer
+              </h3>
+
+              <p class="text-navy-800/85 text-sm sm:text-base leading-relaxed mb-6">
+                Developed custom Python automation scripts to parse web server access and error logs in real-time. Flagged suspicious IP throttling attempts, brute-force login spikes, and anomalous HTTP request headers, triggering automated alerting hooks.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap gap-2 pt-4 border-t border-ice-300/80">
+              <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Python Scripting</span>
+              <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Log Analysis</span>
+              <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Regex Filtering</span>
+              <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Threat Detection</span>
+            </div>
+          </article>
+
+          <!-- ENGAGEMENT 04 -->
+          <article class="engagement-card frosted-card frosted-card-hover flex flex-col justify-between p-6 sm:p-8 rounded-2xl">
+            <div>
+              <div class="flex items-center justify-between gap-3 mb-5">
+                <span class="font-mono text-xs font-semibold tracking-wider text-navy-700">ENGAGEMENT 04</span>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-navy-900 text-white font-mono text-xs font-semibold">
+                  <span class="w-1.5 h-1.5 rounded-full bg-sky-300"></span>
+                  Perimeter Secured
+                </span>
+              </div>
+
+              <h3 class="font-display font-extrabold text-xl sm:text-2xl text-navy-900 mb-3">
+                Network Perimeter &amp; Firewall Hardening
+              </h3>
+
+              <p class="text-navy-800/85 text-sm sm:text-base leading-relaxed mb-6">
+                Executed port scanning and network topology mapping using Nmap and Wireshark across Kali Linux, Ubuntu, and Windows environments. Configured strict firewall rule sets (UFW/iptables), closed unnecessary listening ports, and enforced encrypted TLS protocols across deployment servers.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap gap-2 pt-4 border-t border-ice-300/80">
+              <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Nmap / Wireshark</span>
+              <span class="px-3 py-1 rounded-lg bg-navy-900 text-white font-medium text-xs">Kali Linux / Ubuntu / Windows</span>
+              <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Linux Hardening</span>
+              <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Firewall Rules</span>
+              <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">TLS / SSL</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================
+       4. FOOTER SECTION — MATCHING HOMEPAGE LAYOUT
+       ========================================================= -->
+  <footer id="contact" class="bg-white/65 backdrop-blur-md pt-16 pb-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Top Row: Bordered "Connect with me" + "Let's talk about your Project" & "Contact Me" Button -->
+      <div class="frosted-card p-7 sm:p-10 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-14 reveal-section">
+        <div class="space-y-3">
+          <span class="inline-block px-4 py-1.5 rounded-full border-2 border-navy-900 bg-white font-display font-bold text-xs uppercase tracking-wider text-navy-900">
+            Connect with me
+          </span>
+          <h2 class="font-display font-extrabold text-2xl sm:text-4xl text-navy-900 tracking-tight">
+            Let's talk about your Project
+          </h2>
+        </div>
+
+        <button
+          id="openContactModalBtn"
+          type="button"
+          class="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-navy-900 hover:bg-navy-700 text-white font-display font-bold text-sm sm:text-base shadow-lg shadow-navy-900/15 transition-all hover:-translate-y-0.5 cursor-pointer shrink-0"
+        >
+          Contact Me
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Middle Row: Logo + 3 Bullets (Left) | Navigation Links + Tagline (Right) -->
+      <div class="flex flex-col md:flex-row items-start justify-between gap-10 pb-10">
+        <!-- Left Column -->
+        <div class="space-y-5">
+          <a href="index.html" class="inline-flex items-center group focus:outline-none">
+            <img
+              src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='196' height='42' viewBox='0 0 196 42' fill='none'%3E%3Cdefs%3E%3ClinearGradient id='bdGradFooter' x1='0' y1='0' x2='42' y2='42' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%230A192F'/%3E%3Cstop offset='100%25' stop-color='%230284C7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='1' y='1' width='40' height='40' rx='11' fill='url(%23bdGradFooter)'/%3E%3Cpath d='M13 12H23.5C26.5 12 28.5 13.7 28.5 16.3C28.5 18.2 27.3 19.6 25.6 20.2C27.8 20.8 29.2 22.4 29.2 24.8C29.2 27.9 26.8 29.8 23.2 29.8H13V12ZM22.6 19.1C24.2 19.1 25.1 18.2 25.1 16.9C25.1 15.6 24.2 14.8 22.6 14.8H16.6V19.1H22.6ZM23 27C24.7 27 25.7 26.1 25.7 24.6C25.7 23.1 24.6 22.2 22.8 22.2H16.6V27H23Z' fill='white'/%3E%3Ccircle cx='33' cy='11' r='3' fill='%237DD3FC'/%3E%3Ctext x='50' y='20' fill='%230A192F' font-family='Manrope, sans-serif' font-weight='800' font-size='14.5' letter-spacing='0.06em'%3EBIWASH%3C/text%3E%3Ctext x='50' y='34' fill='%230284C7' font-family='Manrope, sans-serif' font-weight='700' font-size='10.5' letter-spacing='0.18em'%3EDIGIVERSE%3C/text%3E%3C/svg%3E"
+              alt="BIWASH DIGIVERSE Logo"
+              class="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+            />
+          </a>
+
+          <ul class="space-y-2 text-sm sm:text-base text-navy-800/85 font-medium">
+            <li>- Creative ideas, thoughtfully designed </li>
+            <li>- Purpose-driven digital solutions </li>
+            <li>- Built to make an impact </li>
+          </ul>
+        </div>
+
+        <!-- Right Column -->
+        <div class="flex flex-col items-start md:items-end justify-between gap-4">
+          <nav class="flex flex-wrap items-center gap-6 sm:gap-8" aria-label="Footer Navigation">
+            <a href="index.html" class="font-display font-bold text-sm sm:text-base text-navy-900 hover:text-ice-600 transition-colors">Home</a>
+            <a href="About.html" class="font-display font-bold text-sm sm:text-base text-navy-900 hover:text-ice-600 transition-colors">About</a>
+            <a href="Contact.html" class="font-display font-bold text-sm sm:text-base text-navy-900 hover:text-ice-600 transition-colors">Contact</a>
+          </nav>
+
+          <p class="font-display font-bold text-sm sm:text-base text-navy-800/85 md:text-right">
+            Think Creatively. Build Purposefully. Create Impact.
+          </p>
+        </div>
+      </div>
+
+      <!-- Full-Width Horizontal Divider Line -->
+      <hr class="border-t border-ice-300 mb-7" />
+
+      <!-- Bottom Copyright Line -->
+      <div class="text-center text-xs sm:text-sm text-navy-800/75 font-medium">
+        &copy; 2026 biwash.digiverse. All rights reserved.
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       INTERACTIVE SECURITY AUDIT & PROJECT INQUIRY MODAL
+       ========================================================= -->
+  <div
+    id="contactModal"
+    class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-navy-900/60 backdrop-blur-sm"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalHeading"
+  >
+    <div class="relative w-full max-w-lg rounded-2xl bg-white border border-ice-300 shadow-2xl p-6 sm:p-8">
+      <!-- Close Button -->
+      <button
+        id="closeContactModalBtn"
+        type="button"
+        class="absolute top-5 right-5 w-9 h-9 rounded-full bg-ice-100 hover:bg-ice-200 text-navy-900 font-bold flex items-center justify-center transition-colors cursor-pointer"
+        aria-label="Close Contact Modal"
+      >
+        &times;
+      </button>
+
+      <!-- Inquiry Form View -->
+      <div id="contactFormContainer">
+        <span class="inline-block font-mono text-xs font-semibold uppercase tracking-widest text-navy-900 bg-ice-100 px-3 py-1 rounded-full mb-2">
+          Security &amp; Project Inquiry
+        </span>
+        <h3 id="modalHeading" class="font-display font-extrabold text-2xl text-navy-900 mb-2">
+          Let's talk about your Project
+        </h3>
+        <p class="text-sm text-navy-800/80 mb-6">
+          Request a penetration test, secure code review, or multi-OS infrastructure hardening.
+        </p>
+
+        <form id="projectInquiryForm" class="space-y-4">
+          <div>
+            <label for="senderName" class="block font-display font-semibold text-xs text-navy-900 mb-1.5">Your Name / Organization</label>
+            <input
+              id="senderName"
+              type="text"
+              required
+              placeholder="Alex Rivera — Acme Corp"
+              class="w-full px-4 py-3 rounded-xl bg-ice-50 border border-ice-300 focus:border-navy-900 focus:outline-none text-sm text-navy-900 placeholder-navy-700/50"
+            />
+          </div>
+
+          <div>
+            <label for="senderEmail" class="block font-display font-semibold text-xs text-navy-900 mb-1.5">Work Email</label>
+            <input
+              id="senderEmail"
+              type="email"
+              required
+              placeholder="alex@company.com"
+              class="w-full px-4 py-3 rounded-xl bg-ice-50 border border-ice-300 focus:border-navy-900 focus:outline-none text-sm text-navy-900 placeholder-navy-700/50"
+            />
+          </div>
+
+          <div>
+            <label for="serviceScope" class="block font-display font-semibold text-xs text-navy-900 mb-1.5">Engagement Scope</label>
+            <select
+              id="serviceScope"
+              class="w-full px-4 py-3 rounded-xl bg-ice-50 border border-ice-300 focus:border-navy-900 focus:outline-none text-sm text-navy-900"
+            >
+              <option value="Enterprise Web App Pentest & OWASP Audit">Enterprise Web App Pentest &amp; OWASP Audit</option>
+              <option value="Django Backend Secure Code Review">Django Backend Secure Code Review</option>
+              <option value="Python Security Automation & SIEM">Python Security Automation &amp; SIEM</option>
+              <option value="Network Perimeter & Multi-OS Firewall Hardening">Network Perimeter &amp; Multi-OS Firewall Hardening</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="projectDetails" class="block font-display font-semibold text-xs text-navy-900 mb-1.5">Project / Target Overview</label>
+            <textarea
+              id="projectDetails"
+              rows="3"
+              required
+              placeholder="Briefly describe your application stack, OS environment, or security objectives..."
+              class="w-full px-4 py-3 rounded-xl bg-ice-50 border border-ice-300 focus:border-navy-900 focus:outline-none text-sm text-navy-900 placeholder-navy-700/50"
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full py-3.5 rounded-xl bg-navy-900 hover:bg-navy-700 text-white font-display font-bold text-sm sm:text-base shadow-lg shadow-navy-900/15 transition-all cursor-pointer"
+          >
+            Send Inquiry
+          </button>
+        </form>
+      </div>
+
+      <!-- Confirmation View -->
+      <div id="contactSuccessState" class="hidden text-center py-8 space-y-4">
+        <div class="w-14 h-14 rounded-full bg-ice-100 border border-ice-300 text-navy-900 flex items-center justify-center mx-auto">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <h4 class="font-display font-extrabold text-2xl text-navy-900">Inquiry Received</h4>
+        <p class="text-sm text-navy-800/80 max-w-sm mx-auto leading-relaxed">
+          Thank you for connecting with <span class="text-navy-900 font-bold">biwash.creatives</span>. Your brief has been recorded and I will respond within 24 hours.
+        </p>
+        <button
+          id="resetModalBtn"
+          type="button"
+          class="mt-2 px-6 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-700 text-white font-display font-bold text-xs transition-colors cursor-pointer"
+        >
+          Close Window
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GSAP & ScrollTrigger CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script>
+    // =========================================================
+    // TOP NAVIGATION BAR INTERACTIONS (DESKTOP DROPDOWN & MOBILE DRAWER)
+    // =========================================================
+    function toggleDesktopDropdown(event) {
+      if (event) event.stopPropagation();
+      const wrap = document.getElementById('portfolioDropdownWrap');
+      const btn = wrap ? wrap.querySelector('button') : null;
+      const chevron = document.getElementById('desktopDropdownChevron');
+      if (!wrap) return;
+
+      const isOpen = wrap.classList.toggle('open');
+      if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      if (chevron) chevron.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+    }
+
+    function toggleMobileDrawer() {
+      const drawer = document.getElementById('mobileDrawer');
+      const btn = document.getElementById('mobileMenuBtn');
+      const iconOpen = document.getElementById('menuIconOpen');
+      const iconClose = document.getElementById('menuIconClose');
+      if (!drawer) return;
+
+      const isHidden = drawer.classList.toggle('hidden');
+      const isExpanded = !isHidden;
+      if (btn) btn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+      if (iconOpen) iconOpen.classList.toggle('hidden', isExpanded);
+      if (iconClose) iconClose.classList.toggle('hidden', !isExpanded);
+    }
+
+    function toggleMobilePortfolio() {
+      const sub = document.getElementById('mobilePortfolioSub');
+      const chevron = document.getElementById('mobilePortfolioChevron');
+      if (!sub) return;
+
+      const isHidden = sub.classList.toggle('hidden');
+      if (chevron) chevron.style.transform = !isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+    }
+
+    // Close desktop dropdown & mobile drawer on outside click or Escape key
+    document.addEventListener('click', (e) => {
+      const wrap = document.getElementById('portfolioDropdownWrap');
+      if (wrap && !wrap.contains(e.target) && wrap.classList.contains('open')) {
+        wrap.classList.remove('open');
+        const btn = wrap.querySelector('button');
+        const chevron = document.getElementById('desktopDropdownChevron');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+        if (chevron) chevron.style.transform = 'rotate(0deg)';
+      }
+
+      const header = document.getElementById('mainHeader');
+      const drawer = document.getElementById('mobileDrawer');
+      if (header && drawer && !header.contains(e.target) && !drawer.classList.contains('hidden')) {
+        toggleMobileDrawer();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const wrap = document.getElementById('portfolioDropdownWrap');
+        if (wrap && wrap.classList.contains('open')) {
+          wrap.classList.remove('open');
+          const btn = wrap.querySelector('button');
+          const chevron = document.getElementById('desktopDropdownChevron');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+          if (chevron) chevron.style.transform = 'rotate(0deg)';
+        }
+        const drawer = document.getElementById('mobileDrawer');
+        if (drawer && !drawer.classList.contains('hidden')) {
+          toggleMobileDrawer();
+        }
+      }
+    });
+
+    // Subtle scroll spacing polish on fixed header
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('mainHeader');
+      if (!header) return;
+      if (window.scrollY > 24) {
+        header.classList.add('pt-2', 'sm:pt-2.5');
+        header.classList.remove('pt-3', 'sm:pt-4');
+      } else {
+        header.classList.add('pt-3', 'sm:pt-4');
+        header.classList.remove('pt-2', 'sm:pt-2.5');
+      }
+    }, { passive: true });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // =========================================================
+      // 1. TERMINAL SEQUENTIAL SCAN ANIMATION
+      // =========================================================
+      const termLines = Array.from(document.querySelectorAll('#terminalOutput .term-line'));
+      const rerunScanBtn = document.getElementById('rerunScanBtn');
+      const rerunIcon = document.getElementById('rerunIcon');
+      const scanBadge = document.getElementById('scanBadge');
+      let scanTimers = [];
+
+      function runTerminalScan() {
+        scanTimers.forEach((id) => clearTimeout(id));
+        scanTimers = [];
+
+        termLines.forEach((line) => line.classList.remove('visible'));
+        scanBadge.textContent = 'SCANNING...';
+        scanBadge.className = 'text-amber-300 font-semibold';
+
+        rerunIcon.classList.add('animate-spin');
+        const spinStop = setTimeout(() => rerunIcon.classList.remove('animate-spin'), 600);
+        scanTimers.push(spinStop);
+
+        termLines.forEach((line, index) => {
+          const timer = setTimeout(() => {
+            line.classList.add('visible');
+            if (index === termLines.length - 1) {
+              scanBadge.textContent = 'VERIFIED';
+              scanBadge.className = 'text-emerald-400 font-semibold';
+            }
+          }, 220 + index * 290);
+          scanTimers.push(timer);
+        });
+      }
+
+      runTerminalScan();
+      rerunScanBtn.addEventListener('click', runTerminalScan);
+
+      // =========================================================
+      // 2. INTERACTIVE 3-TIER DEFENSIVE ARCHITECTURE DIAGRAM
+      // =========================================================
+      const tierData = {
+        '1': {
+          label: 'Layer 01 // Perimeter & Firewall Defense Controls',
+          desc: 'Strict UFW/iptables rule sets across Linux & Ubuntu hosts, Windows Defender Firewall hardening, closed non-essential ports, enforced TLS 1.3 cipher suites, and Nmap/Wireshark topology verification.',
+        },
+        '2': {
+          label: 'Layer 02 // Application & API Hardening Controls',
+          desc: 'OWASP Top 10 mitigation from Kali Linux via Burp Suite boundary fuzzing and Metasploit payload validation, strict Django CSRF/CORS policies, CSP headers, and session token hardening.',
+        },
+        '3': {
+          label: 'Layer 03 // Data Integrity & Real-Time SIEM Controls',
+          desc: 'Parameterized ORM query sanitization, role-based access controls, and custom Python log analyzers on Ubuntu/Linux/Windows triggering instant alerts on brute-force anomalies.',
+        },
+      };
+
+      const tierButtons = document.querySelectorAll('.tier-btn');
+      const tierDetailLabel = document.getElementById('tierDetailLabel');
+      const tierDetailDesc = document.getElementById('tierDetailDesc');
+
+      tierButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const tierId = btn.dataset.tier;
+          const info = tierData[tierId];
+          if (!info) return;
+
+          tierButtons.forEach((b) => {
+            b.classList.remove('active', 'bg-navy-900', 'text-white', 'border-navy-900');
+            b.classList.add('bg-ice-50', 'hover:bg-ice-100', 'text-navy-900', 'border-ice-300');
+            const spans = b.querySelectorAll('span');
+            if (spans[0]) spans[0].className = 'font-mono text-[11px] font-semibold uppercase tracking-wider text-navy-700/80 block';
+            if (spans[1]) {
+              spans[1].className = 'font-mono text-[11px] text-navy-700/80';
+              spans[1].textContent = 'Inspect';
+            }
+          });
+
+          btn.classList.add('active', 'bg-navy-900', 'text-white', 'border-navy-900');
+          btn.classList.remove('bg-ice-50', 'hover:bg-ice-100', 'text-navy-900', 'border-ice-300');
+          const activeSpans = btn.querySelectorAll('span');
+          if (activeSpans[0]) activeSpans[0].className = 'font-mono text-[11px] font-semibold uppercase tracking-wider text-ice-300 block';
+          if (activeSpans[1]) {
+            activeSpans[1].className = 'font-mono text-[11px] text-sky-300';
+            activeSpans[1].textContent = 'Active';
+          }
+
+          tierDetailLabel.textContent = info.label;
+          tierDetailDesc.textContent = info.desc;
+        });
+      });
+
+      // =========================================================
+      // 3. CONTACT MODAL INTERACTION
+      // =========================================================
+      const contactModal = document.getElementById('contactModal');
+      const openContactModalBtn = document.getElementById('openContactModalBtn');
+      const closeContactModalBtn = document.getElementById('closeContactModalBtn');
+      const resetModalBtn = document.getElementById('resetModalBtn');
+      const projectInquiryForm = document.getElementById('projectInquiryForm');
+      const contactFormContainer = document.getElementById('contactFormContainer');
+      const contactSuccessState = document.getElementById('contactSuccessState');
+
+      function openModal() {
+        contactModal.classList.remove('hidden');
+        contactModal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        contactModal.classList.add('hidden');
+        contactModal.classList.remove('flex');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+          contactFormContainer.classList.remove('hidden');
+          contactSuccessState.classList.add('hidden');
+          projectInquiryForm.reset();
+        }, 200);
+      }
+
+      openContactModalBtn.addEventListener('click', openModal);
+      closeContactModalBtn.addEventListener('click', closeModal);
+      resetModalBtn.addEventListener('click', closeModal);
+
+      contactModal.addEventListener('click', (e) => {
+        if (e.target === contactModal) closeModal();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !contactModal.classList.contains('hidden')) {
+          closeModal();
+        }
+      });
+
+      projectInquiryForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        contactFormContainer.classList.add('hidden');
+        contactSuccessState.classList.remove('hidden');
+      });
+
+      // =========================================================
+      // 4. GSAP SCROLL REVEAL ANIMATIONS
+      // =========================================================
+      if (window.gsap && window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const mm = gsap.matchMedia();
+        mm.add('(prefers-reduced-motion: no-preference)', () => {
+          gsap.from('.hero-stagger', {
+            y: 20,
+            opacity: 0,
+            duration: 0.7,
+            stagger: 0.09,
+            ease: 'power3.out',
+            clearProps: 'transform,opacity',
+          });
+
+          gsap.from('.hero-terminal', {
+            y: 26,
+            opacity: 0,
+            duration: 0.8,
+            delay: 0.2,
+            ease: 'power3.out',
+            clearProps: 'transform,opacity',
+          });
+
+          gsap.utils.toArray('.reveal-section').forEach((section) => {
+            gsap.from(section, {
+              y: 24,
+              opacity: 0,
+              duration: 0.7,
+              ease: 'power3.out',
+              clearProps: 'transform,opacity',
+              scrollTrigger: {
+                trigger: section,
+                start: 'top 86%',
+                once: true,
+              },
+            });
+          });
+
+          gsap.from('.engagement-card', {
+            y: 22,
+            opacity: 0,
+            duration: 0.65,
+            stagger: 0.1,
+            ease: 'power3.out',
+            clearProps: 'transform,opacity',
+            scrollTrigger: {
+              trigger: '#engagements',
+              start: 'top 82%',
+              once: true,
+            },
+          });
+        });
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web Development — Full-Stack Engineering &amp; Applied AI | BIWASH DIGIVERSE</title>
+  <meta name="description" content="Full-stack Python & Django engineering, relational MySQL architectures, digital payment gateways, and Applied AI recommendation systems by biwash.creatives (BIWASH DIGIVERSE)." />
+
+  <!-- Google Fonts: Manrope (Headings), Inter (Body & UI), JetBrains Mono (Code & Metrics) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          screens: {
+            xs: '380px',
+          },
+          colors: {
+            navy: {
+              700: '#1E3A5F',
+              800: '#112240',
+              900: '#0A192F',
+            },
+            ice: {
+              50: '#F5FAFF',
+              100: '#E8F3FC',
+              200: '#D1E5F7',
+              300: '#BDD0E3',
+              600: '#0284C7',
+            },
+          },
+          fontFamily: {
+            display: ['Manrope', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* Full-page BIWASH DIGIVERSE background */
+    html,
+    body {
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 15% 10%, rgba(189, 208, 227, 0.45) 0%, transparent 45%),
+        radial-gradient(ellipse at 85% 30%, rgba(218, 230, 242, 0.55) 0%, transparent 45%),
+        radial-gradient(ellipse at 50% 90%, rgba(232, 241, 250, 0.65) 0%, transparent 50%),
+        linear-gradient(135deg, #ffffff 0%, #f7fafd 45%, #eef4fa 100%);
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: cover;
+      font-family: 'Inter', sans-serif;
+      color: #0A192F;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, .font-manrope {
+      font-family: 'Manrope', sans-serif;
+    }
+
+    /* BIWASH DIGIVERSE Glassmorphic Navigation & Dropdown System */
+    .ice-glass-strong {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(189, 208, 227, 0.85);
+      box-shadow: 0 12px 32px -12px rgba(10, 25, 47, 0.08);
+    }
+
+    /* Frosted White Surface Cards */
+    .ice-card {
+      background: rgba(255, 255, 255, 0.84);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(189, 208, 227, 0.85);
+      box-shadow: 0 10px 30px -12px rgba(10, 25, 47, 0.07);
+      transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.26s ease,
+                  box-shadow 0.26s ease;
+    }
+
+    .ice-card-hover:hover {
+      transform: translateY(-4px);
+      border-color: rgba(2, 132, 199, 0.55);
+      box-shadow: 0 20px 38px -14px rgba(10, 25, 47, 0.14),
+                  0 0 0 1px rgba(2, 132, 199, 0.15);
+    }
+
+    .nav-dropdown-panel {
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(-50%, 8px);
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-dropdown-wrapper:hover .nav-dropdown-panel,
+    .nav-dropdown-wrapper.open .nav-dropdown-panel {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
+    }
+
+    @keyframes livePulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.55);
+        opacity: 1;
+      }
+      50% {
+        box-shadow: 0 0 0 6px rgba(14, 165, 233, 0);
+        opacity: 0.85;
+      }
+    }
+
+    .live-dot {
+      animation: livePulse 2.2s infinite ease-in-out;
+    }
+
+    @keyframes cursorBlink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+
+    .code-cursor {
+      display: inline-block;
+      width: 7px;
+      height: 14px;
+      background-color: #38BDF8;
+      vertical-align: middle;
+      margin-left: 4px;
+      animation: cursorBlink 1s infinite;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #EEF4FA;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #BDD0E3;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #8FAEC9;
+    }
+  </style>
+</head>
+<body class="selection:bg-ice-600 selection:text-white">
+
+  <!-- ==================== 2. EXACT FIXED TOP NAVIGATION BAR ==================== -->
+  <header
+    id="mainHeader"
+    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-3 xs:px-4 sm:px-6 lg:px-10 pt-3 sm:pt-4"
+  >
+    <nav
+      class="max-w-7xl mx-auto ice-glass-strong rounded-2xl px-3.5 xs:px-5 sm:px-7 py-3 flex items-center justify-between relative"
+      aria-label="Primary Navigation"
+    >
+      <!-- LEFT: Brand Logo (<img> form) -->
+      <a
+        href="index.html"
+        class="flex items-center gap-2.5 shrink-0 group focus:outline-none"
+      >
+        <img
+          src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='196' height='42' viewBox='0 0 196 42' fill='none'%3E%3Cdefs%3E%3ClinearGradient id='bdGrad' x1='0' y1='0' x2='42' y2='42' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%230A192F'/%3E%3Cstop offset='100%25' stop-color='%230284C7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='1' y='1' width='40' height='40' rx='11' fill='url(%23bdGrad)'/%3E%3Cpath d='M13 12H23.5C26.5 12 28.5 13.7 28.5 16.3C28.5 18.2 27.3 19.6 25.6 20.2C27.8 20.8 29.2 22.4 29.2 24.8C29.2 27.9 26.8 29.8 23.2 29.8H13V12ZM22.6 19.1C24.2 19.1 25.1 18.2 25.1 16.9C25.1 15.6 24.2 14.8 22.6 14.8H16.6V19.1H22.6ZM23 27C24.7 27 25.7 26.1 25.7 24.6C25.7 23.1 24.6 22.2 22.8 22.2H16.6V27H23Z' fill='white'/%3E%3Ccircle cx='33' cy='11' r='3' fill='%237DD3FC'/%3E%3Ctext x='50' y='20' fill='%230A192F' font-family='Manrope, sans-serif' font-weight='800' font-size='14.5' letter-spacing='0.06em'%3EBIWASH%3C/text%3E%3Ctext x='50' y='34' fill='%230284C7' font-family='Manrope, sans-serif' font-weight='700' font-size='10.5' letter-spacing='0.18em'%3EDIGIVERSE%3C/text%3E%3C/svg%3E"
+          alt="BIWASH DIGIVERSE Logo"
+          class="h-8 xs:h-9 sm:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+        />
+      </a>
+
+      <!-- CENTER: 4 Nav Menus -->
+      <ul class="hidden lg:flex items-center gap-1 xl:gap-2">
+        <li>
+          <a
+            href="index.html"
+            class="px-4 py-2 rounded-xl text-sm font-medium text-navy-800/80 hover:text-navy-900 hover:bg-ice-100/80 transition-all"
+          >
+            Home 
+          </a>
+        </li>
+        <li>
+          <a
+            href="About.html"
+            class="px-4 py-2 rounded-xl text-sm font-medium text-navy-800/80 hover:text-navy-900 hover:bg-ice-100/80 transition-all"
+          >
+            About 
+          </a>
+        </li>
+        <li class="relative nav-dropdown-wrapper" id="portfolioDropdownWrap">
+          <button
+            type="button"
+            onclick="toggleDesktopDropdown(event)"
+            class="px-4 py-2 rounded-xl text-sm font-semibold text-navy-900 bg-ice-100/95 border border-ice-300/70 transition-all inline-flex items-center gap-1.5"
+            aria-expanded="false"
+            aria-haspopup="true"
+          >
+            <span>Portfolio </span>
+            <svg
+              id="desktopDropdownChevron"
+              class="w-4 h-4 text-ice-600 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+
+          <!-- Portfolio Dropdown Menu (4 Sub-Menus) -->
+          <div
+            class="nav-dropdown-panel absolute left-1/2 -translate-x-1/2 top-full pt-3 w-80 z-50"
+          >
+            <div
+              class="ice-glass-strong rounded-2xl p-2.5 shadow-2xl border border-ice-300/80 space-y-1"
+            >
+              <a
+                href="Graphics.html"
+                class="flex items-start gap-3 p-3 rounded-xl hover:bg-ice-100/90 transition-colors group"
+              >
+                <span
+                  class="w-7 h-7 rounded-lg bg-navy-900 text-white text-xs font-display font-bold flex items-center justify-center shrink-0 group-hover:bg-ice-600 transition-colors"
+                  >1</span
+                >
+                <div>
+                  <p class="text-sm font-display font-bold text-navy-900">
+                    1. Graphic Designs
+                  </p>
+                  <p class="text-xs text-navy-700/75">
+                    Brand Identity, Packaging &amp; Ad Systems
+                  </p>
+                </div>
+              </a>
+              <a
+                href="videoediting.html"
+                class="flex items-start gap-3 p-3 rounded-xl hover:bg-ice-100/90 transition-colors group"
+              >
+                <span
+                  class="w-7 h-7 rounded-lg bg-navy-900 text-white text-xs font-display font-bold flex items-center justify-center shrink-0 group-hover:bg-ice-600 transition-colors"
+                  >2</span
+                >
+                <div>
+                  <p class="text-sm font-display font-bold text-navy-900">
+                    2. Video Editing
+                  </p>
+                  <p class="text-xs text-navy-700/75">
+                    Cinematic Cuts, UGC &amp; Web Series Dubbing
+                  </p>
+                </div>
+              </a>
+              <a
+                href="webdev.html"
+                aria-current="page"
+                class="flex items-start gap-3 p-3 rounded-xl bg-ice-100/95 border border-ice-300/85 transition-colors group"
+              >
+                <span
+                  class="w-7 h-7 rounded-lg bg-ice-600 text-white text-xs font-display font-bold flex items-center justify-center shrink-0 transition-colors"
+                  >3</span
+                >
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between gap-2">
+                    <p class="text-sm font-display font-bold text-navy-900">
+                      3. Web Development
+                    </p>
+                    <span
+                      class="px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-navy-900 text-white shrink-0"
+                      >Current</span
+                    >
+                  </div>
+                  <p class="text-xs text-navy-700/80 mt-0.5">
+                    Full-Stack Python, Django &amp; UI Systems
+                  </p>
+                </div>
+              </a>
+              <a
+                href="cybersecurity.html"
+                class="flex items-start gap-3 p-3 rounded-xl hover:bg-ice-100/90 transition-colors group"
+              >
+                <span
+                  class="w-7 h-7 rounded-lg bg-navy-900 text-white text-xs font-display font-bold flex items-center justify-center shrink-0 group-hover:bg-ice-600 transition-colors"
+                  >4</span
+                >
+                <div>
+                  <p class="text-sm font-display font-bold text-navy-900">
+                    4. Cybersecurity
+                  </p>
+                  <p class="text-xs text-navy-700/75">
+                    Recon, Vulnerability Audits &amp; Packet Labs
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a
+            href="Contact.html"
+            class="px-4 py-2 rounded-xl text-sm font-medium text-navy-800/80 hover:text-navy-900 hover:bg-ice-100/80 transition-all"
+          >
+            Contact Page
+          </a>
+        </li>
+      </ul>
+
+      <!-- RIGHT: Status Pill (XL+) & Mobile Hamburger -->
+      <div class="flex items-center gap-2.5">
+        <span
+          class="hidden xl:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-ice-100 text-navy-900 border border-ice-300/80"
+        >
+          <span class="w-2 h-2 rounded-full bg-sky-500 live-dot"></span>
+          Design · Dev · CyberSec
+        </span>
+
+        <button
+          id="mobileMenuBtn"
+          type="button"
+          onclick="toggleMobileDrawer()"
+          class="lg:hidden p-2 rounded-xl bg-ice-100/90 text-navy-900 hover:bg-ice-200 transition-colors focus:outline-none"
+          aria-label="Toggle Navigation Menu"
+          aria-expanded="false"
+        >
+          <svg
+            id="menuIconOpen"
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+          <svg
+            id="menuIconClose"
+            class="w-5 h-5 hidden"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile / Tablet / Folding Device Drawer -->
+    <div
+      id="mobileDrawer"
+      class="lg:hidden hidden max-w-7xl mx-auto mt-2 ice-glass-strong rounded-2xl p-4 shadow-xl border border-ice-300/80"
+    >
+      <div class="flex flex-col space-y-1.5">
+        <a
+          href="index.html"
+          class="px-4 py-2.5 rounded-xl text-sm font-semibold text-navy-900 hover:bg-ice-100"
+          >1. Home Page</a
+        >
+        <a
+          href="About.html"
+          class="px-4 py-2.5 rounded-xl text-sm font-semibold text-navy-900 hover:bg-ice-100"
+          >2. About Page</a
+        >
+
+        <!-- Mobile Portfolio Accordion (Expanded by default so active subpage is immediately visible) -->
+        <div
+          class="rounded-xl bg-ice-50/90 border border-ice-200/80 overflow-hidden"
+        >
+          <button
+            type="button"
+            onclick="toggleMobilePortfolio()"
+            class="w-full px-4 py-2.5 flex items-center justify-between text-sm font-bold text-navy-900"
+            aria-expanded="true"
+          >
+            <span>3. Portfolio Page</span>
+            <svg
+              id="mobilePortfolioChevron"
+              class="w-4 h-4 text-ice-600 transition-transform duration-200 rotate-180"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+          <div
+            id="mobilePortfolioSub"
+            class="px-3 pb-3 pt-1.5 space-y-1 border-t border-ice-200/70"
+          >
+            <a
+              href="Portfolio/Graphics.html"
+              class="block px-3 py-2 rounded-lg text-xs font-semibold text-navy-800 hover:bg-ice-200/60"
+              >1. Graphic Designs</a
+            >
+            <a
+              href="Portfolio/videoediting.html"
+              class="block px-3 py-2 rounded-lg text-xs font-semibold text-navy-800 hover:bg-ice-200/60"
+              >2. Video Editing</a
+            >
+            <a
+              href="Portfolio/webdev.html"
+              aria-current="page"
+              class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-bold text-navy-900 bg-ice-100 border border-ice-300/80"
+            >
+              <span>3. Web Development</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-navy-900 text-white">Current</span>
+            </a>
+            <a
+              href="Portfolio/cybersecurity.html"
+              class="block px-3 py-2 rounded-lg text-xs font-semibold text-navy-800 hover:bg-ice-200/60"
+              >4. Cybersecurity</a
+            >
+          </div>
+        </div>
+
+        <a
+          href="Contact.html"
+          class="px-4 py-2.5 rounded-xl text-sm font-semibold text-navy-900 hover:bg-ice-100"
+          >4. Contact Page</a
+        >
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main id="top">
+
+    <!-- =========================================================
+         3. SECTION 1: HERO SECTION — FULL-STACK ENGINEERING & APPLIED AI
+         ========================================================= -->
+    <section id="hero" class="pt-28 sm:pt-32 lg:pt-36 pb-16 sm:pb-20 border-b border-ice-300/70">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+
+          <!-- Left Column: Eyebrow, Headline, Subheadline, Tech Stack Badges, CTAs -->
+          <div class="lg:col-span-7 space-y-6">
+            <div>
+              <span class="inline-flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-[0.16em] text-navy-900 bg-ice-100 border border-ice-300 px-3.5 py-1.5 rounded-full">
+                <span class="w-2 h-2 rounded-full bg-ice-600 live-dot"></span>
+                01 · Full-Stack Engineering &amp; Applied AI
+              </span>
+            </div>
+
+            <h1 class="font-display font-extrabold text-3xl sm:text-5xl lg:text-[3.35rem] text-navy-900 leading-[1.12] tracking-tight">
+              Building Scalable Backends &amp; Intelligent Web Systems.
+            </h1>
+
+            <p class="text-base sm:text-lg text-navy-800/85 leading-relaxed max-w-2xl">
+              From production Django booking platforms and digital payment integrations to machine-learning recommendation engines and automated Telegram bots—engineered for reliability, speed, and real-world impact.
+            </p>
+
+            <!-- Core Tech Stack Badges -->
+            <div class="pt-1">
+              <p class="font-mono text-[11px] font-semibold uppercase tracking-wider text-navy-700/75 mb-2.5">
+                Core Engineering Stack
+              </p>
+              <div class="flex flex-wrap items-center gap-2.5">
+                <!-- Python -->
+                <span class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/90 border border-ice-300 text-xs sm:text-sm font-semibold text-navy-900 shadow-sm">
+                  <svg class="w-4 h-4 text-ice-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  Python
+                </span>
+
+                <!-- Django with dark navy 'dj' badge icon -->
+                <span class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/90 border border-ice-300 text-xs sm:text-sm font-semibold text-navy-900 shadow-sm">
+                  <span class="inline-flex items-center justify-center px-1.5 py-0.5 rounded-md bg-navy-900 text-white font-mono text-[11px] font-bold tracking-tight leading-none">
+                    dj
+                  </span>
+                  Django
+                </span>
+
+                <!-- MySQL -->
+                <span class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/90 border border-ice-300 text-xs sm:text-sm font-semibold text-navy-900 shadow-sm">
+                  <svg class="w-4 h-4 text-ice-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <ellipse cx="12" cy="5" rx="9" ry="3" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                  </svg>
+                  MySQL
+                </span>
+
+                <!-- AI / ML -->
+                <span class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-navy-900 text-white border border-navy-900 text-xs sm:text-sm font-semibold shadow-sm">
+                  <svg class="w-4 h-4 text-sky-300 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+                  </svg>
+                  AI / ML
+                </span>
+              </div>
+            </div>
+
+            <!-- Two CTA Buttons -->
+            <div class="flex flex-wrap items-center gap-3.5 pt-2">
+              <a
+                href="#projects"
+                class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-navy-900 hover:bg-ice-600 text-white font-display font-bold text-sm shadow-lg shadow-navy-900/15 transition-all hover:-translate-y-0.5"
+              >
+                Explore Web &amp; AI Projects
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </a>
+
+              <a
+                href="#architecture"
+                class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white/90 hover:bg-ice-100 text-navy-900 border border-ice-300 font-display font-bold text-sm transition-all hover:-translate-y-0.5"
+              >
+                System Architecture
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Column: Interactive Python Code Card (biwash_stack.py) -->
+          <div class="lg:col-span-5 space-y-3.5">
+            <div class="rounded-2xl bg-navy-900 border border-navy-700 shadow-2xl shadow-navy-900/25 overflow-hidden">
+              <!-- macOS-style Window Bar -->
+              <div class="flex items-center justify-between px-4 py-3 bg-[#071222] border-b border-navy-700/80 gap-2">
+                <div class="flex items-center gap-2 min-w-0">
+                  <span class="w-3 h-3 rounded-full bg-rose-400 shrink-0"></span>
+                  <span class="w-3 h-3 rounded-full bg-amber-400 shrink-0"></span>
+                  <span class="w-3 h-3 rounded-full bg-emerald-400 shrink-0"></span>
+                  <span class="ml-1.5 px-2.5 py-0.5 rounded-md bg-navy-800 border border-navy-700 font-mono text-xs font-medium text-sky-300 truncate">
+                    biwash_stack.py
+                  </span>
+                </div>
+
+                <div class="flex items-center gap-1.5 shrink-0">
+                  <button
+                    id="copyCodeBtn"
+                    type="button"
+                    onclick="copyPythonSnippet()"
+                    class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-navy-800 hover:bg-navy-700 border border-navy-700 text-[11px] font-mono font-medium text-ice-200 transition-colors cursor-pointer"
+                    title="Copy biwash_stack.py"
+                  >
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                    <span id="copyCodeLabel">Copy</span>
+                  </button>
+
+                  <button
+                    id="runSolutionBtn"
+                    type="button"
+                    onclick="runPythonSolution()"
+                    class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-ice-600 hover:bg-sky-500 text-white text-[11px] font-mono font-semibold transition-colors cursor-pointer shadow-sm"
+                    title="Execute build_solution()"
+                  >
+                    <svg id="runSolutionIcon" class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                    </svg>
+                    Run Solution()
+                  </button>
+                </div>
+              </div>
+
+              <!-- Syntax-Highlighted Python Code with Line Numbers -->
+              <div class="p-4 sm:p-5 font-mono text-[11.5px] xs:text-xs sm:text-[13px] leading-relaxed overflow-x-auto text-ice-100">
+                <div class="min-w-[340px] space-y-1">
+                  <div class="flex">
+                    <span class="w-7 text-slate-500 select-none shrink-0">1</span>
+                    <span><span class="text-sky-400 font-semibold">class</span> <span class="text-amber-300 font-semibold">FullStackEngineer</span>:</span>
+                  </div>
+                  <div class="flex">
+                    <span class="w-7 text-slate-500 select-none shrink-0">2</span>
+                    <span class="pl-4"><span class="text-sky-400 font-semibold">def</span> <span class="text-emerald-300">__init__</span>(<span class="text-rose-300">self</span>):</span>
+                  </div>
+                  <div class="flex">
+                    <span class="w-7 text-slate-500 select-none shrink-0">3</span>
+                    <span class="pl-8"><span class="text-rose-300">self</span>.core = [<span class="text-emerald-300">"Python"</span>, <span class="text-emerald-300">"Django"</span>, <span class="text-emerald-300">"MySQL"</span>, <span class="text-emerald-300">"AI/ML"</span>]</span>
+                  </div>
+                  <div class="flex">
+                    <span class="w-7 text-slate-500 select-none shrink-0">4</span>
+                    <span class="pl-8"><span class="text-rose-300">self</span>.live_users = <span class="text-emerald-300">"1,150+ Active"</span></span>
+                  </div>
+                  <div class="flex">
+                    <span class="w-7 text-slate-500 select-none shrink-0">5</span>
+                    <span class="pl-8"><span class="text-rose-300">self</span>.deployments = <span class="text-emerald-300">"5 Production Systems"</span></span>
+                  </div>
+                  <div class="flex">
+                    <span class="w-7 text-slate-500 select-none shrink-0">6</span>
+                    <span>&nbsp;</span>
+                  </div>
+                  <div class="flex">
+                    <span class="w-7 text-slate-500 select-none shrink-0">7</span>
+                    <span class="pl-4"><span class="text-sky-400 font-semibold">def</span> <span class="text-emerald-300">build_solution</span>(<span class="text-rose-300">self</span>, problem):</span>
+                  </div>
+                  <div class="flex">
+                    <span class="w-7 text-slate-500 select-none shrink-0">8</span>
+                    <span class="pl-8 text-slate-400 italic"># Clean architecture + relational data</span>
+                  </div>
+                  <div class="flex">
+                    <span class="w-7 text-slate-500 select-none shrink-0">9</span>
+                    <span class="pl-8"><span class="text-sky-400 font-semibold">return</span> <span class="text-emerald-300 font-semibold">"Scalable, Secure &amp; Fast"</span></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Interactive Console Output Bar -->
+              <div class="px-4 sm:px-5 py-3.5 bg-[#06101E] border-t border-navy-700/80 font-mono text-[11px] sm:text-xs space-y-1.5" id="pythonConsoleOutput">
+                <div class="flex items-center justify-between text-[10.5px] text-slate-400">
+                  <span>PYTHON 3.12 RUNTIME // INTERACTIVE SHELL</span>
+                  <span id="consoleStatusTag" class="text-emerald-400 font-semibold">READY</span>
+                </div>
+                <div id="consoleLines" class="space-y-1 text-ice-100">
+                  <p class="text-sky-300">&gt;&gt;&gt; engineer = FullStackEngineer()</p>
+                  <p class="text-sky-300">&gt;&gt;&gt; engineer.build_solution(<span class="text-amber-300">"production_workload"</span>)</p>
+                  <p class="text-emerald-400 font-semibold">
+                    Output: "Scalable, Secure &amp; Fast" <span class="text-slate-400 font-normal">[Status: 200 OK · Latency: 12ms]</span><span class="code-cursor"></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3 Compact Metric Pills Below Code Card -->
+            <div class="grid grid-cols-3 gap-2.5">
+              <div class="ice-card rounded-xl px-3 py-2.5 text-center">
+                <p class="font-mono text-xs sm:text-sm font-bold text-navy-900">1,150+</p>
+                <p class="text-[11px] text-navy-700/80 font-medium">Active Users</p>
+              </div>
+              <div class="ice-card rounded-xl px-3 py-2.5 text-center">
+                <p class="font-mono text-xs sm:text-sm font-bold text-navy-900">5 Systems</p>
+                <p class="text-[11px] text-navy-700/80 font-medium">Production Live</p>
+              </div>
+              <div class="ice-card rounded-xl px-3 py-2.5 text-center">
+                <p class="font-mono text-xs sm:text-sm font-bold text-ice-600">ACID + ML</p>
+                <p class="text-[11px] text-navy-700/80 font-medium">MySQL &amp; Python</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         4. SECTION 2: SYSTEM ARCHITECTURE — HOW I ENGINEER WEB & AI SOLUTIONS
+         ========================================================= -->
+    <section id="architecture" class="py-16 sm:py-24 border-b border-ice-300/70">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+
+        <!-- Top Two-Column Narrative + Interactive 3-Tier Architecture Explorer -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+
+          <!-- Left Column: Narrative + Blockquote -->
+          <div class="lg:col-span-6 space-y-6">
+            <span class="inline-block font-mono text-xs font-semibold uppercase tracking-[0.16em] text-navy-900 bg-ice-100 border border-ice-300 px-3.5 py-1.5 rounded-full">
+              02 · System Architecture
+            </span>
+
+            <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-navy-900 tracking-tight">
+              How I Engineer Web &amp; AI Solutions
+            </h2>
+
+            <p class="text-navy-800/85 text-base leading-relaxed">
+              Combining a background in visual design with full-stack software engineering allows me to build applications that are both technically rock-solid under the hood and intuitive on the surface. Using Python and Django as my primary backend backbone, I architect systems built to handle real user traffic reliably.
+            </p>
+
+            <blockquote class="ice-card border-l-4 border-l-ice-600 p-5 sm:p-6 rounded-r-2xl">
+              <p class="font-display font-bold text-base sm:text-lg text-navy-900 leading-snug">
+                "Great software isn't measured by how complex the code looks—it's measured by how effortlessly real users solve problems with it."
+              </p>
+            </blockquote>
+
+            <p class="text-navy-800/85 text-base leading-relaxed">
+              From designing normalized MySQL schemas that prevent booking conflicts to training Scikit-Learn clustering models that match mountaineers with Himalayan peaks, every project focuses on clean code, security, and measurable performance.
+            </p>
+          </div>
+
+          <!-- Right Column: Interactive 3-Tier Architecture Explorer -->
+          <div class="lg:col-span-6">
+            <div class="ice-card p-6 sm:p-7 rounded-2xl space-y-5">
+              <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-ice-300/80">
+                <div>
+                  <p class="font-mono text-[11px] font-semibold uppercase tracking-wider text-ice-600">
+                    biwash.creatives Engineering
+                  </p>
+                  <h3 class="font-display font-extrabold text-lg sm:text-xl text-navy-900">
+                    Full-Stack &amp; ML Request Pipeline
+                  </h3>
+                </div>
+                <span class="font-mono text-[11px] font-semibold text-navy-900 bg-ice-100 px-2.5 py-1 rounded-lg border border-ice-300">
+                  Interactive Stack
+                </span>
+              </div>
+
+              <!-- Clickable Layers -->
+              <div class="space-y-2.5" id="archLayerButtons">
+                <!-- Layer 01 -->
+                <button
+                  type="button"
+                  data-layer="1"
+                  onclick="selectArchLayer('1')"
+                  class="arch-layer-btn w-full text-left px-4 py-3.5 rounded-xl bg-navy-900 text-white border border-navy-900 transition-all flex items-center justify-between gap-3 cursor-pointer"
+                >
+                  <div>
+                    <span class="arch-sub font-mono text-[11px] font-semibold uppercase tracking-wider text-sky-300 block">
+                      Presentation &amp; Conversion Tier
+                    </span>
+                    <strong class="font-display font-bold text-sm sm:text-base">
+                      Layer 01 · Responsive Interface &amp; UX
+                    </strong>
+                  </div>
+                  <span class="arch-badge font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-white/10 text-sky-300 shrink-0">
+                    Active
+                  </span>
+                </button>
+
+                <!-- Layer 02 -->
+                <button
+                  type="button"
+                  data-layer="2"
+                  onclick="selectArchLayer('2')"
+                  class="arch-layer-btn w-full text-left px-4 py-3.5 rounded-xl bg-ice-50 hover:bg-ice-100 text-navy-900 border border-ice-300 transition-all flex items-center justify-between gap-3 cursor-pointer"
+                >
+                  <div>
+                    <span class="arch-sub font-mono text-[11px] font-semibold uppercase tracking-wider text-navy-700/75 block">
+                      Application Logic &amp; Intelligence Tier
+                    </span>
+                    <strong class="font-display font-bold text-sm sm:text-base">
+                      Layer 02 · Python, Django &amp; ML Core
+                    </strong>
+                  </div>
+                  <span class="arch-badge font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-white border border-ice-300 text-navy-700 shrink-0">
+                    Inspect
+                  </span>
+                </button>
+
+                <!-- Layer 03 -->
+                <button
+                  type="button"
+                  data-layer="3"
+                  onclick="selectArchLayer('3')"
+                  class="arch-layer-btn w-full text-left px-4 py-3.5 rounded-xl bg-ice-50 hover:bg-ice-100 text-navy-900 border border-ice-300 transition-all flex items-center justify-between gap-3 cursor-pointer"
+                >
+                  <div>
+                    <span class="arch-sub font-mono text-[11px] font-semibold uppercase tracking-wider text-navy-700/75 block">
+                      Persistence &amp; Production Infrastructure Tier
+                    </span>
+                    <strong class="font-display font-bold text-sm sm:text-base">
+                      Layer 03 · Normalized MySQL &amp; Cloud Runtime
+                    </strong>
+                  </div>
+                  <span class="arch-badge font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-white border border-ice-300 text-navy-700 shrink-0">
+                    Inspect
+                  </span>
+                </button>
+              </div>
+
+              <!-- Dynamic Layer Inspector Panel -->
+              <div class="p-4 sm:p-5 rounded-xl bg-ice-100/90 border border-ice-300 space-y-2.5">
+                <div class="flex items-center justify-between gap-2">
+                  <span id="archInspectorTitle" class="font-mono text-xs font-bold text-navy-900">
+                    LAYER 01 // RESPONSIVE INTERFACE &amp; UX
+                  </span>
+                  <span id="archInspectorLatency" class="font-mono text-[11px] font-semibold text-ice-600">
+                    &lt; 50ms First Paint
+                  </span>
+                </div>
+                <p id="archInspectorDesc" class="text-xs sm:text-sm text-navy-800/85 leading-relaxed">
+                  HTML5, CSS3, Bootstrap 5, Tailwind CSS, and Vanilla JS engineered for mobile-first conversion flows, real-time queue polling, and zero-friction booking &amp; checkout forms.
+                </p>
+                <div id="archInspectorTags" class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="px-2.5 py-1 rounded-md bg-white border border-ice-300 font-mono text-[11px] font-medium text-navy-900">HTML5 / CSS3</span>
+                  <span class="px-2.5 py-1 rounded-md bg-white border border-ice-300 font-mono text-[11px] font-medium text-navy-900">Bootstrap 5 &amp; Tailwind</span>
+                  <span class="px-2.5 py-1 rounded-md bg-white border border-ice-300 font-mono text-[11px] font-medium text-navy-900">Vanilla JavaScript</span>
+                  <span class="px-2.5 py-1 rounded-md bg-white border border-ice-300 font-mono text-[11px] font-medium text-navy-900">Mobile-First UX</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Subsection: Core Technical Pillars -->
+        <div class="space-y-8">
+          <div>
+            <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-navy-900">
+              Core Technical Pillars
+            </h3>
+            <p class="text-navy-800/80 text-sm sm:text-base mt-1.5">
+              The engineering standards behind every deployment.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Pillar 1 -->
+            <article class="ice-card ice-card-hover p-6 sm:p-7 rounded-2xl">
+              <div class="w-11 h-11 rounded-xl bg-ice-100 border border-ice-300 flex items-center justify-center text-navy-900 mb-5">
+                <svg class="w-5 h-5 text-ice-600" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                </svg>
+              </div>
+              <h4 class="font-display font-bold text-lg text-navy-900 mb-2.5">
+                Python &amp; Django Backends
+              </h4>
+              <p class="text-navy-800/80 text-sm leading-relaxed">
+                Modular MVC architecture, secure authentication, payment gateways, and automated bots.
+              </p>
+            </article>
+
+            <!-- Pillar 2 -->
+            <article class="ice-card ice-card-hover p-6 sm:p-7 rounded-2xl">
+              <div class="w-11 h-11 rounded-xl bg-ice-100 border border-ice-300 flex items-center justify-center text-navy-900 mb-5">
+                <svg class="w-5 h-5 text-ice-600" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24">
+                  <ellipse cx="12" cy="5" rx="9" ry="3" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                </svg>
+              </div>
+              <h4 class="font-display font-bold text-lg text-navy-900 mb-2.5">
+                Relational MySQL Modeling
+              </h4>
+              <p class="text-navy-800/80 text-sm leading-relaxed">
+                Normalized database schemas engineered for transactional integrity and fast queries.
+              </p>
+            </article>
+
+            <!-- Pillar 3 -->
+            <article class="ice-card ice-card-hover p-6 sm:p-7 rounded-2xl">
+              <div class="w-11 h-11 rounded-xl bg-ice-100 border border-ice-300 flex items-center justify-center text-navy-900 mb-5">
+                <svg class="w-5 h-5 text-ice-600" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              </div>
+              <h4 class="font-display font-bold text-lg text-navy-900 mb-2.5">
+                Applied AI &amp; Machine Learning
+              </h4>
+              <p class="text-navy-800/80 text-sm leading-relaxed">
+                Data-driven recommendation engines using K-Means clustering and Cosine Similarity.
+              </p>
+            </article>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================
+         5. SECTION 3: PRODUCTION & RESEARCH ARCHIVE — FEATURED WEB & AI PROJECTS
+         ========================================================= -->
+    <section id="projects" class="py-16 sm:py-24 border-b border-ice-300/70">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Section Header (No category filter tabs/menus!) -->
+        <div class="mb-12">
+          <span class="inline-block font-mono text-xs font-semibold uppercase tracking-[0.16em] text-navy-900 bg-ice-100 border border-ice-300 px-3.5 py-1.5 rounded-full mb-3">
+            03 · Production &amp; Research Archive
+          </span>
+          <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-navy-900 tracking-tight">
+            Featured Web &amp; AI Projects
+          </h2>
+          <p class="text-navy-800/80 text-base mt-2 max-w-2xl">
+            Five end-to-end platforms built with Python, Django, MySQL, and Machine Learning.
+          </p>
+        </div>
+
+        <!-- 5 Project Cards Grid (Projects 01-04 in 2x2, Project 05 symmetrical full-width showcase) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-7">
+
+          <!-- PROJECT 01 -->
+          <article class="ice-card ice-card-hover flex flex-col justify-between p-6 sm:p-8 rounded-2xl">
+            <div>
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+                <span class="font-mono text-xs font-bold tracking-wider text-navy-700">PROJECT 01</span>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-navy-900 text-white font-mono text-xs font-semibold">
+                  <span class="w-1.5 h-1.5 rounded-full bg-sky-300"></span>
+                  300+ Live Bookings
+                </span>
+              </div>
+
+              <h3 class="font-display font-extrabold text-xl sm:text-2xl text-navy-900 mb-3">
+                Little Heart Pet Shop Platform
+              </h3>
+
+              <p class="text-navy-800/85 text-sm sm:text-base leading-relaxed mb-6">
+                Full-stack dog grooming and appointment booking platform engineered with Python, Django, and MySQL. Built with conflict-free time-slot scheduling, admin workflow management, and mobile-first responsiveness across all devices.
+              </p>
+            </div>
+
+            <div class="space-y-4 pt-4 border-t border-ice-300/80">
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Python</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Django</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">MySQL</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">JavaScript</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">cPanel</span>
+              </div>
+
+              <div>
+                <button
+                  type="button"
+                  onclick="openCaseStudy('project1')"
+                  class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-navy-900 hover:bg-ice-600 text-white font-display font-bold text-xs sm:text-sm transition-colors cursor-pointer"
+                >
+                  View Case Study
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROJECT 02 -->
+          <article class="ice-card ice-card-hover flex flex-col justify-between p-6 sm:p-8 rounded-2xl">
+            <div>
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+                <span class="font-mono text-xs font-bold tracking-wider text-navy-700">PROJECT 02</span>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-navy-900 text-white font-mono text-xs font-semibold">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  850+ Active Users
+                </span>
+              </div>
+
+              <h3 class="font-display font-extrabold text-xl sm:text-2xl text-navy-900 mb-3">
+                Informatics Cafeteria System
+              </h3>
+
+              <p class="text-navy-800/85 text-sm sm:text-base leading-relaxed mb-6">
+                Full-stack campus digital dining platform serving 850+ students and staff. Integrated Khalti digital payment gateway, real-time order queue tracking, kitchen dashboard controls, and social group-ordering workflows.
+              </p>
+            </div>
+
+            <div class="space-y-4 pt-4 border-t border-ice-300/80">
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Python</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Django</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">MySQL</span>
+                <span class="px-3 py-1 rounded-lg bg-navy-900 text-white font-medium text-xs">Khalti API</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Bootstrap 5</span>
+              </div>
+
+              <div>
+                <button
+                  type="button"
+                  onclick="openCaseStudy('project2')"
+                  class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-navy-900 hover:bg-ice-600 text-white font-display font-bold text-xs sm:text-sm transition-colors cursor-pointer"
+                >
+                  View Case Study
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROJECT 03 -->
+          <article class="ice-card ice-card-hover flex flex-col justify-between p-6 sm:p-8 rounded-2xl">
+            <div>
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+                <span class="font-mono text-xs font-bold tracking-wider text-navy-700">PROJECT 03</span>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-navy-900 text-white font-mono text-xs font-semibold">
+                  <span class="w-1.5 h-1.5 rounded-full bg-sky-300"></span>
+                  450+ Peaks Indexed
+                </span>
+              </div>
+
+              <h3 class="font-display font-extrabold text-xl sm:text-2xl text-navy-900 mb-3">
+                HimalayanPeaks AI Recommendation System
+              </h3>
+
+              <p class="text-navy-800/85 text-sm sm:text-base leading-relaxed mb-6">
+                Machine-learning discovery engine designed for mountaineers and trekkers. Utilizes K-Means clustering and Cosine Similarity in Python to recommend Himalayan expeditions tailored to climber experience, elevation, and technical profile.
+              </p>
+            </div>
+
+            <div class="space-y-4 pt-4 border-t border-ice-300/80">
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Python</span>
+                <span class="px-3 py-1 rounded-lg bg-navy-900 text-white font-medium text-xs">Machine Learning</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Scikit-Learn</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Pandas</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Django</span>
+              </div>
+
+              <div>
+                <button
+                  type="button"
+                  onclick="openCaseStudy('project3')"
+                  class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-navy-900 hover:bg-ice-600 text-white font-display font-bold text-xs sm:text-sm transition-colors cursor-pointer"
+                >
+                  View Case Study
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROJECT 04 -->
+          <article class="ice-card ice-card-hover flex flex-col justify-between p-6 sm:p-8 rounded-2xl">
+            <div>
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+                <span class="font-mono text-xs font-bold tracking-wider text-navy-700">PROJECT 04</span>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-navy-900 text-white font-mono text-xs font-semibold">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  Automated Enrollment
+                </span>
+              </div>
+
+              <h3 class="font-display font-extrabold text-xl sm:text-2xl text-navy-900 mb-3">
+                Xdezo Telegram Enrollment Bot
+              </h3>
+
+              <p class="text-navy-800/85 text-sm sm:text-base leading-relaxed mb-6">
+                Automated student enrollment, course inquiry, and certificate verification chatbot engineered for Xdezo Technologies. Connected directly to a relational MySQL database and deployed 24/7 on PythonAnywhere.
+              </p>
+            </div>
+
+            <div class="space-y-4 pt-4 border-t border-ice-300/80">
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Python</span>
+                <span class="px-3 py-1 rounded-lg bg-navy-900 text-white font-medium text-xs">Telegram Bot API</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">MySQL</span>
+                <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">PythonAnywhere</span>
+              </div>
+
+              <div>
+                <button
+                  type="button"
+                  onclick="openCaseStudy('project4')"
+                  class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-navy-900 hover:bg-ice-600 text-white font-display font-bold text-xs sm:text-sm transition-colors cursor-pointer"
+                >
+                  View Case Study
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROJECT 05 (Featured Symmetrical Horizontal Enterprise Showcase Card) -->
+          <article class="md:col-span-2 ice-card ice-card-hover p-6 sm:p-8 lg:p-9 rounded-2xl">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+              <div class="lg:col-span-8 space-y-4">
+                <div class="flex flex-wrap items-center gap-3">
+                  <span class="font-mono text-xs font-bold tracking-wider text-navy-700">PROJECT 05</span>
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-navy-900 text-white font-mono text-xs font-semibold">
+                    <span class="w-1.5 h-1.5 rounded-full bg-sky-300"></span>
+                    250+ Agency Projects Showcased
+                  </span>
+                </div>
+
+                <h3 class="font-display font-extrabold text-xl sm:text-2xl lg:text-[1.65rem] text-navy-900">
+                  Bytesoft Nepal Digital Storefront
+                </h3>
+
+                <p class="text-navy-800/85 text-sm sm:text-base leading-relaxed">
+                  Official corporate web platform for a premier IT agency serving 50+ clients. Engineered a conversion-focused UI/UX architecture, dynamic service funnels, and high-speed responsive layouts built for B2B lead generation.
+                </p>
+
+                <div class="flex flex-wrap gap-2 pt-1">
+                  <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">JavaScript</span>
+                  <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">HTML5 / CSS3</span>
+                  <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">Bootstrap 5</span>
+                  <span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">UI/UX Architecture</span>
+                  <span class="px-3 py-1 rounded-lg bg-navy-900 text-white font-medium text-xs">Live Production</span>
+                </div>
+              </div>
+
+              <div class="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col items-start sm:items-center lg:items-end justify-between lg:justify-center gap-4 pt-4 lg:pt-0 border-t lg:border-t-0 lg:border-l border-ice-300/80 lg:pl-8">
+                <div class="lg:text-right">
+                  <p class="font-mono text-xs uppercase tracking-wider text-navy-700/75">Enterprise Impact</p>
+                  <p class="font-display font-extrabold text-2xl text-navy-900">50+ Clients Served</p>
+                  <p class="text-xs text-navy-700/80 mt-0.5">B2B Conversion &amp; Dynamic Funnels</p>
+                </div>
+
+                <button
+                  type="button"
+                  onclick="openCaseStudy('project5')"
+                  class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-navy-900 hover:bg-ice-600 text-white font-display font-bold text-xs sm:text-sm transition-colors cursor-pointer shrink-0"
+                >
+                  View Case Study
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       6. SECTION 4: FOOTER — EXACT HOMEPAGE & CYBER SECURITY LAYOUT
+       ========================================================= -->
+  <footer id="contact" class="pt-14 pb-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Frosted Footer Container -->
+      <div class="ice-glass-strong rounded-3xl p-6 sm:p-10 lg:p-12">
+
+        <!-- Top Left Bordered Badge + CTA Row -->
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-10 border-b border-ice-300/70">
+          <div class="space-y-3">
+            <span class="inline-block border border-ice-300 bg-white/80 rounded-full px-4 py-1.5 text-xs font-semibold text-navy-900">
+              Connect with me
+            </span>
+            <h2 class="font-display font-extrabold text-2xl sm:text-3xl lg:text-4xl text-navy-900 tracking-tight">
+              Let's talk about your Project
+            </h2>
+          </div>
+
+          <button
+            id="openContactModalBtn"
+            type="button"
+            onclick="openContactModal()"
+            class="inline-flex items-center justify-center gap-2.5 bg-navy-900 text-white hover:bg-ice-600 rounded-xl px-6 py-3.5 font-display font-semibold text-sm sm:text-base shadow-lg shadow-navy-900/15 transition-all hover:-translate-y-0.5 cursor-pointer shrink-0"
+          >
+            Contact Me
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Middle Row: 2 Columns on Desktop -->
+        <div class="flex flex-col md:flex-row items-start justify-between gap-10 py-10">
+          <!-- Left Column: BIWASH DIGIVERSE Logo + 3 Bullets -->
+          <div class="space-y-5">
+            <a href="index.html" class="inline-flex items-center group focus:outline-none">
+              <img
+                src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='196' height='42' viewBox='0 0 196 42' fill='none'%3E%3Cdefs%3E%3ClinearGradient id='bdGradFooter' x1='0' y1='0' x2='42' y2='42' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%230A192F'/%3E%3Cstop offset='100%25' stop-color='%230284C7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='1' y='1' width='40' height='40' rx='11' fill='url(%23bdGradFooter)'/%3E%3Cpath d='M13 12H23.5C26.5 12 28.5 13.7 28.5 16.3C28.5 18.2 27.3 19.6 25.6 20.2C27.8 20.8 29.2 22.4 29.2 24.8C29.2 27.9 26.8 29.8 23.2 29.8H13V12ZM22.6 19.1C24.2 19.1 25.1 18.2 25.1 16.9C25.1 15.6 24.2 14.8 22.6 14.8H16.6V19.1H22.6ZM23 27C24.7 27 25.7 26.1 25.7 24.6C25.7 23.1 24.6 22.2 22.8 22.2H16.6V27H23Z' fill='white'/%3E%3Ccircle cx='33' cy='11' r='3' fill='%237DD3FC'/%3E%3Ctext x='50' y='20' fill='%230A192F' font-family='Manrope, sans-serif' font-weight='800' font-size='14.5' letter-spacing='0.06em'%3EBIWASH%3C/text%3E%3Ctext x='50' y='34' fill='%230284C7' font-family='Manrope, sans-serif' font-weight='700' font-size='10.5' letter-spacing='0.18em'%3EDIGIVERSE%3C/text%3E%3C/svg%3E"
+                alt="BIWASH DIGIVERSE Logo"
+                class="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+              />
+            </a>
+
+            <ul class="space-y-2 text-sm sm:text-base text-navy-800/85 font-medium">
+              <li>- Creative ideas, thoughtfully designed </li>
+              <li>- Purpose-driven digital solutions </li>
+              <li>- Built to make an impact </li>
+            </ul>
+          </div>
+
+          <!-- Right Column: Footer Nav Links + Tagline -->
+          <div class="flex flex-col items-start md:items-end justify-between gap-4">
+            <nav class="flex flex-wrap items-center gap-6 sm:gap-8" aria-label="Footer Navigation">
+              <a href="index.html" class="font-display font-bold text-sm sm:text-base text-navy-900 hover:text-ice-600 transition-colors">Home</a>
+              <a href="About.html" class="font-display font-bold text-sm sm:text-base text-navy-900 hover:text-ice-600 transition-colors">About</a>
+              <a href="Contact.html" class="font-display font-bold text-sm sm:text-base text-navy-900 hover:text-ice-600 transition-colors">Contact</a>
+            </nav>
+
+            <p class="font-display font-bold text-sm sm:text-base text-navy-800/85 md:text-right">
+              Think Creatively. Build Purposefully. Create Impact.
+            </p>
+          </div>
+        </div>
+
+        <!-- Horizontal Rule + Copyright Line -->
+        <hr class="border-t border-ice-300/70 mb-6" />
+
+        <div class="text-center text-xs sm:text-sm text-navy-800/75 font-medium">
+          &copy; 2026 biwash.digiverse. All rights reserved.
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       INTERACTIVE CASE STUDY MODAL (#caseStudyModal)
+       ========================================================= -->
+  <div
+    id="caseStudyModal"
+    class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-navy-900/60 backdrop-blur-sm overflow-y-auto"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="csModalTitle"
+  >
+    <div class="relative w-full max-w-2xl rounded-2xl bg-white border border-ice-300 shadow-2xl p-6 sm:p-8 my-8">
+      <!-- Close Button -->
+      <button
+        type="button"
+        onclick="closeCaseStudy()"
+        class="absolute top-5 right-5 w-9 h-9 rounded-full bg-ice-100 hover:bg-ice-200 text-navy-900 font-bold flex items-center justify-center transition-colors cursor-pointer"
+        aria-label="Close Case Study Modal"
+      >
+        &times;
+      </button>
+
+      <!-- Header Metadata -->
+      <div class="flex flex-wrap items-center gap-2.5 mb-2 pr-10">
+        <span id="csModalNumber" class="font-mono text-xs font-bold uppercase tracking-wider text-ice-600">
+          PROJECT 01
+        </span>
+        <span class="text-ice-300">•</span>
+        <span id="csModalMetric" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-navy-900 text-white font-mono text-xs font-semibold">
+          300+ Live Bookings
+        </span>
+      </div>
+
+      <h3 id="csModalTitle" class="font-display font-extrabold text-2xl sm:text-3xl text-navy-900 mb-5">
+        Project Title
+      </h3>
+
+      <!-- Structured Architecture Breakdown -->
+      <div class="space-y-4 text-sm sm:text-base">
+        <div class="p-4 rounded-xl bg-ice-50 border border-ice-300/80">
+          <h4 class="font-mono text-xs font-bold uppercase tracking-wider text-navy-900 mb-1.5">
+            01 · Engineering Challenge
+          </h4>
+          <p id="csModalChallenge" class="text-navy-800/85 text-sm leading-relaxed"></p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-navy-900 text-ice-100 border border-navy-700">
+          <h4 class="font-mono text-xs font-bold uppercase tracking-wider text-sky-300 mb-1.5">
+            02 · Backend, Database &amp; AI Architecture
+          </h4>
+          <p id="csModalArchitecture" class="text-ice-100/90 text-sm leading-relaxed"></p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-ice-50 border border-ice-300/80">
+          <h4 class="font-mono text-xs font-bold uppercase tracking-wider text-navy-900 mb-2">
+            03 · Key Outcomes &amp; Production Metrics
+          </h4>
+          <ul id="csModalOutcomes" class="space-y-1.5 text-sm text-navy-800/90 list-disc pl-5"></ul>
+        </div>
+      </div>
+
+      <!-- Tech Stack -->
+      <div class="mt-5 pt-4 border-t border-ice-300/80">
+        <p class="font-mono text-[11px] font-semibold uppercase tracking-wider text-navy-700/75 mb-2">
+          Production Technology Stack
+        </p>
+        <div id="csModalStack" class="flex flex-wrap gap-2"></div>
+      </div>
+
+      <!-- Footer Actions -->
+      <div class="mt-6 pt-4 border-t border-ice-300/80 flex flex-wrap items-center justify-between gap-3">
+        <button
+          type="button"
+          onclick="closeCaseStudy()"
+          class="px-4 py-2.5 rounded-xl bg-ice-100 hover:bg-ice-200 text-navy-900 font-display font-bold text-xs sm:text-sm transition-colors cursor-pointer"
+        >
+          Back to Archive
+        </button>
+
+        <button
+          id="csDiscussSimilarBtn"
+          type="button"
+          onclick="discussSimilarProject()"
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-navy-900 hover:bg-ice-600 text-white font-display font-bold text-xs sm:text-sm shadow-md transition-colors cursor-pointer"
+        >
+          Discuss a Similar Project
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       INTERACTIVE CONTACT ME / PROJECT INQUIRY MODAL
+       ========================================================= -->
+  <div
+    id="contactModal"
+    class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-navy-900/60 backdrop-blur-sm overflow-y-auto"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="contactModalHeading"
+  >
+    <div class="relative w-full max-w-lg rounded-2xl bg-white border border-ice-300 shadow-2xl p-6 sm:p-8 my-8">
+      <!-- Close Button -->
+      <button
+        type="button"
+        onclick="closeContactModal()"
+        class="absolute top-5 right-5 w-9 h-9 rounded-full bg-ice-100 hover:bg-ice-200 text-navy-900 font-bold flex items-center justify-center transition-colors cursor-pointer"
+        aria-label="Close Contact Modal"
+      >
+        &times;
+      </button>
+
+      <!-- Inquiry Form View -->
+      <div id="contactFormContainer">
+        <span class="inline-block font-mono text-xs font-semibold uppercase tracking-widest text-navy-900 bg-ice-100 px-3 py-1 rounded-full mb-2">
+          BIWASH DIGIVERSE · Engineering Inquiry
+        </span>
+        <h3 id="contactModalHeading" class="font-display font-extrabold text-2xl text-navy-900 mb-1.5">
+          Let's talk about your Project
+        </h3>
+        <p class="text-sm text-navy-800/80 mb-4">
+          Share your full-stack web application, payment integration, or AI/ML requirements.
+        </p>
+
+        <!-- Direct Email Copy Box -->
+        <div class="flex items-center justify-between gap-2 p-3 rounded-xl bg-ice-50 border border-ice-300 mb-5">
+          <div class="min-w-0">
+            <span class="block font-mono text-[10px] uppercase tracking-wider text-navy-700/70">Direct Email</span>
+            <span id="directEmailText" class="font-mono text-xs sm:text-sm font-semibold text-navy-900 truncate block">
+              biwshgrg21@gmail.com
+            </span>
+          </div>
+          <button
+            type="button"
+            onclick="copyDirectEmail()"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-navy-900 hover:bg-ice-600 text-white font-mono text-xs font-semibold transition-colors cursor-pointer shrink-0"
+          >
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+            <span id="copyEmailBtnLabel">Copy</span>
+          </button>
+        </div>
+
+        <form id="projectInquiryForm" onsubmit="submitProjectInquiry(event)" class="space-y-4">
+          <div>
+            <label for="senderName" class="block font-display font-semibold text-xs text-navy-900 mb-1.5">Your Name / Organization</label>
+            <input
+              id="senderName"
+              type="text"
+              required
+              placeholder="Aarav Sharma — Pokhara Ventures"
+              class="w-full px-4 py-3 rounded-xl bg-ice-50 border border-ice-300 focus:border-navy-900 focus:outline-none text-sm text-navy-900 placeholder-navy-700/50"
+            />
+          </div>
+
+          <div>
+            <label for="senderEmail" class="block font-display font-semibold text-xs text-navy-900 mb-1.5">Email Address</label>
+            <input
+              id="senderEmail"
+              type="email"
+              required
+              placeholder="aarav@company.com"
+              class="w-full px-4 py-3 rounded-xl bg-ice-50 border border-ice-300 focus:border-navy-900 focus:outline-none text-sm text-navy-900 placeholder-navy-700/50"
+            />
+          </div>
+
+          <div>
+            <label for="serviceScope" class="block font-display font-semibold text-xs text-navy-900 mb-1.5">Project Scope</label>
+            <select
+              id="serviceScope"
+              class="w-full px-4 py-3 rounded-xl bg-ice-50 border border-ice-300 focus:border-navy-900 focus:outline-none text-sm text-navy-900"
+            >
+              <option value="Full-Stack Django & MySQL Web Application">Full-Stack Django &amp; MySQL Web Application</option>
+              <option value="Digital Payment Gateway Integration (Khalti / eSewa)">Digital Payment Gateway Integration (Khalti / eSewa)</option>
+              <option value="Applied AI / ML Recommendation Engine">Applied AI / ML Recommendation Engine</option>
+              <option value="Automated Telegram Bot & Database Workflow">Automated Telegram Bot &amp; Database Workflow</option>
+              <option value="Corporate Digital Storefront & UI/UX Architecture">Corporate Digital Storefront &amp; UI/UX Architecture</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="projectDetails" class="block font-display font-semibold text-xs text-navy-900 mb-1.5">Project Goals &amp; Timeline</label>
+            <textarea
+              id="projectDetails"
+              rows="3"
+              required
+              placeholder="Tell me about your target features, user volume, or timeline..."
+              class="w-full px-4 py-3 rounded-xl bg-ice-50 border border-ice-300 focus:border-navy-900 focus:outline-none text-sm text-navy-900 placeholder-navy-700/50"
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full py-3.5 rounded-xl bg-navy-900 hover:bg-ice-600 text-white font-display font-bold text-sm sm:text-base shadow-lg shadow-navy-900/15 transition-all cursor-pointer"
+          >
+            Send Project Inquiry
+          </button>
+        </form>
+      </div>
+
+      <!-- Confirmation View -->
+      <div id="contactSuccessState" class="hidden text-center py-8 space-y-4">
+        <div class="w-14 h-14 rounded-full bg-ice-100 border border-ice-300 text-navy-900 flex items-center justify-center mx-auto">
+          <svg class="w-7 h-7 text-ice-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <h4 class="font-display font-extrabold text-2xl text-navy-900">Inquiry Sent Successfully</h4>
+        <p class="text-sm text-navy-800/80 max-w-sm mx-auto leading-relaxed">
+          Thank you for reaching out to <span class="text-navy-900 font-bold">BIWASH DIGIVERSE</span> (<span class="font-semibold">biwash.creatives</span>). I will review your brief and respond within 24 hours.
+        </p>
+        <button
+          type="button"
+          onclick="closeContactModal()"
+          class="mt-2 px-6 py-2.5 rounded-xl bg-navy-900 hover:bg-ice-600 text-white font-display font-bold text-xs transition-colors cursor-pointer"
+        >
+          Close Window
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       JAVASCRIPT INTERACTIONS
+       ========================================================= -->
+  <script>
+    // =========================================================
+    // 1. TOP NAVIGATION BAR (DESKTOP DROPDOWN & MOBILE DRAWER)
+    // =========================================================
+    function toggleDesktopDropdown(event) {
+      if (event) event.stopPropagation();
+      const wrap = document.getElementById('portfolioDropdownWrap');
+      const btn = wrap ? wrap.querySelector('button') : null;
+      const chevron = document.getElementById('desktopDropdownChevron');
+      if (!wrap) return;
+
+      const isOpen = wrap.classList.toggle('open');
+      if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      if (chevron) chevron.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+    }
+
+    function toggleMobileDrawer() {
+      const drawer = document.getElementById('mobileDrawer');
+      const btn = document.getElementById('mobileMenuBtn');
+      const iconOpen = document.getElementById('menuIconOpen');
+      const iconClose = document.getElementById('menuIconClose');
+      if (!drawer) return;
+
+      const isHidden = drawer.classList.toggle('hidden');
+      const isExpanded = !isHidden;
+      if (btn) btn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+      if (iconOpen) iconOpen.classList.toggle('hidden', isExpanded);
+      if (iconClose) iconClose.classList.toggle('hidden', !isExpanded);
+    }
+
+    function toggleMobilePortfolio() {
+      const sub = document.getElementById('mobilePortfolioSub');
+      const chevron = document.getElementById('mobilePortfolioChevron');
+      const btn = chevron ? chevron.closest('button') : null;
+      if (!sub) return;
+
+      const isHidden = sub.classList.toggle('hidden');
+      if (btn) btn.setAttribute('aria-expanded', !isHidden ? 'true' : 'false');
+      if (chevron) chevron.style.transform = !isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+    }
+
+    // Outside click & Escape key handler for menus and modals
+    document.addEventListener('click', (e) => {
+      const wrap = document.getElementById('portfolioDropdownWrap');
+      if (wrap && !wrap.contains(e.target) && wrap.classList.contains('open')) {
+        wrap.classList.remove('open');
+        const btn = wrap.querySelector('button');
+        const chevron = document.getElementById('desktopDropdownChevron');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+        if (chevron) chevron.style.transform = 'rotate(0deg)';
+      }
+
+      const header = document.getElementById('mainHeader');
+      const drawer = document.getElementById('mobileDrawer');
+      if (header && drawer && !header.contains(e.target) && !drawer.classList.contains('hidden')) {
+        toggleMobileDrawer();
+      }
+
+      const csModal = document.getElementById('caseStudyModal');
+      if (csModal && e.target === csModal) {
+        closeCaseStudy();
+      }
+
+      const cModal = document.getElementById('contactModal');
+      if (cModal && e.target === cModal) {
+        closeContactModal();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const wrap = document.getElementById('portfolioDropdownWrap');
+        if (wrap && wrap.classList.contains('open')) {
+          wrap.classList.remove('open');
+          const btn = wrap.querySelector('button');
+          const chevron = document.getElementById('desktopDropdownChevron');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+          if (chevron) chevron.style.transform = 'rotate(0deg)';
+        }
+        const drawer = document.getElementById('mobileDrawer');
+        if (drawer && !drawer.classList.contains('hidden')) {
+          toggleMobileDrawer();
+        }
+        const csModal = document.getElementById('caseStudyModal');
+        if (csModal && !csModal.classList.contains('hidden')) {
+          closeCaseStudy();
+        }
+        const cModal = document.getElementById('contactModal');
+        if (cModal && !cModal.classList.contains('hidden')) {
+          closeContactModal();
+        }
+      }
+    });
+
+    // Subtle header padding compression on scroll
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('mainHeader');
+      if (!header) return;
+      if (window.scrollY > 24) {
+        header.classList.add('pt-2', 'sm:pt-2.5');
+        header.classList.remove('pt-3', 'sm:pt-4');
+      } else {
+        header.classList.add('pt-3', 'sm:pt-4');
+        header.classList.remove('pt-2', 'sm:pt-2.5');
+      }
+    }, { passive: true });
+
+    // =========================================================
+    // 2. CLIPBOARD HELPER (IFRAME-SAFE document.execCommand)
+    // =========================================================
+    function copyTextFallback(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+      } catch (err) {
+        // Silent fallback
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function copyPythonSnippet() {
+      const code = `class FullStackEngineer:
+    def __init__(self):
+        self.core = ["Python", "Django", "MySQL", "AI/ML"]
+        self.live_users = "1,150+ Active"
+        self.deployments = "5 Production Systems"
+
+    def build_solution(self, problem):
+        # Clean architecture + relational data
+        return "Scalable, Secure & Fast"`;
+      copyTextFallback(code);
+      const label = document.getElementById('copyCodeLabel');
+      if (label) {
+        label.textContent = 'Copied!';
+        setTimeout(() => {
+          label.textContent = 'Copy';
+        }, 1800);
+      }
+    }
+
+    function copyDirectEmail() {
+      copyTextFallback('biwshgrg21@gmail.com');
+      const label = document.getElementById('copyEmailBtnLabel');
+      if (label) {
+        label.textContent = 'Copied!';
+        setTimeout(() => {
+          label.textContent = 'Copy';
+        }, 1800);
+      }
+    }
+
+    // =========================================================
+    // 3. INTERACTIVE PYTHON CODE EXECUTION (biwash_stack.py)
+    // =========================================================
+    const sampleWorkloads = [
+      { arg: '"production_workload"', latency: '12ms' },
+      { arg: '"khalti_payment_sync"', latency: '18ms' },
+      { arg: '"himalayan_kmeans_rank"', latency: '24ms' },
+      { arg: '"mysql_slot_transaction"', latency: '9ms' },
+    ];
+    let workloadIndex = 0;
+    let runTimers = [];
+
+    function runPythonSolution() {
+      runTimers.forEach((t) => clearTimeout(t));
+      runTimers = [];
+
+      const statusTag = document.getElementById('consoleStatusTag');
+      const linesEl = document.getElementById('consoleLines');
+      if (!statusTag || !linesEl) return;
+
+      workloadIndex = (workloadIndex + 1) % sampleWorkloads.length;
+      const current = sampleWorkloads[workloadIndex];
+
+      statusTag.textContent = 'EXECUTING...';
+      statusTag.className = 'text-amber-300 font-semibold';
+      linesEl.innerHTML = `<p class="text-sky-300">&gt;&gt;&gt; engineer = FullStackEngineer()<span class="code-cursor"></span></p>`;
+
+      runTimers.push(
+        setTimeout(() => {
+          linesEl.innerHTML = `
+            <p class="text-sky-300">&gt;&gt;&gt; engineer = FullStackEngineer()</p>
+            <p class="text-sky-300">&gt;&gt;&gt; engineer.build_solution(<span class="text-amber-300">${current.arg}</span>)<span class="code-cursor"></span></p>
+          `;
+        }, 260)
+      );
+
+      runTimers.push(
+        setTimeout(() => {
+          statusTag.textContent = '200 OK';
+          statusTag.className = 'text-emerald-400 font-semibold';
+          linesEl.innerHTML = `
+            <p class="text-sky-300">&gt;&gt;&gt; engineer = FullStackEngineer()</p>
+            <p class="text-sky-300">&gt;&gt;&gt; engineer.build_solution(<span class="text-amber-300">${current.arg}</span>)</p>
+            <p class="text-emerald-400 font-semibold">
+              Output: "Scalable, Secure &amp; Fast" <span class="text-slate-400 font-normal">[Status: 200 OK · Latency: ${current.latency}]</span><span class="code-cursor"></span>
+            </p>
+          `;
+        }, 620)
+      );
+    }
+
+    // =========================================================
+    // 4. INTERACTIVE 3-TIER ARCHITECTURE EXPLORER
+    // =========================================================
+    const archLayersData = {
+      '1': {
+        title: 'LAYER 01 // RESPONSIVE INTERFACE & UX',
+        latency: '< 50ms First Paint',
+        desc: 'HTML5, CSS3, Bootstrap 5, Tailwind CSS, and Vanilla JS engineered for mobile-first conversion flows, real-time queue polling, and zero-friction booking & checkout forms.',
+        tags: ['HTML5 / CSS3', 'Bootstrap 5 & Tailwind', 'Vanilla JavaScript', 'Mobile-First UX'],
+      },
+      '2': {
+        title: 'LAYER 02 // PYTHON, DJANGO & ML CORE',
+        latency: '12ms Avg View Dispatch',
+        desc: 'Modular Django MVC views, session & CSRF security middleware, Khalti digital payment webhooks, Telegram Bot API handlers, and Scikit-Learn K-Means + Cosine Similarity pipelines.',
+        tags: ['Python 3.12 & Django', 'Khalti Payment Webhooks', 'Telegram Bot API', 'Scikit-Learn & Pandas'],
+      },
+      '3': {
+        title: 'LAYER 03 // NORMALIZED MYSQL & CLOUD RUNTIME',
+        latency: 'ACID 3NF Integrity',
+        desc: 'Normalized 3NF relational MySQL schemas with foreign-key constraints, atomic conflict-free slot locking, indexed queries, and 24/7 production deployments on cPanel & PythonAnywhere.',
+        tags: ['Normalized MySQL (3NF)', 'Atomic Slot Locking', 'cPanel Production', 'PythonAnywhere 24/7'],
+      },
+    };
+
+    function selectArchLayer(layerId) {
+      const info = archLayersData[layerId];
+      if (!info) return;
+
+      document.querySelectorAll('.arch-layer-btn').forEach((btn) => {
+        const isSelected = btn.dataset.layer === layerId;
+        const sub = btn.querySelector('.arch-sub');
+        const badge = btn.querySelector('.arch-badge');
+
+        if (isSelected) {
+          btn.classList.remove('bg-ice-50', 'hover:bg-ice-100', 'text-navy-900', 'border-ice-300');
+          btn.classList.add('bg-navy-900', 'text-white', 'border-navy-900');
+          if (sub) sub.className = 'arch-sub font-mono text-[11px] font-semibold uppercase tracking-wider text-sky-300 block';
+          if (badge) {
+            badge.className = 'arch-badge font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-white/10 text-sky-300 shrink-0';
+            badge.textContent = 'Active';
+          }
+        } else {
+          btn.classList.remove('bg-navy-900', 'text-white', 'border-navy-900');
+          btn.classList.add('bg-ice-50', 'hover:bg-ice-100', 'text-navy-900', 'border-ice-300');
+          if (sub) sub.className = 'arch-sub font-mono text-[11px] font-semibold uppercase tracking-wider text-navy-700/75 block';
+          if (badge) {
+            badge.className = 'arch-badge font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-white border border-ice-300 text-navy-700 shrink-0';
+            badge.textContent = 'Inspect';
+          }
+        }
+      });
+
+      document.getElementById('archInspectorTitle').textContent = info.title;
+      document.getElementById('archInspectorLatency').textContent = info.latency;
+      document.getElementById('archInspectorDesc').textContent = info.desc;
+
+      const tagsContainer = document.getElementById('archInspectorTags');
+      tagsContainer.innerHTML = info.tags
+        .map(
+          (tag) =>
+            `<span class="px-2.5 py-1 rounded-md bg-white border border-ice-300 font-mono text-[11px] font-medium text-navy-900">${tag}</span>`
+        )
+        .join('');
+    }
+
+    // =========================================================
+    // 5. DYNAMIC 5-PROJECT CASE STUDY MODAL
+    // =========================================================
+    const caseStudies = {
+      project1: {
+        number: 'PROJECT 01',
+        metric: '300+ Live Bookings',
+        title: 'Little Heart Pet Shop Platform',
+        scopeMatch: 'Full-Stack Django & MySQL Web Application',
+        challenge:
+          'Pet grooming appointments were previously coordinated manually over phone calls, leading to overlapping groomer schedules, missed reminders, and slow mobile booking experiences for pet owners.',
+        architecture:
+          'Engineered a full-stack Python & Django application backed by a normalized MySQL database. Implemented server-side time-slot validation with atomic booking locks to eliminate double bookings, paired with a responsive Vanilla JS slot picker and staff admin dashboard deployed on cPanel.',
+        outcomes: [
+          'Processed 300+ live grooming appointments with zero overlapping slot conflicts.',
+          'Streamlined daily groomer assignment and appointment status tracking for shop administrators.',
+          'Delivered a mobile-first booking flow enabling clients to reserve packages in under 60 seconds.',
+        ],
+        stack: ['Python', 'Django', 'MySQL', 'JavaScript', 'cPanel'],
+      },
+      project2: {
+        number: 'PROJECT 02',
+        metric: '850+ Active Users',
+        title: 'Informatics Cafeteria System',
+        scopeMatch: 'Digital Payment Gateway Integration (Khalti / eSewa)',
+        challenge:
+          'Peak campus lunch breaks created long physical counter queues, cash-handling bottlenecks, and delayed order preparation across hundreds of students and faculty members.',
+        architecture:
+          'Built a multi-role Django & MySQL campus dining platform featuring Khalti digital payment API integration with server-side transaction verification, live order queue status updates, a dedicated kitchen preparation dashboard, and shared group-ordering carts.',
+        outcomes: [
+          'Actively serves 850+ campus students and staff across daily meal windows.',
+          'Eliminated counter payment bottlenecks via verified Khalti digital wallet transactions.',
+          'Enabled real-time order queue visibility and collaborative group orders for student tables.',
+        ],
+        stack: ['Python', 'Django', 'MySQL', 'Khalti API', 'Bootstrap 5'],
+      },
+      project3: {
+        number: 'PROJECT 03',
+        metric: '450+ Peaks Indexed',
+        title: 'HimalayanPeaks AI Recommendation System',
+        scopeMatch: 'Applied AI / ML Recommendation Engine',
+        challenge:
+          'Mountaineers and trekkers planning Himalayan expeditions face hundreds of peaks with varying elevations, technical grades, and seasonal conditions—making objective expedition matching difficult.',
+        architecture:
+          'Cleaned and structured expedition datasets of 450+ Himalayan peaks using Pandas. Trained an unsupervised K-Means clustering pipeline in Scikit-Learn to segment peaks by difficulty/elevation profiles, paired with Cosine Similarity scoring inside a Django web interface.',
+        outcomes: [
+          'Indexed 450+ Himalayan peaks with multi-dimensional elevation, terrain, and experience vectors.',
+          'Generates ranked, personalized expedition recommendations matched to climber experience levels.',
+          'Combined Scikit-Learn ML inference seamlessly with an intuitive Django discovery interface.',
+        ],
+        stack: ['Python', 'Machine Learning', 'Scikit-Learn', 'Pandas', 'Django'],
+      },
+      project4: {
+        number: 'PROJECT 04',
+        metric: 'Automated Enrollment',
+        title: 'Xdezo Telegram Enrollment Bot',
+        scopeMatch: 'Automated Telegram Bot & Database Workflow',
+        challenge:
+          'Prospective students frequently inquired about course schedules, fee structures, and certificate authenticity outside office hours, requiring repetitive manual staff responses.',
+        architecture:
+          'Developed an asynchronous Python chatbot using the Telegram Bot API integrated directly with a relational MySQL database. Built guided conversational state flows for student enrollment, course catalog lookup, and instant certificate ID verification hosted 24/7 on PythonAnywhere.',
+        outcomes: [
+          'Automated 24/7 student course inquiries, lead capture, and enrollment registration.',
+          'Provided instant, tamper-resistant certificate verification directly against MySQL records.',
+          'Maintained continuous 24/7 uptime on PythonAnywhere with structured administrative logs.',
+        ],
+        stack: ['Python', 'Telegram Bot API', 'MySQL', 'PythonAnywhere'],
+      },
+      project5: {
+        number: 'PROJECT 05',
+        metric: '250+ Agency Projects Showcased',
+        title: 'Bytesoft Nepal Digital Storefront',
+        scopeMatch: 'Corporate Digital Storefront & UI/UX Architecture',
+        challenge:
+          'A growing IT agency serving 50+ enterprise clients needed a high-converting corporate web platform capable of organizing 250+ portfolio deliverables and capturing qualified B2B leads.',
+        architecture:
+          'Designed and engineered a conversion-focused UI/UX architecture using semantic HTML5, CSS3, Bootstrap 5, and modular JavaScript. Structured dynamic service funnels, fast-loading portfolio showcases, and clear B2B consultation pathways.',
+        outcomes: [
+          'Showcased 250+ completed agency projects with fast, responsive cross-device navigation.',
+          'Elevated brand authority for a premier IT agency serving 50+ regional and international clients.',
+          'Engineered clear service funnels optimized for B2B lead generation and client inquiries.',
+        ],
+        stack: ['JavaScript', 'HTML5 / CSS3', 'Bootstrap 5', 'UI/UX Architecture', 'Live Production'],
+      },
+    };
+
+    let activeCaseStudyScope = 'Full-Stack Django & MySQL Web Application';
+
+    function openCaseStudy(projectKey) {
+      const data = caseStudies[projectKey];
+      if (!data) return;
+
+      activeCaseStudyScope = data.scopeMatch;
+      document.getElementById('csModalNumber').textContent = data.number;
+      document.getElementById('csModalMetric').textContent = data.metric;
+      document.getElementById('csModalTitle').textContent = data.title;
+      document.getElementById('csModalChallenge').textContent = data.challenge;
+      document.getElementById('csModalArchitecture').textContent = data.architecture;
+
+      document.getElementById('csModalOutcomes').innerHTML = data.outcomes
+        .map((item) => `<li>${item}</li>`)
+        .join('');
+
+      document.getElementById('csModalStack').innerHTML = data.stack
+        .map(
+          (tech) =>
+            `<span class="px-3 py-1 rounded-lg bg-ice-100 border border-ice-300 font-medium text-xs text-navy-900">${tech}</span>`
+        )
+        .join('');
+
+      const modal = document.getElementById('caseStudyModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCaseStudy() {
+      const modal = document.getElementById('caseStudyModal');
+      if (!modal) return;
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    function discussSimilarProject() {
+      closeCaseStudy();
+      openContactModal(activeCaseStudyScope);
+    }
+
+    // =========================================================
+    // 6. CONTACT ME / PROJECT INQUIRY MODAL
+    // =========================================================
+    function openContactModal(preselectedScope) {
+      const modal = document.getElementById('contactModal');
+      const scopeSelect = document.getElementById('serviceScope');
+      if (preselectedScope && scopeSelect) {
+        scopeSelect.value = preselectedScope;
+      }
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeContactModal() {
+      const modal = document.getElementById('contactModal');
+      const formContainer = document.getElementById('contactFormContainer');
+      const successState = document.getElementById('contactSuccessState');
+      const form = document.getElementById('projectInquiryForm');
+
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+
+      setTimeout(() => {
+        if (formContainer) formContainer.classList.remove('hidden');
+        if (successState) successState.classList.add('hidden');
+        if (form) form.reset();
+      }, 200);
+    }
+
+    function submitProjectInquiry(event) {
+      event.preventDefault();
+      document.getElementById('contactFormContainer').classList.add('hidden');
+      document.getElementById('contactSuccessState').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
