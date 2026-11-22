@@ -1002,16 +1002,16 @@
           </h2>
         </div>
 
-        <button
-          id="openContactModalBtn"
-          type="button"
-          class="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-navy-900 hover:bg-navy-700 text-white font-display font-bold text-sm sm:text-base shadow-lg shadow-navy-900/15 transition-all hover:-translate-y-0.5 cursor-pointer shrink-0"
-        >
-          Contact Me
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        </button>
+        <a
+  id="openContactModalBtn"
+  href="../Contact.html"
+  class="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-navy-900 hover:bg-navy-700 text-white font-display font-bold text-sm sm:text-base shadow-lg shadow-navy-900/15 transition-all hover:-translate-y-0.5 cursor-pointer shrink-0"
+>
+  Contact Me
+  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+  </svg>
+</a>
       </div>
 
       <!-- Middle Row: Logo + 3 Bullets (Left) | Navigation Links + Tagline (Right) -->
@@ -1036,9 +1036,9 @@
         <!-- Right Column -->
         <div class="flex flex-col items-start md:items-end justify-between gap-4">
           <nav class="flex flex-wrap items-center gap-6 sm:gap-8" aria-label="Footer Navigation">
-            <a href="index.html" class="font-display font-bold text-sm sm:text-base text-navy-900 hover:text-ice-600 transition-colors">Home</a>
-            <a href="About.html" class="font-display font-bold text-sm sm:text-base text-navy-900 hover:text-ice-600 transition-colors">About</a>
-            <a href="Contact.html" class="font-display font-bold text-sm sm:text-base text-navy-900 hover:text-ice-600 transition-colors">Contact</a>
+            <a href="../index.html" class="font-display font-bold text-sm sm:text-base text-navy-900 hover:text-ice-600 transition-colors">Home</a>
+            <a href="../About.html" class="font-display font-bold text-sm sm:text-base text-navy-900 hover:text-ice-600 transition-colors">About</a>
+            <a href="../Contact.html" class="font-display font-bold text-sm sm:text-base text-navy-900 hover:text-ice-600 transition-colors">Contact</a>
           </nav>
 
           <p class="font-display font-bold text-sm sm:text-base text-navy-800/85 md:text-right">
@@ -1061,113 +1061,8 @@
   <!-- =========================================================
        INTERACTIVE SECURITY AUDIT & PROJECT INQUIRY MODAL
        ========================================================= -->
-  <div
-    id="contactModal"
-    class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-navy-900/60 backdrop-blur-sm"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="modalHeading"
-  >
-    <div class="relative w-full max-w-lg rounded-2xl bg-white border border-ice-300 shadow-2xl p-6 sm:p-8">
-      <!-- Close Button -->
-      <button
-        id="closeContactModalBtn"
-        type="button"
-        class="absolute top-5 right-5 w-9 h-9 rounded-full bg-ice-100 hover:bg-ice-200 text-navy-900 font-bold flex items-center justify-center transition-colors cursor-pointer"
-        aria-label="Close Contact Modal"
-      >
-        &times;
-      </button>
-
-      <!-- Inquiry Form View -->
-      <div id="contactFormContainer">
-        <span class="inline-block font-mono text-xs font-semibold uppercase tracking-widest text-navy-900 bg-ice-100 px-3 py-1 rounded-full mb-2">
-          Security &amp; Project Inquiry
-        </span>
-        <h3 id="modalHeading" class="font-display font-extrabold text-2xl text-navy-900 mb-2">
-          Let's talk about your Project
-        </h3>
-        <p class="text-sm text-navy-800/80 mb-6">
-          Request a penetration test, secure code review, or multi-OS infrastructure hardening.
-        </p>
-
-        <form id="projectInquiryForm" class="space-y-4">
-          <div>
-            <label for="senderName" class="block font-display font-semibold text-xs text-navy-900 mb-1.5">Your Name / Organization</label>
-            <input
-              id="senderName"
-              type="text"
-              required
-              placeholder="Alex Rivera — Acme Corp"
-              class="w-full px-4 py-3 rounded-xl bg-ice-50 border border-ice-300 focus:border-navy-900 focus:outline-none text-sm text-navy-900 placeholder-navy-700/50"
-            />
-          </div>
-
-          <div>
-            <label for="senderEmail" class="block font-display font-semibold text-xs text-navy-900 mb-1.5">Work Email</label>
-            <input
-              id="senderEmail"
-              type="email"
-              required
-              placeholder="alex@company.com"
-              class="w-full px-4 py-3 rounded-xl bg-ice-50 border border-ice-300 focus:border-navy-900 focus:outline-none text-sm text-navy-900 placeholder-navy-700/50"
-            />
-          </div>
-
-          <div>
-            <label for="serviceScope" class="block font-display font-semibold text-xs text-navy-900 mb-1.5">Engagement Scope</label>
-            <select
-              id="serviceScope"
-              class="w-full px-4 py-3 rounded-xl bg-ice-50 border border-ice-300 focus:border-navy-900 focus:outline-none text-sm text-navy-900"
-            >
-              <option value="Enterprise Web App Pentest & OWASP Audit">Enterprise Web App Pentest &amp; OWASP Audit</option>
-              <option value="Django Backend Secure Code Review">Django Backend Secure Code Review</option>
-              <option value="Python Security Automation & SIEM">Python Security Automation &amp; SIEM</option>
-              <option value="Network Perimeter & Multi-OS Firewall Hardening">Network Perimeter &amp; Multi-OS Firewall Hardening</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="projectDetails" class="block font-display font-semibold text-xs text-navy-900 mb-1.5">Project / Target Overview</label>
-            <textarea
-              id="projectDetails"
-              rows="3"
-              required
-              placeholder="Briefly describe your application stack, OS environment, or security objectives..."
-              class="w-full px-4 py-3 rounded-xl bg-ice-50 border border-ice-300 focus:border-navy-900 focus:outline-none text-sm text-navy-900 placeholder-navy-700/50"
-            ></textarea>
-          </div>
-
-          <button
-            type="submit"
-            class="w-full py-3.5 rounded-xl bg-navy-900 hover:bg-navy-700 text-white font-display font-bold text-sm sm:text-base shadow-lg shadow-navy-900/15 transition-all cursor-pointer"
-          >
-            Send Inquiry
-          </button>
-        </form>
-      </div>
-
-      <!-- Confirmation View -->
-      <div id="contactSuccessState" class="hidden text-center py-8 space-y-4">
-        <div class="w-14 h-14 rounded-full bg-ice-100 border border-ice-300 text-navy-900 flex items-center justify-center mx-auto">
-          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-          </svg>
-        </div>
-        <h4 class="font-display font-extrabold text-2xl text-navy-900">Inquiry Received</h4>
-        <p class="text-sm text-navy-800/80 max-w-sm mx-auto leading-relaxed">
-          Thank you for connecting with <span class="text-navy-900 font-bold">biwash.creatives</span>. Your brief has been recorded and I will respond within 24 hours.
-        </p>
-        <button
-          id="resetModalBtn"
-          type="button"
-          class="mt-2 px-6 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-700 text-white font-display font-bold text-xs transition-colors cursor-pointer"
-        >
-          Close Window
-        </button>
-      </div>
-    </div>
-  </div>
+ 
+  
 
   <!-- GSAP & ScrollTrigger CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
