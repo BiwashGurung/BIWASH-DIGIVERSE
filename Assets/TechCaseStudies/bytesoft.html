@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: Bytesoft Nepal | Biwash Gurung</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="../../Images/Bytesoft_logo_10.png">
+
+    <style>
+        :root {
+            --bg: #f4faff;
+            --surface: #ffffff;
+            --surface-ice: #eaf5ff;
+            --surface-tint: #f8fcff;
+            --border: #cbe5fa;
+            --border-hover: #7dd3fc;
+            --accent: #0284c7;
+            --accent-bright: #0ea5e9;
+            --accent-glow: rgba(14, 165, 233, 0.14);
+            --success: #059669;
+            --success-bg: rgba(16, 185, 129, 0.1);
+            --success-border: rgba(16, 185, 129, 0.35);
+            --warning: #d97706;
+            --danger: #e11d48;
+            --text-main: #0c2340;
+            --text-sec: #4b6987;
+            --shadow-sm: 0 4px 16px -4px rgba(2, 132, 199, 0.08);
+            --shadow-md: 0 12px 32px -8px rgba(2, 132, 199, 0.14);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image:
+                radial-gradient(circle at 15% 0%, rgba(56, 189, 248, 0.16) 0%, transparent 45%),
+                radial-gradient(circle at 85% 10%, rgba(186, 230, 253, 0.35) 0%, transparent 40%);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.65;
+            margin: 0;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        /* Header */
+        .repo-header {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 18px 22px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 26px;
+        }
+
+        .repo-header i.fa-bookmark {
+            color: var(--accent);
+            font-size: 1.05rem;
+        }
+
+        .repo-link {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.05rem;
+            text-decoration: none;
+            letter-spacing: -0.01em;
+            transition: color 0.2s ease;
+        }
+
+        .repo-link:hover {
+            color: var(--accent-bright);
+            text-decoration: underline;
+        }
+
+        .badge {
+            border: 1px solid var(--border);
+            padding: 3px 12px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-sec);
+            background: var(--surface-ice);
+        }
+
+        .badge-live {
+            border-color: var(--success-border);
+            color: var(--success);
+            background: var(--success-bg);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Main Layout Grid */
+        .case-grid {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 26px;
+            align-items: start;
+        }
+
+        /* Main README Card */
+        .readme-box {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--surface);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .readme-header {
+            padding: 14px 20px;
+            background: linear-gradient(90deg, var(--surface-ice) 0%, #f5faff 100%);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .readme-header i {
+            color: var(--accent);
+            margin-right: 6px;
+        }
+
+        .readme-header a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .readme-header a:hover {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+        }
+
+        .readme-body {
+            padding: 34px 36px;
+        }
+
+        h1, h2, h3 {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+            margin-top: 28px;
+            color: var(--text-main);
+            letter-spacing: -0.015em;
+        }
+
+        h1 {
+            font-size: 1.9rem;
+            margin-top: 0;
+            background: linear-gradient(135deg, #0c2340 0%, #0284c7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            color: #0f3459;
+        }
+
+        p, li {
+            color: #24405c;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        li b {
+            color: var(--text-main);
+        }
+
+        /* Stats Strip */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin: 26px 0;
+        }
+
+        .stat-item {
+            background: linear-gradient(180deg, var(--surface-tint) 0%, var(--surface-ice) 100%);
+            padding: 18px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-2px);
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-item p {
+            margin: 4px 0 0;
+            font-size: 0.82rem;
+            color: var(--text-sec);
+            font-weight: 500;
+        }
+
+        /* Analysis Cards */
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 24px 0;
+        }
+
+        .analysis-card {
+            background: var(--surface-tint);
+            padding: 22px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            min-height: 150px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .analysis-card:hover {
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .analysis-card h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--accent);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .analysis-card p {
+            margin: 0;
+            font-size: 0.86rem;
+            color: var(--text-sec);
+        }
+
+        /* Browser Preview Window */
+        .viz-window {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 28px 0;
+            background: var(--surface-ice);
+            box-shadow: var(--shadow-md);
+        }
+
+        .browser-bar {
+            background: linear-gradient(90deg, #e0f2fe 0%, #f0f9ff 100%);
+            padding: 11px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: #ff5f56;
+        }
+        .dot:nth-child(2) { background: #ffbd2e; }
+        .dot:nth-child(3) { background: #27c93f; }
+
+        .viz-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Sidebar */
+        aside {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .side-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .side-title {
+            font-weight: 700;
+            font-size: 0.82rem;
+            margin-bottom: 12px;
+            display: block;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--surface-ice);
+            color: var(--accent);
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 0.76rem;
+            margin: 0 5px 8px 0;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .tag:hover {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+        }
+
+        .deliverables-list {
+            font-size: 0.84rem;
+            color: var(--text-sec);
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 56px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            padding-top: 24px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 10px 20px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-size: 0.86rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 850px) {
+            .case-grid { grid-template-columns: 1fr; }
+            .analysis-grid { grid-template-columns: 1fr; }
+            .readme-body { padding: 24px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="repo-header">
+            <i class="fa-regular fa-bookmark"></i>
+            <a href="https://bytesoftnepal.com/" target="_blank" class="repo-link">Bytesoft-Nepal-Corporate</a>
+            <span class="badge badge-live">
+                <i class="fa-solid fa-circle" style="font-size: 0.48rem;"></i> Production Live
+            </span>
+        </div>
+
+        <div class="case-grid">
+            <main class="readme-box">
+                <div class="readme-header">
+                    <div><i class="fa-solid fa-list"></i> README.md</div>
+                    <a href="https://bytesoftnepal.com/" target="_blank">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> bytesoftnepal.com
+                    </a>
+                </div>
+                <div class="readme-body">
+                    <h1>Bytesoft Nepal Corporate Website</h1>
+                    
+                    <h3>1. Project Introduction</h3>
+                    <p><b>Bytesoft Nepal</b> is a premier IT agency based in Pokhara, specializing in bridging startup agility with enterprise-grade quality. Having successfully delivered over 250+ projects to 50+ global clients, the company required a digital storefront that reflected its industry authority, technological expertise, and comprehensive service offerings.</p>
+
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <strong style="color: var(--success); font-size: 1.2rem;">B2B Focused</strong>
+                            <p>Conversion-Optimized UI</p>
+                        </div>
+                        <div class="stat-item">
+                            <strong style="color: var(--accent); font-size: 1.2rem;">4 Core Services</strong>
+                            <p>Dynamic Routing &amp; Display</p>
+                        </div>
+                        <div class="stat-item">
+                            <strong style="color: var(--warning); font-size: 1.2rem;">Production</strong>
+                            <p>Live &amp; Deployed</p>
+                        </div>
+                    </div>
+
+                    <h3>2. The Challenge: Building Digital Trust</h3>
+                    <p>An IT agency's website serves as its most critical portfolio piece. The primary challenge was structuring complex corporate data into a seamless user experience. The site needed to:</p>
+                    <ul>
+                        <li><b>Showcase Authority:</b> Displaying a vast portfolio of 50+ global enterprise and startup partners (including Quike Drone Service and Serein Couture) without cluttering the UI.</li>
+                        <li><b>Service Funneling:</b> Clearly defining and separating their four core pillars: Digital Marketing, Graphics Designing, SEO, and Web/App Development.</li>
+                        <li><b>Performance Expectation:</b> As an agency selling digital solutions, the site had to be technically flawless, boasting fast load times and perfect mobile responsiveness.</li>
+                    </ul>
+
+                    <h3>3. The Solution: UI/UX &amp; Architecture</h3>
+                    <p>I designed and developed the corporate site with a strong emphasis on clean aesthetics, intuitive navigation, and high-performance code.</p>
+                    
+                    <div class="viz-window">
+                        <div class="browser-bar">
+                            <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                        </div>
+                        <img src="../../Images/BytesoftUIHome.png" alt="Bytesoft Nepal Homepage" class="viz-img">
+                    </div>
+
+                    <div class="analysis-grid">
+                        <div class="analysis-card">
+                            <h4>Dynamic Client Showcases</h4>
+                            <p>Engineered infinite-scroll logo carousels and an interactive testimonials section to build immediate social proof and trust with visiting prospects.</p>
+                        </div>
+                        <div class="analysis-card">
+                            <h4>Conversion-Driven Architecture</h4>
+                            <p>Implemented strategic "Contact Us" CTAs across the service funnels, minimizing user friction and increasing lead generation potential.</p>
+                        </div>
+                    </div>
+
+                    <h3>4. Technical Execution</h3>
+                    <ul>
+                        <li><b>Frontend Logic:</b> Utilized modern <b>JavaScript</b> to handle interactive elements like sliders, pop-ups, and asynchronous data loading to maintain a smooth frame rate.</li>
+                        <li><b>UI/UX Design:</b> Applied a research-first design process, utilizing a professional color palette and generous white space to direct user attention to core services.</li>
+                        <li><b>Responsive Engineering:</b> Ensured a fluid, cross-platform experience so the site performs identically on desktop enterprise monitors and mobile devices.</li>
+                    </ul>
+
+                    <h3>5. The Result</h3>
+                    <p>The resulting website successfully encapsulated Bytesoft Nepal's mission. It acts as a powerful 24/7 sales engine, validating the agency's expertise to prospective clients while providing a seamless, fast, and modern browsing experience.</p>
+                </div>
+            </main>
+
+            <aside>
+                <div class="side-section">
+                    <span class="side-title">Project Status</span>
+                    <p style="font-size: 0.88rem; color: var(--success); font-weight: 700; margin: 0 0 8px;">
+                        <i class="fa-solid fa-check-circle"></i> Completed &amp; Deployed
+                    </p>
+                    <a href="https://bytesoftnepal.com/" target="_blank" style="font-size: 0.84rem; color: var(--accent); font-weight: 600; text-decoration: none;">
+                        bytesoftnepal.com <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.72rem;"></i>
+                    </a>
+                </div>
+
+                <div class="side-section">
+                    <span class="side-title">Tech Stack</span>
+                    <div>
+                        <span class="tag">JavaScript (ES6+)</span>
+                        <span class="tag">HTML5 / CSS3</span>
+                        <span class="tag">UI/UX Design</span>
+                        <span class="tag">Responsive DOM</span>
+                        <span class="tag">Web Hosting</span>
+                    </div>
+                </div>
+
+                <div class="side-section">
+                    <span class="side-title">Core Deliverables</span>
+                    <div class="deliverables-list">
+                        - Corporate Identity Design<br>
+                        - Service Landing Pages<br>
+                        - Client Testimonial Engine<br>
+                        - SEO Optimization
+                    </div>
+                </div>
+            </aside>
+        </div>
+        
+        <footer>
+            <a href="../Pages/portfolio.html#bytesoft" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i> Back to Portfolio
+            </a>
+        </footer>
+    </div>
+</body>
+</html>
